@@ -1,4 +1,20 @@
 {
     "editor.fontSize": 16,
-    "terminal.integrated.fontFamily": "Cascadia Code PL"
+    "terminal.integrated.fontFamily": "Cascadia Code PL",
+    "cSpell.words": [
+        "borderless",
+        "ccircle",
+        "cpath",
+        "csvg",
+        "datatable",
+        "datetime",
+        "focusring",
+        "hexcode",
+        "readonly",
+        "scrollable",
+        "scrollbar",
+        "topnav",
+        "topnavbar",
+        "unstyled"
+    ]
 }
