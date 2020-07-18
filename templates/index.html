@@ -1,225 +1,273 @@
 <!DOCTYPE html>
 <html lang="zh-TW" class="h-100">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="stylesheet" href="/static/css/styles.css">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-        <link rel="icon" href="/static/img/icon.png" type="image/x-icon">
-        <style>
-            ::-webkit-scrollbar {
-                width: 5px;
-            }
-            ::-webkit-scrollbar-track {
-                background: #f1f1f1; 
-            }
-            ::-webkit-scrollbar-thumb {
-                background: #888; 
-            }
-            ::-webkit-scrollbar-thumb:hover {
-                background: #555; 
-            }
-        </style>
-        <title>高大選課工具</title>
-    </head>
-    <body class="nav-fixed h-100">
-        <nav class="topnav navbar navbar-expand shadow navbar-light bg-white" id="topnavbar">
-            <a class="navbar-brand active" href="/">
-                <ul class="navbar-nav align-items-center">
-                    <img class="mr-2" style="width: 32px; height: 32px;" src="https://img.icons8.com/fluent/32/000000/calendar.png"/>
-                    <h4 class="mt-1">高大選課工具</h4>
-                </ul>
-            </a>
-            <ul class="navbar-nav align-items-center ml-auto">
-                <img class="mr-2" src="https://img.icons8.com/fluent/32/000000/refresh.png"/>
-                <img class="mr-2" src="https://img.icons8.com/fluent/32/000000/info.png"/>
-                <img class="mr-2" src="https://img.icons8.com/fluent/32/000000/github.png"/>
-                <img class="mr-2" src="https://img.icons8.com/fluent/32/000000/share.png"/>
-                <img class="mr-2" src="https://img.icons8.com/fluent/32/000000/feedback-hub.png"/>
-                <li class="nav-item dropdown no-caret mr-2 dropdown-user">
-                    <a class="btn btn-icon btn-transparent-dark dropdown-toggle" id="navbarDropdownUserImage" href="javascript:void(0);" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img style="width: 36px; height: 36px; border-radius: 18px;" src="/static/img/user.png"/></a>
-                    <div class="dropdown-menu dropdown-menu-right border-0 shadow animated--fade-in-up" aria-labelledby="navbarDropdownUserImage">
-                        <h6 class="dropdown-header d-flex align-items-center">
-                            <img class="dropdown-user-img" src="/static/img/user.png">
-                            <div class="dropdown-user-details">
-                                <div class="dropdown-user-details-name">使用者名稱</div>
-                                <div class="dropdown-user-details-email">使用者學號</div>
-                            </div>
-                        </h6>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#!">
-                            <div class="dropdown-item-icon"><img src="https://img.icons8.com/fluent/24/000000/settings.png"/></div>
-                            帳戶管理
-                        </a>
-                        <a class="dropdown-item" href="#!">
-                            <div class="dropdown-item-icon"><img src="https://img.icons8.com/fluent/24/000000/logout-rounded.png"/></div>
-                            登出
-                        </a>
-                    </div>
-                </li>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="icon" href="/static/img/icon.png" type="image/x-icon">
+    <style>
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+    </style>
+    <title>高大選課工具</title>
+</head>
+
+<body class="nav-fixed h-100">
+    <nav class="topnav navbar navbar-expand shadow navbar-light bg-white" id="topnavbar">
+        <a class="navbar-brand active" href="/">
+            <ul class="navbar-nav align-items-center">
+                <img class="mr-2" style="width: 32px; height: 32px;"
+                    src="https://img.icons8.com/fluent/32/000000/calendar.png" />
+                <h4 class="mt-1">高大選課工具</h4>
             </ul>
-        </nav>
-        
-        <div style="padding-top: 110px;" class="jumbotron mb-0 h-100 rounded-0">
-            <div class="row h-100">
-                <div class="col-xl-5 mb-4 h-100">
-                    <!--
+        </a>
+        <ul class="navbar-nav align-items-center ml-auto">
+            <li class="nav-item dropdown no-caret mr-2 dropdown-user">
+                <a class="btn btn-icon btn-transparent-dark dropdown-toggle" id="navbarDropdownUserImage"
+                    href="javascript:void(0);" role="button" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                    <img style="width: 36px; height: 36px;" src="/static/img/user.png">
+                </a>
+                <div class="dropdown-menu dropdown-menu-right border-0 shadow animated--fade-in-up"
+                    aria-labelledby="navbarDropdownUserImage">
+                    <h6 class="dropdown-header d-flex align-items-center">
+                        <img class="dropdown-user-img" style="width: 54px; height: 54px;" src="/static/img/user.png">
+                        <div class="dropdown-user-details">
+                            <div class="dropdown-user-details-name">使用者名稱</div>
+                            <div class="dropdown-user-details-email">使用者學號</div>
+                        </div>
+                    </h6>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#!">
+                        <div class="dropdown-item-icon"><img
+                                src="https://img.icons8.com/fluent/24/000000/settings.png" /></div>
+                        帳戶管理
+                    </a>
+                    <a class="dropdown-item" href="#!">
+                        <div class="dropdown-item-icon"><img
+                                src="https://img.icons8.com/fluent/24/000000/logout-rounded.png" /></div>
+                        登出
+                    </a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <div style="padding-top: 110px;" class="jumbotron mb-0 h-100 rounded-0">
+        <div class="row h-100">
+            <div class="col-xl-5 mb-4 h-100">
+                <!--
                     <div class="card h-100">
                         <div class="card-body h-100 d-flex flex-column justify-content-center py-5 py-xl-4">
                             
                         </div>
                     </div>-->
-                </div>
-                <div class="col-xl-7 mb-4 h-100">
-                    <div style="border-radius: 20px" class="card h-100 p-2 shadow">
-                        <div class="card-body h-100 justify-content-center py-5 py-xl-4">
-                            <div class="row mx-2">
-                                <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle mb-4 mr-2" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        選擇課程類別
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="#">核心通識</a>
-                                        <a class="dropdown-item" href="#">通識人文社會</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#">資訊工程</a>
-                                    </div>
-                                </div>
-                                <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle mx-2 mb-4" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        年級
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="#">核心通識</a>
-                                        <a class="dropdown-item" href="#">通識人文社會</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#">資訊工程</a>
-                                    </div>
+            </div>
+            <div class="col-xl-7 mb-4 h-100">
+                <div style="border-radius: 20px" class="card h-100 p-2 shadow">
+                    <div class="card-body h-100 justify-content-center py-5 py-xl-4">
+                        <div class="row mx-2">
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle mb-4 mr-2" type="button"
+                                    id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                    選擇課程類別
+                                </button>
+                                <div class="dropdown-menu overflow-auto" style="height: 400px;"
+                                    aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="#">核心通識</a>
+                                    <a class="dropdown-item" href="#">通識人文社會</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">資訊工程學系</a>
+                                    <a class="dropdown-item" href="#">資訊工程學系</a>
+                                    <a class="dropdown-item" href="#">資訊工程學系</a>
+                                    <a class="dropdown-item" href="#">資訊工程學系</a>
+                                    <a class="dropdown-item" href="#">資訊工程學系</a>
+                                    <a class="dropdown-item" href="#">資訊工程學系</a>
+                                    <a class="dropdown-item" href="#">資訊工程學系</a>
+                                    <a class="dropdown-item" href="#">資訊工程學系</a>
+                                    <a class="dropdown-item" href="#">資訊工程學系</a>
+                                    <a class="dropdown-item" href="#">資訊工程學系</a>
+                                    <a class="dropdown-item" href="#">資訊工程學系</a>
+                                    <a class="dropdown-item" href="#">資訊工程學系</a>
+                                    <a class="dropdown-item" href="#">資訊工程學系</a>
+                                    <a class="dropdown-item" href="#">資訊工程學系</a>
+                                    <a class="dropdown-item" href="#">資訊工程學系</a>
+                                    <a class="dropdown-item" href="#">資訊工程學系</a>
+                                    <a class="dropdown-item" href="#">資訊工程學系</a>
+                                    <a class="dropdown-item" href="#">資訊工程學系</a>
+                                    <a class="dropdown-item" href="#">資訊工程學系</a>
+                                    <a class="dropdown-item" href="#">資訊工程學系</a>
+                                    <a class="dropdown-item" href="#">資訊工程學系</a>
                                 </div>
                             </div>
-                            <div style="height: calc(100% - 62px);" class="overflow-auto">
-                                <table class="table table-hover" id="div-to-scroll">
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>交通事故鑑定法規與案例解說</td>
-                                            <td>張永明</td>
-                                            <td>三7,三8</td>
-                                            <td>核</td>
-                                            <td>2學分</td>
-                                            <td><img style="width: 24px; height: 24px; border-radius: 12px;" src="/static/img/dcard.png"></td>
-                                        </tr>
-                                        <tr class="table-active">
-                                            <td><input type="checkbox"></td>
-                                            <td>人際關係</td>
-                                            <td>陳永安</td>
-                                            <td>三3,三4</td>
-                                            <td>核</td>
-                                            <td>2學分</td>
-                                            <td>1</td>
-                                        </tr>
-                                        <tr>
-                                            <td><input type="checkbox"></td>
-                                            <td>人際關係</td>
-                                            <td>陳永安</td>
-                                            <td>三3,三4</td>
-                                            <td>核</td>
-                                            <td>2學分</td>
-                                            <td>1</td>
-                                        </tr>
-                                        <tr>
-                                            <td><input type="checkbox"></td>
-                                            <td>人際關係</td>
-                                            <td>陳永安</td>
-                                            <td>三3,三4</td>
-                                            <td>核</td>
-                                            <td>2學分</td>
-                                            <td>1</td>
-                                        </tr>
-                                        <tr>
-                                            <td><input type="checkbox"></td>
-                                            <td>人際關係</td>
-                                            <td>陳永安</td>
-                                            <td>三3,三4</td>
-                                            <td>核</td>
-                                            <td>2學分</td>
-                                            <td>1</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>個人理財與投資</td>
-                                            <td>黃旭輝</td>
-                                            <td>三3,三4</td>
-                                            <td>核</td>
-                                            <td>2學分</td>
-                                            <td>1</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>個人理財與投資</td>
-                                            <td>黃旭輝</td>
-                                            <td>三3,三4</td>
-                                            <td>核</td>
-                                            <td>2學分</td>
-                                            <td>1</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>個人理財與投資</td>
-                                            <td>黃旭輝</td>
-                                            <td>三3,三4</td>
-                                            <td>核</td>
-                                            <td>2學分</td>
-                                            <td>1</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>個人理財與投資</td>
-                                            <td>黃旭輝</td>
-                                            <td>三3,三4</td>
-                                            <td>核</td>
-                                            <td>2學分</td>
-                                            <td>1</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>個人理財與投資</td>
-                                            <td>黃旭輝</td>
-                                            <td>三3,三4</td>
-                                            <td>核</td>
-                                            <td>2學分</td>
-                                            <td>1</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>個人理財與投資</td>
-                                            <td>黃旭輝</td>
-                                            <td>三3,三4</td>
-                                            <td>核</td>
-                                            <td>2學分</td>
-                                            <td>1</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>個人理財與投資</td>
-                                            <td>黃旭輝</td>
-                                            <td>三3,三4</td>
-                                            <td>核</td>
-                                            <td>2學分</td>
-                                            <td>1</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle mx-2 mb-4" type="button"
+                                    id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                    年級
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="#">核心通識</a>
+                                    <a class="dropdown-item" href="#">通識人文社會</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">資訊工程</a>
+                                </div>
                             </div>
+                            <a class="ml-auto" data-toggle="tooltip" data-placement="top" title="使用方式">
+                                <img class="mr-2" src="https://img.icons8.com/fluent/36/000000/info.png" />
+                            </a>
+                        </div>
+                        <div style="height: calc(100% - 62px);" class="overflow-auto">
+                            <table class="table table-hover" id="div-to-scroll">
+                                <tbody>
+                                    <tr>
+                                        <td><input type="checkbox"></td>
+                                        <td>
+                                            <p class="font-weight-bold mb-0">交通事故鑑定法規與案例解說</p>
+                                        </td>
+                                        <td>張永明</td>
+                                        <td>三7,三8</td>
+                                        <td><img style="width: 26px; height: 26px;" src="/static/img/B1.png"></td>
+                                        <td>2學分</td>
+                                        <td><img style="width: 26px; height: 26px;" src="/static/img/dcard.png"></td>
+                                    </tr>
+                                    <tr class="table-active">
+                                        <td><input type="checkbox"></td>
+                                        <td>人際關係</td>
+                                        <td>陳永安</td>
+                                        <td>三3,三4</td>
+                                        <td><img style="width: 26px; height: 26px;" src="/static/img/B2.png"></td>
+                                        <td>2學分</td>
+                                        <td>1</td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="checkbox"></td>
+                                        <td>人際關係</td>
+                                        <td>陳永安</td>
+                                        <td>三3,三4</td>
+                                        <td><img style="width: 26px; height: 26px;" src="/static/img/C2.png"></td>
+                                        <td>2學分</td>
+                                        <td>1</td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="checkbox"></td>
+                                        <td>人際關係</td>
+                                        <td>陳永安</td>
+                                        <td>三3,三4</td>
+                                        <td><img style="width: 26px; height: 26px;" src="/static/img/A1.png"></td>
+                                        <td>2學分</td>
+                                        <td>1</td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="checkbox"></td>
+                                        <td>人際關係</td>
+                                        <td>陳永安</td>
+                                        <td>三3,三4</td>
+                                        <td><img style="width: 26px; height: 26px;" src="/static/img/A2.png"></td>
+                                        <td>2學分</td>
+                                        <td>1</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>個人理財與投資</td>
+                                        <td>黃旭輝</td>
+                                        <td>三3,三4</td>
+                                        <td>核</td>
+                                        <td>2學分</td>
+                                        <td>1</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>個人理財與投資</td>
+                                        <td>黃旭輝</td>
+                                        <td>三3,三4</td>
+                                        <td>核</td>
+                                        <td>2學分</td>
+                                        <td>1</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>個人理財與投資</td>
+                                        <td>黃旭輝</td>
+                                        <td>三3,三4</td>
+                                        <td>核</td>
+                                        <td>2學分</td>
+                                        <td>1</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>個人理財與投資</td>
+                                        <td>黃旭輝</td>
+                                        <td>三3,三4</td>
+                                        <td>核</td>
+                                        <td>2學分</td>
+                                        <td>1</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>個人理財與投資</td>
+                                        <td>黃旭輝</td>
+                                        <td>三3,三4</td>
+                                        <td>核</td>
+                                        <td>2學分</td>
+                                        <td>1</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>個人理財與投資</td>
+                                        <td>黃旭輝</td>
+                                        <td>三3,三4</td>
+                                        <td>核</td>
+                                        <td>2學分</td>
+                                        <td>1</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>個人理財與投資</td>
+                                        <td>黃旭輝</td>
+                                        <td>三3,三4</td>
+                                        <td>核</td>
+                                        <td>2學分</td>
+                                        <td>1</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <img class="fixed-bottom ml-4" style="width: 300px; height: 300px;" src="/static/img/background.png">
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
-    </body>
+    </div>
+    <!--
+    <img class="fixed-bottom ml-4" style="width: 300px; height: 300px;" src="/static/img/background.png">-->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+    <script type="text/javascript" src="/static/js/style.js"></script>
+</body>
+
 </html>
