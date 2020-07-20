@@ -4,9 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="/static/css/styles.css">
+    <!--<link rel="stylesheet" href="/static/css/styles.css">
+    
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/css/bootstrap-select.min.css"
+        integrity="sha512-ARJR74swou2y0Q2V9k0GbzQ/5vJ2RBSoCWokg4zkfM29Fb3vZEQyv0iWBMW/yvKgyHSR/7D64pFMmU8nYmbRkg=="
+        crossorigin="anonymous" />
     <link rel="icon" href="/static/img/icon.png" type="image/x-icon">
     <style>
         ::-webkit-scrollbar {
@@ -29,7 +36,7 @@
 </head>
 
 <body class="nav-fixed h-100">
-    <nav class="topnav navbar navbar-expand shadow navbar-light bg-white" id="topnavbar">
+    <nav class="topnav navbar navbar-expand shadow navbar-light bg-white" id="topnavbar" style="z-index: 1035;">
         <a class="navbar-brand active" href="/">
             <ul class="navbar-nav align-items-center">
                 <img class="mr-2" style="width: 32px; height: 32px;"
@@ -69,7 +76,7 @@
         </ul>
     </nav>
 
-    <div style="padding-top: 90px;" class="jumbotron mb-0 h-100 rounded-0 px-4 pb-4">
+    <div class="jumbotron fixed-top mb-0 h-100 rounded-0 px-4 pb-4" style="padding-top: 90px;">
         <div class="row h-100">
             <div class="col-xl-5 mb-4 h-100">
                 <div class="row mb-0 mx-0">
@@ -252,53 +259,17 @@
                 <div style="border-radius: 20px" class="card h-100 p-2 shadow">
                     <div class="card-body h-100 justify-content-center py-5 py-xl-4">
                         <div class="row mx-2">
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle mb-4 mr-2" type="button"
-                                    id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false">
-                                    選擇課程類別
-                                </button>
-                                <div class="dropdown-menu overflow-auto" style="height: 400px;"
-                                    aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="#">核心通識</a>
-                                    <a class="dropdown-item" href="#">通識人文社會</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">資訊工程學系</a>
-                                    <a class="dropdown-item" href="#">資訊工程學系</a>
-                                    <a class="dropdown-item" href="#">資訊工程學系</a>
-                                    <a class="dropdown-item" href="#">資訊工程學系</a>
-                                    <a class="dropdown-item" href="#">資訊工程學系</a>
-                                    <a class="dropdown-item" href="#">資訊工程學系</a>
-                                    <a class="dropdown-item" href="#">資訊工程學系</a>
-                                    <a class="dropdown-item" href="#">資訊工程學系</a>
-                                    <a class="dropdown-item" href="#">資訊工程學系</a>
-                                    <a class="dropdown-item" href="#">資訊工程學系</a>
-                                    <a class="dropdown-item" href="#">資訊工程學系</a>
-                                    <a class="dropdown-item" href="#">資訊工程學系</a>
-                                    <a class="dropdown-item" href="#">資訊工程學系</a>
-                                    <a class="dropdown-item" href="#">資訊工程學系</a>
-                                    <a class="dropdown-item" href="#">資訊工程學系</a>
-                                    <a class="dropdown-item" href="#">資訊工程學系</a>
-                                    <a class="dropdown-item" href="#">資訊工程學系</a>
-                                    <a class="dropdown-item" href="#">資訊工程學系</a>
-                                    <a class="dropdown-item" href="#">資訊工程學系</a>
-                                    <a class="dropdown-item" href="#">資訊工程學系</a>
-                                    <a class="dropdown-item" href="#">資訊工程學系</a>
-                                </div>
-                            </div>
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle mx-2 mb-4" type="button"
-                                    id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false">
-                                    年級
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="#">核心通識</a>
-                                    <a class="dropdown-item" href="#">通識人文社會</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">資訊工程</a>
-                                </div>
-                            </div>
+                            <select class="selectpicker show-tick mx-1" data-width="fit" data-style="btn-info">
+                                <option>核心通識</option>
+                                <option>資訊工程</option>
+                            </select>
+                            <select class="selectpicker show-tick mx-1" data-width="fit" data-style="btn-info">
+                                <option>全部年級</option>
+                                <option>大一</option>
+                                <option>大二</option>
+                                <option>大三</option>
+                                <option>大四</option>
+                            </select>
                             <div class="form-group mx-2">
                                 <input type="search" class="form-control searchCourse" placeholder="搜尋" data-table="courseTable">
                             </div>
@@ -312,15 +283,31 @@
                         <div style="height: calc(100% - 62px);" class="overflow-auto">
                             <table class="table table-hover courseTable">
                                 <tbody>
-                                    <tr>
-                                        <td><input type="checkbox"></td>
-                                        <td><p class="font-weight-bold mb-0">交通事故鑑定法規與案例解說</p></td>
-                                        <td>張永明</td>
-                                        <td>三7,三8</td>
-                                        <td><img style="width: 26px; height: 26px;" src="/static/img/B1.png"></td>
-                                        <td>2學分</td>
-                                        <td><img style="width: 26px; height: 26px;" src="/static/img/dcard.png"></td>
-                                    </tr>
+                                    {% for i in courseData %}
+                                        <tr class="{{ i['dept'] }}">
+                                            <td width="5%"><input type="checkbox"></td>
+                                            <td width="40%"><p class="font-weight-bold mb-0">{{ i['name'] }}</p></td>
+                                            <td>{{ i['teacher'] }}</td>
+                                            <td>
+                                                {% for j in i['period'] %}
+                                                    {% if j[0] == 1 %}
+                                                        <small>一{{ j[1] }},</small>
+                                                    {% elif j[0] == 2 %}
+                                                        <small>二{{ j[1] }},</small>
+                                                    {% elif j[0] == 3 %}
+                                                        <small>三{{ j[1] }},</small>
+                                                    {% elif j[0] == 4 %}
+                                                        <small>四{{ j[1] }},</small>
+                                                    {% elif j[0] == 5 %}
+                                                        <small>五{{ j[1] }},</small>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </td>
+                                            <td width="5%"><img style="width: 26px; height: 26px;" src="/static/img/{{ i['category'] }}.png"></td>
+                                            <td width="10%">{{ i['credit'] }}學分</td>
+                                            <td width="5%"><img style="width: 26px; height: 26px;" src="/static/img/dcard.png"></td>
+                                        </tr>
+                                    {% endfor %}
                                 </tbody>
                             </table>
                         </div>
@@ -331,6 +318,7 @@
     </div>
     <!--
     <img class="fixed-bottom ml-4" style="width: 300px; height: 300px;" src="/static/img/background.png">-->
+    <!--
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
@@ -340,7 +328,13 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+    -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"
+        integrity="sha512-yDlE7vpGDP7o2eftkCiPZ+yuUyEcaBwoJoIhdXv71KZWugFqEphIS3PU60lEkFaz8RxaVsMpSvQxMBaKVwA5xg=="
+        crossorigin="anonymous"></script>
     <script type="text/javascript" src="/static/js/style.js"></script>
     <script type="text/javascript" src="/static/js/table.js"></script>
 </body>
