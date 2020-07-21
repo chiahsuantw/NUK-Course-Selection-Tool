@@ -5,11 +5,11 @@ import json
 app = Flask(__name__)
 
 '''
-with open(r'static\json\courseData.json', 'r', encoding='utf-8-sig') as jsonFile:
+with open('static\\json\\courseData.json', 'r', encoding='utf-8-sig') as jsonFile:
     courseData = json.load(jsonFile)
 '''
 
-url = 'https://c1a29eb6-2be3-428b-8cbb-079ffd3a058d.mock.pstmn.io/courseData'
+url = 'https://2d2650ce-c3e3-48f9-83e1-afef9c66b563.mock.pstmn.io/courseData'
 response = requests.get(url)
 courseData = json.loads(response.text)
 
