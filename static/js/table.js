@@ -43,3 +43,50 @@
 
 })(document);
 
+$( document ).ready(function() {
+
+    var dept = $("#deptSelect").val();
+    var grade = $("#gradeSelect").val();
+
+    var deptList = $("." + dept + "-" + String(grade));
+
+    for(i = 0; i < deptList.length; i++){
+        deptList[i].style.display = "";
+    }
+});
+
+$('#deptSelect').on('change', function() {
+
+    $('#gradeSelect').get(0).selectedIndex = 0;
+    $('#gradeSelect').selectpicker('refresh');
+    var dept = $("#deptSelect").val();
+    var grade = $("#gradeSelect").val();
+
+    var allCourse = $(".control");
+    for(i = 0; i < allCourse.length; i++){
+        allCourse[i].style.display = "none";
+    }
+
+    var deptList = $("." + dept + "-" + String(grade));
+
+    for(i = 0; i < deptList.length; i++){
+        deptList[i].style.display = "";
+    }
+});
+
+$('#gradeSelect').on('change', function() {
+
+    var dept = $("#deptSelect").val();
+    var grade = $("#gradeSelect").val();
+
+    var allCourse = $(".control");
+    for(i = 0; i < allCourse.length; i++){
+        allCourse[i].style.display = "none";
+    }
+
+    var deptList = $("." + dept + "-" + String(grade));
+
+    for(i = 0; i < deptList.length; i++){
+        deptList[i].style.display = "";
+    }
+});

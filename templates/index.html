@@ -4,11 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!--<link rel="stylesheet" href="/static/css/styles.css">
-    
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/css/bootstrap-select.min.css"
@@ -248,34 +243,68 @@
                         </tbody>
                     </table>
                 </div>
-                <!--
-                    <div class="card h-100">
-                        <div class="card-body h-100 d-flex flex-column justify-content-center py-5 py-xl-4">
-                            
-                        </div>
-                    </div>-->
             </div>
             <div class="col-xl-7 mb-4 h-100">
                 <div style="border-radius: 20px" class="card h-100 p-2 shadow">
                     <div class="card-body h-100 justify-content-center py-5 py-xl-4">
-                        <div class="row mx-2">
-                            <select class="selectpicker show-tick mx-1" data-width="fit" data-style="btn-info">
-                                <option>核心通識</option>
-                                <option>資訊工程</option>
+                        <div class="row mx-2 mb-3">
+                            <select id="deptSelect" class="selectpicker show-tick mx-1" data-width="fit" data-style="btn-info">
+                                <option value="GR">共同必修</option>
+                                <option value="CC">核心通識</option>
+                                <option value="LI">通識人文科學類</option>
+                                <option value="SC">通識自然科學類</option>
+                                <option value="SO">通識社會科學類</option>
+                                <option value="MI">通識微學分</option>
+                                <option value="CD">全民國防教育類</option>
+                                <option value="IN">興趣選修</option>
+                                <option data-divider="true"></option>
+                                <option value="WL">西洋語文學系</option>
+                                <option value="KH">運動健康與休閒學系</option>
+                                <option value="CCD">工藝與創意設計學系</option>
+                                <option value="DA">建築學系</option>
+                                <option value="CDA">創意設計與建築學系</option>
+                                <option value="EL">東亞語文學系</option>
+                                <option value="DAP">運動競技學系</option>
+                                <option value="CHS">人文社會科學院共同課程</option>
+                                <option data-divider="true"></option>
+                                <option value="LA">法律學系</option>
+                                <option value="GL">政治法律學系</option>
+                                <option value="FL">財經法律學系</option>
+                                <option value="CCL">法學院共同課程</option>
+                                <option data-divider="true"></option>
+                                <option value="AE">應用經濟學系</option>
+                                <option value="FI">金融管理學系</option>
+                                <option value="IM">資訊管理學系</option>
+                                <option value="AB">亞太工商管理學系</option>
+                                <option value="CCM">管理學院共同課程</option>
+                                <option data-divider="true"></option>
+                                <option value="AM">應用數學系</option>
+                                <option value="AC">應用化學系</option>
+                                <option value="AP">應用物理學系</option>
+                                <option value="LS">生命科學系</option>
+                                <option value="CCS">理學院共同課程</option>
+                                <option data-divider="true"></option>
+                                <option value="EE">電機工程學系</option>
+                                <option value="CE">土木與環境工程學系</option>
+                                <option value="CS">資訊工程學系</option>
+                                <option value="CM">化學工程及材料工程學系</option>
+                                <option data-divider="true"></option>
+                                <option value="ISP">國際學生系</option>
+                                <option value="IFD">創新學院不分系</option>
                             </select>
-                            <select class="selectpicker show-tick mx-1" data-width="fit" data-style="btn-info">
-                                <option>全部年級</option>
-                                <option>大一</option>
-                                <option>大二</option>
-                                <option>大三</option>
-                                <option>大四</option>
+                            <select id="gradeSelect" class="selectpicker show-tick mx-1" data-width="fit" data-style="btn-info">
+                                <option value="1">大一</option>
+                                <option value="2">大二</option>
+                                <option value="3">大三</option>
+                                <option value="4">大四</option>
                             </select>
+                            <!--搜尋系統
                             <div class="form-group mx-2">
                                 <input type="search" class="form-control searchCourse" placeholder="搜尋" data-table="courseTable">
                             </div>
                             <a data-toggle="tooltip" data-placement="top" title="搜尋課程、教授">
                                 <img style="width: 36px; height: 36px;" src="https://img.icons8.com/fluent/36/000000/search.png"/>
-                            </a>
+                            </a>-->
                             <a class="ml-auto" data-toggle="tooltip" data-placement="top" title="使用方式">
                                 <img class="mr-2" src="https://img.icons8.com/fluent/36/000000/info.png" />
                             </a>
@@ -284,11 +313,11 @@
                             <table class="table table-hover courseTable">
                                 <tbody>
                                     {% for i in courseData %}
-                                        <tr class="{{ i['dept'] }}">
-                                            <td width="5%"><input type="checkbox"></td>
-                                            <td width="40%"><p class="font-weight-bold mb-0">{{ i['name'] }}</p></td>
-                                            <td>{{ i['teacher'] }}</td>
-                                            <td>
+                                        <tr class="control {{ i['dept'] }}-{{ i['grade'] }}" style="display: none;">
+                                            <td id="{{ i['id'] }}" width="5%"><input type="checkbox"></td>
+                                            <td><p class="font-weight-bold mb-0">{{ i['name'] }} {{ i['class'] }}</p></td>
+                                            <td width="15%">{{ i['teacher'] }}</td>
+                                            <td width="17%">
                                                 {% for j in i['period'] %}
                                                     {% if j[0] == 1 %}
                                                         <small>一{{ j[1] }},</small>
@@ -316,19 +345,6 @@
             </div>
         </div>
     </div>
-    <!--
-    <img class="fixed-bottom ml-4" style="width: 300px; height: 300px;" src="/static/img/background.png">-->
-    <!--
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-        crossorigin="anonymous"></script>
-    -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
