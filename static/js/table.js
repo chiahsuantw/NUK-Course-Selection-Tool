@@ -43,50 +43,103 @@
 
 })(document);
 
-$( document ).ready(function() {
+$(document).ready(function () {
 
     var dept = $("#deptSelect").val();
     var grade = $("#gradeSelect").val();
 
     var deptList = $("." + dept + "-" + String(grade));
 
-    for(i = 0; i < deptList.length; i++){
+    for (i = 0; i < deptList.length; i++) {
         deptList[i].style.display = "";
     }
 });
 
-$('#deptSelect').on('change', function() {
+$('#deptSelect').on('change', function () {
 
+    // 當選取不同課程分類選單時，年級選單跳回'大一'選項
     $('#gradeSelect').get(0).selectedIndex = 0;
-    $('#gradeSelect').selectpicker('refresh');
+    $('#gradeSelect').selectpicker('refresh');  // 重新刷新bootstrap-select介面
+
     var dept = $("#deptSelect").val();
     var grade = $("#gradeSelect").val();
 
+    // 隱藏所有課程列表
     var allCourse = $(".control");
-    for(i = 0; i < allCourse.length; i++){
+    for (i = 0; i < allCourse.length; i++) {
         allCourse[i].style.display = "none";
     }
 
     var deptList = $("." + dept + "-" + String(grade));
 
-    for(i = 0; i < deptList.length; i++){
+    // 顯示指定課程列表
+    for (i = 0; i < deptList.length; i++) {
         deptList[i].style.display = "";
     }
+
+    $("#scrollControl").scrollTop(0);
 });
 
-$('#gradeSelect').on('change', function() {
+$('#gradeSelect').on('change', function () {
 
     var dept = $("#deptSelect").val();
     var grade = $("#gradeSelect").val();
 
     var allCourse = $(".control");
-    for(i = 0; i < allCourse.length; i++){
+    for (i = 0; i < allCourse.length; i++) {
         allCourse[i].style.display = "none";
     }
 
     var deptList = $("." + dept + "-" + String(grade));
 
-    for(i = 0; i < deptList.length; i++){
+    for (i = 0; i < deptList.length; i++) {
         deptList[i].style.display = "";
     }
+
+    $("#scrollControl").scrollTop(0);
 });
+
+// 偵聽 CheckBox 點擊事件
+$('.checkBox').click(function () {
+    if ($(this).prop("checked")) {
+        var courseName = $(this).parent().siblings("#courseName").children().text();
+        var courseCategory = $(this).parent().siblings("#courseCategory").text();
+
+        timeList = JSON.parse($(this).val());
+        for (i = 0; i < timeList.length; i++) {
+            var colorCode;
+            if(courseCategory=='A1'){
+                colorCode = "#90caf9";
+            }
+            else if(courseCategory=='A2'){
+                colorCode = "#aed581";
+            }
+            else if(courseCategory=='A3'){
+                colorCode = "#f48fb1";
+            }
+            else{
+                colorCode = "#ffcc80";
+            }
+            $('#table-' + timeList[i][0] + '-' + timeList[i][1]).css("background-color", colorCode);
+            $('#table-' + timeList[i][0] + '-' + timeList[i][1]).html('<small class="p-0">' + courseName + '</small>');
+        }
+    }
+    else {
+        timeList = JSON.parse($(this).val());
+        for (i = 0; i < timeList.length; i++) {
+            $('#table-' + timeList[i][0] + '-' + timeList[i][1]).css("background-color", "");
+            $('#table-' + timeList[i][0] + '-' + timeList[i][1]).html('');
+        }
+    }
+});
+
+// 輸出課表圖檔
+function printTable(){
+    console.log('目前功能正在維修中');
+    // var opts = {useCORS: true}
+    // html2canvas($("#timeTable"), opts).then( function(canvas){
+    //     var context = canvas.getContext('2d');
+    //     var image = Canvas2Image.convertToJPEG(canvas, canvas.width, canvas.height);
+    //     Canvas2Image.saveAsJPEG(image, canvas.width, canvas.height)
+    // });
+};
