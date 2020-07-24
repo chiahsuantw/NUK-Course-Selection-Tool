@@ -1,3 +1,4 @@
+// 搜尋課程功能
 (function (document) {
     'use strict';
 
@@ -43,6 +44,15 @@
 
 })(document);
 
+// window.onbeforeunload = function() {
+//     $('#leaveCheck').modal();
+// };
+
+$(window).bind('beforeunload', function () {
+    return '提示資訊';
+});
+
+// 頁面初始化顯示目標
 $(document).ready(function () {
 
     var dept = $("#deptSelect").val();
@@ -55,6 +65,7 @@ $(document).ready(function () {
     }
 });
 
+// 偵聽 類別選單 改變事件
 $('#deptSelect').on('change', function () {
 
     // 當選取不同課程分類選單時，年級選單跳回'大一'選項
@@ -80,6 +91,7 @@ $('#deptSelect').on('change', function () {
     $("#scrollControl").scrollTop(0);
 });
 
+// 偵聽 年級選單 改變事件
 $('#gradeSelect').on('change', function () {
 
     var dept = $("#deptSelect").val();
@@ -99,25 +111,66 @@ $('#gradeSelect').on('change', function () {
     $("#scrollControl").scrollTop(0);
 });
 
+
 // 偵聽 CheckBox 點擊事件
+// Set 差集函式
+Set.prototype.difference = function (setB) {
+    var difference = new Set(this);
+    for (var elem of setB) {
+        difference.delete(elem);
+    }
+    return difference;
+}
+
+// 已選所有課程衝堂列表
+selectedCourseList = new Map();
+
 $('.checkBox').click(function () {
     if ($(this).prop("checked")) {
+
         var courseName = $(this).parent().siblings("#courseName").children().text();
         var courseCategory = $(this).parent().siblings("#courseCategory").text();
+        var timeList = JSON.parse($(this).val()); // 轉換時間資訊成List
 
-        timeList = JSON.parse($(this).val());
+        conflictedCourseList = new Set();
+
+        // 已選課程列表衝堂 底色調整為紅色
+        var checkBoxList = $('.checkBox');
+        for (i = 0; i < checkBoxList.length; i++) {
+            var timeData = JSON.parse($(checkBoxList[i]).val());
+            for (j = 0; j < timeList.length; j++) {
+                for (k = 0; k < timeData.length; k++) {
+                    if (timeList[j][0] == timeData[k][0] && timeList[j][1] == timeData[k][1]) {
+                        $(checkBoxList[i]).parent().parent().css("background-color", "#ffebee");
+                        $(checkBoxList[i]).attr("disabled", true);
+
+                        // 儲存單一課堂衝堂課程列表
+                        conflictedCourseList.add($(checkBoxList[i]).attr("id"))
+                    }
+                }
+
+            }
+        }
+
+        // 選中的課程 底色調整為綠色
+        $(this).parent().parent().css("background-color", "#e0f2f1");
+        $(this).attr("disabled", false);
+
+        selectedCourseList.set($(this).attr('id'), conflictedCourseList);
+        console.log(selectedCourseList);
+
         for (i = 0; i < timeList.length; i++) {
-            var colorCode;
-            if(courseCategory=='A1'){
+            var colorCode; // 依類別分顏色
+            if (courseCategory == 'A1') {
                 colorCode = "#90caf9";
             }
-            else if(courseCategory=='A2'){
+            else if (courseCategory == 'A2') {
                 colorCode = "#aed581";
             }
-            else if(courseCategory=='A3'){
+            else if (courseCategory == 'A3') {
                 colorCode = "#f48fb1";
             }
-            else{
+            else {
                 colorCode = "#ffcc80";
             }
             $('#table-' + timeList[i][0] + '-' + timeList[i][1]).css("background-color", colorCode);
@@ -125,6 +178,22 @@ $('.checkBox').click(function () {
         }
     }
     else {
+
+        // 移除所選課程
+        var rmCourse = selectedCourseList.get($(this).attr('id'));
+        console.log(rmCourse);
+        for (var key of selectedCourseList.keys()) {
+            if (key != $(this).attr('id')) {
+                rmCourse = rmCourse.difference(selectedCourseList.get(key));
+            }
+        }
+        for (var item of rmCourse.keys()) {
+            $('#' + item).parent().parent().css("background-color", "");
+            $('#' + item).attr("disabled", false);
+        }
+        selectedCourseList.delete($(this).attr('id')); // 從已選課程列表中移除
+
+        // 課表
         timeList = JSON.parse($(this).val());
         for (i = 0; i < timeList.length; i++) {
             $('#table-' + timeList[i][0] + '-' + timeList[i][1]).css("background-color", "");
@@ -134,7 +203,7 @@ $('.checkBox').click(function () {
 });
 
 // 輸出課表圖檔
-function printTable(){
+function printTable() {
     console.log('目前功能正在維修中');
     // var opts = {useCORS: true}
     // html2canvas($("#timeTable"), opts).then( function(canvas){
@@ -143,3 +212,18 @@ function printTable(){
     //     Canvas2Image.saveAsJPEG(image, canvas.width, canvas.height)
     // });
 };
+
+// Dcard 搜尋功能
+$(".dcardLink").click(function () {
+    var rawName = $(this).parent().siblings("#courseTeacher").text();
+    var position = 0;
+    for (i = 0; i < rawName.length; i++) {
+        if (rawName[i] == ',')
+            break;
+        position++
+    }
+    rawName = rawName.substring(1, position);
+    console.log(rawName);
+    var teacherName = encodeURI(rawName);
+    $(this).attr("href", "https://www.dcard.tw/search?query=" + teacherName + "&forum=nuk");
+});
