@@ -44,13 +44,10 @@
 
 })(document);
 
-// window.onbeforeunload = function() {
-//     $('#leaveCheck').modal();
-// };
-
-$(window).bind('beforeunload', function () {
-    return '提示資訊';
-});
+// 離開頁面確認
+// $(window).bind('beforeunload', function () {
+//     return '提示資訊';
+// });
 
 // 頁面初始化顯示目標
 $(document).ready(function () {
@@ -111,8 +108,12 @@ $('#gradeSelect').on('change', function () {
     $("#scrollControl").scrollTop(0);
 });
 
-
 // 偵聽 CheckBox 點擊事件
+// 課表資訊陣列
+var timeTableInfo = new Map();
+// 已選所有課程衝堂列表
+selectedCourseList = new Map();
+
 // Set 差集函式
 Set.prototype.difference = function (setB) {
     var difference = new Set(this);
@@ -122,9 +123,6 @@ Set.prototype.difference = function (setB) {
     return difference;
 }
 
-// 已選所有課程衝堂列表
-selectedCourseList = new Map();
-
 $('.checkBox').click(function () {
     if ($(this).prop("checked")) {
 
@@ -133,13 +131,19 @@ $('.checkBox').click(function () {
         var timeList = JSON.parse($(this).val()); // 轉換時間資訊成List
 
         conflictedCourseList = new Set();
+        
+        // 初始化選中課程資訊
+        courseInfo = new Map();
+        courseInfo.set('name', courseName);
+        courseInfo.set('teacher', $(this).parent().siblings("#courseTeacher").text());
+        courseInfo.set('location', $(this).parent().siblings("#courseLocation").text());
 
         // 已選課程列表衝堂 底色調整為紅色
         var checkBoxList = $('.checkBox');
-        for (i = 0; i < checkBoxList.length; i++) {
+        for (i = 0; i < checkBoxList.length; i++) { // 全部課程列表數量迴圈
             var timeData = JSON.parse($(checkBoxList[i]).val());
-            for (j = 0; j < timeList.length; j++) {
-                for (k = 0; k < timeData.length; k++) {
+            for (j = 0; j < timeList.length; j++) { // 選中課程堂數迴圈
+                for (k = 0; k < timeData.length; k++) { // 比較課程堂數迴圈
                     if (timeList[j][0] == timeData[k][0] && timeList[j][1] == timeData[k][1]) {
                         $(checkBoxList[i]).parent().parent().css("background-color", "#ffebee");
                         $(checkBoxList[i]).attr("disabled", true);
@@ -157,8 +161,10 @@ $('.checkBox').click(function () {
         $(this).attr("disabled", false);
 
         selectedCourseList.set($(this).attr('id'), conflictedCourseList);
-        console.log(selectedCourseList);
+        // console.log(selectedCourseList);
 
+        // 課表
+        //TODO: 將資訊存進Array
         for (i = 0; i < timeList.length; i++) {
             var colorCode; // 依類別分顏色
             if (courseCategory == 'A1') {
@@ -175,13 +181,17 @@ $('.checkBox').click(function () {
             }
             $('#table-' + timeList[i][0] + '-' + timeList[i][1]).css("background-color", colorCode);
             $('#table-' + timeList[i][0] + '-' + timeList[i][1]).html('<small class="p-0">' + courseName + '</small>');
+            
+            // 設定目前所有選中課程在table資訊
+            courseInfo.set('color', colorCode);
+            timeTableInfo.set('table-' + timeList[i][0] + '-' + timeList[i][1], courseInfo);
         }
     }
     else {
 
         // 移除所選課程
         var rmCourse = selectedCourseList.get($(this).attr('id'));
-        console.log(rmCourse);
+        // console.log(rmCourse);
         for (var key of selectedCourseList.keys()) {
             if (key != $(this).attr('id')) {
                 rmCourse = rmCourse.difference(selectedCourseList.get(key));
@@ -194,15 +204,18 @@ $('.checkBox').click(function () {
         selectedCourseList.delete($(this).attr('id')); // 從已選課程列表中移除
 
         // 課表
+        //TODO: 移除Array資訊
         timeList = JSON.parse($(this).val());
         for (i = 0; i < timeList.length; i++) {
             $('#table-' + timeList[i][0] + '-' + timeList[i][1]).css("background-color", "");
             $('#table-' + timeList[i][0] + '-' + timeList[i][1]).html('');
+
+            timeTableInfo.delete('table-' + timeList[i][0] + '-' + timeList[i][1]);
         }
     }
 });
 
-// 輸出課表圖檔
+// 輸出課表圖檔 !!! 維修中 !!!
 function printTable() {
     console.log('目前功能正在維修中');
     // var opts = {useCORS: true}
@@ -223,7 +236,110 @@ $(".dcardLink").click(function () {
         position++
     }
     rawName = rawName.substring(1, position);
-    console.log(rawName);
     var teacherName = encodeURI(rawName);
     $(this).attr("href", "https://www.dcard.tw/search?query=" + teacherName + "&forum=nuk");
+});
+
+
+// 課表 onMouseMove 顯示資訊
+
+// 十六進制轉RGB色碼函式(不會用到了)
+// function hexToRgb(hex) {
+//     var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+//     hex = hex.replace(shorthandRegex, function (m, r, g, b) {
+//         return r + r + g + g + b + b;
+//     });
+
+//     var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+//     // return result ? {
+//     //     r: parseInt(result[1], 16),
+//     //     g: parseInt(result[2], 16),
+//     //     b: parseInt(result[3], 16)
+//     // } : null;
+//     return 'rgb(' + parseInt(result[1], 16) + ', ' + parseInt(result[2], 16) + ', ' + parseInt(result[3], 16) + ')';
+// }
+
+$(".colorBox").mouseover(function(){
+
+    if (timeTableInfo.has($(this).attr('id'))) {
+        var color = timeTableInfo.get($(this).attr('id')).get('color');
+        var teacher = timeTableInfo.get($(this).attr('id')).get('teacher');
+        var location = timeTableInfo.get($(this).attr('id')).get('location');
+
+        var darkColor = '';
+        if (color === '#f48fb1') {
+            darkColor = '#bf5f82';
+        }
+        else if (color === '#ffcc80') {
+            darkColor = '#ca9b52';
+        }
+        else if (color === '#aed581') {
+            darkColor = '#7da453';
+        }
+        else if (color === '#90caf9') {
+            darkColor = '#5d99c6';
+        }
+
+        // 處理教師名稱長度
+        var position = 0;
+        var hasComma = false;
+        for (i = 0; i < teacher.length; i++) {
+            if (teacher[i] == ','){
+                hasComma = true;
+                break;
+            }
+            position++
+        }
+        teacher = teacher.substring(0, position);
+        if(hasComma == true){
+            teacher += '+';
+        }
+
+        // 分析教室代號
+        console.log(location.slice(0, 3));
+        if(location.slice(0, 3) == 'B01'){
+            location = '[綜-' + location.slice(4) + ']';
+        }
+        else if(location.slice(0, 3) == 'C01'){
+            location = '[工-' + location.slice(4) + ']';
+        }
+        else if(location.slice(0, 3) == 'C02'){
+            location = '[理-' + location.slice(4) + ']';
+        }
+        else if(location.slice(0, 3) == 'K01'){
+            location = '[體-' + location.slice(4) + ']';
+        }
+        else if(location.slice(0, 3) == 'L01'){
+            location = '[圖-' + location.slice(4) + ']';
+        }
+        else if(location.slice(0, 3) == 'L02'){
+            location = '[法-' + location.slice(4) + ']';
+        }
+        else if(location.slice(0, 3) == 'M01'){
+            location = '[管-' + location.slice(4) + ']';
+        }
+        else if(location.slice(0, 3) == 'H1-'){
+            location = '[人1-' + location.slice(4) + ']';
+        }
+        else if(location.slice(0, 3) == 'H2-'){
+            location = '[人2-' + location.slice(4) + ']';
+        }
+
+        // 去除'其他教室'字串
+        if(location.search('其他教室') != -1){
+            location = location.slice(0, location.search('其他教室')) + '+]';
+        }
+
+        $(this).css('background-color', darkColor);
+        $(this).html(teacher+'<br>'+location);
+    }
+});
+
+$(".colorBox").mouseout(function(){
+    if(timeTableInfo.has($(this).attr('id'))){
+        var color = timeTableInfo.get($(this).attr('id')).get('color');
+        var name = timeTableInfo.get($(this).attr('id')).get('name');
+        $(this).css('background-color', color);
+        $(this).html('<small class="p-0">' + name + '</small>');
+    }
 });
