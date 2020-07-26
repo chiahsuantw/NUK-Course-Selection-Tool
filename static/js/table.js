@@ -44,10 +44,12 @@
 
 })(document);
 
+
 // 離開頁面確認
 // $(window).bind('beforeunload', function () {
 //     return '提示資訊';
 // });
+
 
 // 頁面初始化顯示目標
 $(document).ready(function () {
@@ -60,6 +62,8 @@ $(document).ready(function () {
     for (i = 0; i < deptList.length; i++) {
         deptList[i].style.display = "";
     }
+
+    $(".checkBox").prop("checked", false);
 });
 
 // 偵聽 類別選單 改變事件
@@ -88,6 +92,7 @@ $('#deptSelect').on('change', function () {
     $("#scrollControl").scrollTop(0);
 });
 
+
 // 偵聽 年級選單 改變事件
 $('#gradeSelect').on('change', function () {
 
@@ -108,12 +113,33 @@ $('#gradeSelect').on('change', function () {
     $("#scrollControl").scrollTop(0);
 });
 
+
+// 已選課程 按鈕點擊事件
+function selected(){
+    
+    // 隱藏所有課程列表
+    // var allCourse = $(".control");
+    // for (i = 0; i < allCourse.length; i++) {
+    //     if(!allCourse[i].children('.selectBox').children().prop("checked")){
+    //         allCourse[i].style.display = "none";
+    //     }
+    // }
+    $('.control').each(function(){
+        $(this).css('display', '');
+        if(!$(this).children('#selectBox').children().prop("checked")){
+            $(this).css('display', 'none');
+        }
+    });
+}
+
+
 // 偵聽 CheckBox 點擊事件
+// 學分加總
+var sumOfCredit = 0;
 // 課表資訊陣列
 var timeTableInfo = new Map();
 // 已選所有課程衝堂列表
-selectedCourseList = new Map();
-
+var selectedCourseList = new Map();
 // Set 差集函式
 Set.prototype.difference = function (setB) {
     var difference = new Set(this);
@@ -164,7 +190,6 @@ $('.checkBox').click(function () {
         // console.log(selectedCourseList);
 
         // 課表
-        //TODO: 將資訊存進Array
         for (i = 0; i < timeList.length; i++) {
             var colorCode; // 依類別分顏色
             if (courseCategory == 'A1') {
@@ -179,6 +204,12 @@ $('.checkBox').click(function () {
             else {
                 colorCode = "#ffcc80";
             }
+
+            //處理中午課程時間
+            if(timeList[i][1] == '4.5'){
+                timeList[i][1] = '13';
+            }
+            
             $('#table-' + timeList[i][0] + '-' + timeList[i][1]).css("background-color", colorCode);
             $('#table-' + timeList[i][0] + '-' + timeList[i][1]).html('<small class="p-0">' + courseName + '</small>');
             
@@ -186,6 +217,10 @@ $('.checkBox').click(function () {
             courseInfo.set('color', colorCode);
             timeTableInfo.set('table-' + timeList[i][0] + '-' + timeList[i][1], courseInfo);
         }
+
+        // 已選學分加總
+        sumOfCredit += parseInt($(this).parent().siblings('#courseCredit').text());
+        $('#credit').text('已選學分 ' + sumOfCredit.toString());
     }
     else {
 
@@ -204,16 +239,26 @@ $('.checkBox').click(function () {
         selectedCourseList.delete($(this).attr('id')); // 從已選課程列表中移除
 
         // 課表
-        //TODO: 移除Array資訊
         timeList = JSON.parse($(this).val());
         for (i = 0; i < timeList.length; i++) {
+            
+            //處理中午課程時間
+            if(timeList[i][1] == '4.5'){
+                timeList[i][1] = '13';
+            }
+
             $('#table-' + timeList[i][0] + '-' + timeList[i][1]).css("background-color", "");
             $('#table-' + timeList[i][0] + '-' + timeList[i][1]).html('');
 
             timeTableInfo.delete('table-' + timeList[i][0] + '-' + timeList[i][1]);
         }
+
+        //學分加總移除
+        sumOfCredit -= parseInt($(this).parent().siblings('#courseCredit').text());
+        $('#credit').text('已選學分 ' + sumOfCredit.toString());
     }
 });
+
 
 // 輸出課表圖檔 !!! 維修中 !!!
 function printTable() {
@@ -224,7 +269,8 @@ function printTable() {
     //     var image = Canvas2Image.convertToJPEG(canvas, canvas.width, canvas.height);
     //     Canvas2Image.saveAsJPEG(image, canvas.width, canvas.height)
     // });
-};
+}
+
 
 // Dcard 搜尋功能
 $(".dcardLink").click(function () {
@@ -334,6 +380,7 @@ $(".colorBox").mouseover(function(){
         $(this).html(teacher+'<br>'+location);
     }
 });
+
 
 $(".colorBox").mouseout(function(){
     if(timeTableInfo.has($(this).attr('id'))){

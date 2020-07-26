@@ -41,6 +41,11 @@
             </ul>
         </a>
         <ul class="navbar-nav align-items-center ml-auto">
+            <li class="nav-item  ml-2 mr-3">
+                <div class="row shadow rounded-pill px-2" style="background-color: #036fc6;">
+                    <p id="credit" style="color: white;" class="m-1">已選學分 0</p>
+                </div>
+            </li>
             <li class="nav-item dropdown no-caret mr-2 dropdown-user">
                 <a class="btn btn-icon btn-transparent-dark dropdown-toggle" id="navbarDropdownUserImage"
                     href="javascript:void(0);" role="button" data-toggle="dropdown" aria-haspopup="true"
@@ -320,6 +325,9 @@
                             <a class="ml-auto" href="javascript: printTable()" data-toggle="tooltip" data-placement="top" title="輸出課表">
                                 <img src="https://img.icons8.com/fluent/36/000000/print.png"/>
                             </a>
+                            <a href="javascript: selected()" class="ml-3" data-toggle="tooltip" data-placement="top" title="已選課程">
+                                <img src="https://img.icons8.com/fluent/36/000000/checkmark.png"/>
+                            </a>
                             <a href="/" class="ml-3" data-toggle="tooltip" data-placement="top" title="移除全部">
                                 <img src="https://img.icons8.com/fluent/36/000000/filled-trash.png"/>
                             </a>
@@ -332,7 +340,7 @@
                                 <tbody>
                                     {% for i in courseData %}
                                     <tr class="control {{ i['dept'] }}-{{ i['grade'] }}" style="display: none;">
-                                        <td width="5%"><input id="{{ i['id'] }}{{ i['grade'] }}" class="checkBox" value="{{ i['period'] }}" type="checkbox"></td>
+                                        <td id="selectBox" width="5%"><input id="{{ i['id'] }}{{ i['grade'] }}" class="checkBox" value="{{ i['period'] }}" type="checkbox"></td>
                                         <td id="courseName"><p class="font-weight-bold mb-0">{{ i['name'] }} {{ i['class'] }}</p></td>
                                         <td id="courseTeacher" width="15%">{{ i['teacher'] }}</td>
                                         <td id="courseCategory" style="display: none;">{{ i['category'] }}</td>
@@ -349,12 +357,16 @@
                                             <small>四{{ j[1] }},</small>
                                             {% elif j[0] == 5 %}
                                             <small>五{{ j[1] }},</small>
+                                            {% elif j[0] == 6 %}
+                                            <small>六{{ j[1] }},</small>
+                                            {% elif j[0] == 7 %}
+                                            <small>日{{ j[1] }},</small>
                                             {% endif %}
                                             {% endfor %}
                                         </td>
                                         <td width="5%"><img style="width: 26px; height: 26px;"
                                                 src="/static/img/{{ i['category'] }}.png"></td>
-                                        <td width="10%">{{ i['credit'] }}學分</td>
+                                        <td id="courseCredit" width="10%">{{ i['credit'] }}學分</td>
                                         <td width="5%"><a class="dcardLink" href="" target="_blank"><img style="width: 26px; height: 26px;"
                                                 src="/static/img/dcard.png"></a></td>
                                     </tr>
