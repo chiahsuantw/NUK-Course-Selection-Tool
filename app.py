@@ -10,7 +10,7 @@ if ENV == 'DEV':
     with open('static\\json\\course.json', 'r', encoding='utf-8-sig') as jsonFile:
         courseData = json.load(jsonFile)
 else:
-    url = 'https://0bdba922-52eb-483b-b4ea-5a066c1f22df.mock.pstmn.io/courseData'
+    url = 'https://e7401c50-a59b-4ef9-9a40-a5ddf3852603.mock.pstmn.io/courseData'
     response = requests.get(url)
     courseData = json.loads(response.text)
 
