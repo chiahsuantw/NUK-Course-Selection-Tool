@@ -9,7 +9,7 @@ with open('static\\json\\course.json', 'r', encoding='utf-8-sig') as jsonFile:
     courseData = json.load(jsonFile)
 '''
 
-url = 'https://53c17e34-e7da-4ec6-9be7-9dd7112aaa20.mock.pstmn.io/courseData'
+url = 'https://0bdba922-52eb-483b-b4ea-5a066c1f22df.mock.pstmn.io/courseData'
 response = requests.get(url)
 courseData = json.loads(response.text)
 
