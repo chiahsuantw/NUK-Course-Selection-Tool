@@ -47,5 +47,6 @@
         "env.bak{,/**}",
         "venv.bak{,/**}",
         ".vscode{,/**}"
-    ]
+    ],
+    "python.pythonPath": "D:\\Program Files\\Python38\\python.exe"
 }

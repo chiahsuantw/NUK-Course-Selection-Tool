@@ -260,14 +260,15 @@ $('.checkBox').click(function () {
 });
 
 
-// 輸出課表圖檔 !!! 維修中 !!!
+//TODO:輸出課表圖檔 !!! 維修中 !!!
 function printTable() {
-    console.log('目前功能正在維修中');
-    // var opts = {useCORS: true}
-    // html2canvas($("#timeTable"), opts).then( function(canvas){
-    //     var context = canvas.getContext('2d');
-    //     var image = Canvas2Image.convertToJPEG(canvas, canvas.width, canvas.height);
-    //     Canvas2Image.saveAsJPEG(image, canvas.width, canvas.height)
+    // html2canvas(document.querySelector("#timeTable")).then(function (canvas) {
+    //     a = document.createElement("a");
+    //     a.href = canvas
+    //         .toDataURL("image/jpeg", 1.0)
+    //         .replace("image/jpeg", "image/octet-stream");
+    //     a.download = "image.jpg";
+    //     a.click();
     // });
 }
 

@@ -2,7 +2,7 @@
 <html lang="zh-TW" class="h-100">
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -112,8 +112,8 @@
                         </thead>
                     </table>
                 </div>
-                <div style="height: calc(100% - 62px);" class="overflow-auto">
-                    <table id="timeTable" style="table-layout: fixed; word-break: break-all;" class="table table-borderless mb-0">
+                <div id="timeTable" style="height: calc(100% - 62px);" class="overflow-auto">
+                    <table style="table-layout: fixed; word-break: break-all;" class="table table-borderless mb-0">
                         <tbody class="table-active text-center">
                             <tr style="height: 85px;">
                                 <td width="60" class="table-light">
@@ -315,17 +315,19 @@
                                 <option value="3">大三</option>
                                 <option value="4">大四</option>
                             </select>
-                            <!--搜尋系統
+                            <!--SearchBox //Enhancement: search course by typing keywords//
                             <div class="form-group mx-2">
                                 <input type="search" class="form-control searchCourse" placeholder="搜尋" data-table="courseTable">
                             </div>
                             <a data-toggle="tooltip" data-placement="top" title="搜尋課程、教授">
                                 <img style="width: 36px; height: 36px;" src="https://img.icons8.com/fluent/36/000000/search.png"/>
                             </a>-->
+                            <!--PrintTable() //Enhancement: render id:timeTable and save as jpg files//
                             <a class="ml-auto" href="javascript: printTable()" data-toggle="tooltip" data-placement="top" title="輸出課表">
                                 <img src="https://img.icons8.com/fluent/36/000000/print.png"/>
                             </a>
-                            <a href="javascript: selected()" class="ml-3" data-toggle="tooltip" data-placement="top" title="已選課程">
+                            -->
+                            <a href="javascript: selected()" class="ml-auto" data-toggle="tooltip" data-placement="top" title="已選課程">
                                 <img src="https://img.icons8.com/fluent/36/000000/checkmark.png"/>
                             </a>
                             <a href="/" class="ml-3" data-toggle="tooltip" data-placement="top" title="移除全部">
@@ -402,6 +404,7 @@
         </div>
     </div>
 
+    <!--Bootstrap CDN START-->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
@@ -414,12 +417,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"
         integrity="sha512-yDlE7vpGDP7o2eftkCiPZ+yuUyEcaBwoJoIhdXv71KZWugFqEphIS3PU60lEkFaz8RxaVsMpSvQxMBaKVwA5xg=="
         crossorigin="anonymous"></script>
+    <!--Bootstrap CDN END-->
+    
+    <!--html2canvas //Enhancement: render id:timeTable and save as jpg files//
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"
         integrity="sha512-OqcrADJLG261FZjar4Z6c4CfLqd861A3yPNMb+vRQ2JwzFT49WT4lozrh3bcKxHxtDTgNiqgYbEUStzvZQRfgQ=="
         crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/canvas2image@1.0.5/canvas2image.js"
-        integrity="sha256-lwXqgxDJYQCqafTwWj/c8s03nd+AEpMV83MjoNJAtto=" crossorigin="anonymous"></script>
-
+    -->
     <script type="text/javascript" src="/static/js/style.js"></script>
     <script type="text/javascript" src="/static/js/table.js"></script>
 </body>
