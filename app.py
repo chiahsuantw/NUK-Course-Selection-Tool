@@ -4,7 +4,7 @@ import json
 
 app = Flask(__name__)
 
-ENV = 'DEV'
+ENV = 'PROD'
 
 if ENV == 'DEV':
     with open('static\\json\\course.json', 'r', encoding='utf-8-sig') as jsonFile:
