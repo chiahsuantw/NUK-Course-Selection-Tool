@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/profile.css">
+    <link rel="icon" href="/static/img/icon.png" type="image/x-icon">
+    
+    <title>我的學分 · 高大選課工具</title>
+</head>
+
+<body class="text-center">
+
+    <nav class="fixed-top topnav navbar navbar-expand shadow navbar-light bg-white" id="topnavbar" style="z-index: 1035;">
+        <a class="navbar-brand active" href="/">
+            <ul class="navbar-nav align-items-center">
+                <img class="mr-2" style="width: 32px; height: 32px;"
+                    src="https://img.icons8.com/fluent/32/000000/calendar.png" />
+                <h4 class="mt-1">高大選課工具</h4>
+            </ul>
+        </a>
+        <ul class="navbar-nav align-items-center ml-auto">
+            <li class="nav-item dropdown no-caret mr-2 dropdown-user">
+                <a class="btn btn-icon btn-transparent-dark dropdown-toggle" id="navbarDropdownUserImage"
+                    href="javascript:void(0);" role="button" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                    <img style="width: 36px; height: 36px;" src="/static/img/user.png">
+                </a>
+                <div class="dropdown-menu dropdown-menu-right border-0 shadow animated--fade-in-up mt-4 p-3"
+                    aria-labelledby="navbarDropdownUserImage">
+                    <div class="dropdown-header d-flex align-items-center">
+                        <img class="dropdown-user-img" style="width: 54px; height: 54px;" src="/static/img/user.png">
+                        <div class="dropdown-user-details ml-3">
+                            <h5 class="mb-0">使用者</h5>
+                            <div class="">A1080000</div>
+                        </div>
+                    </div>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#!">
+                        <div class="row pl-2">
+                            <div class="dropdown-item-icon">
+                                <img src="https://img.icons8.com/fluent/24/000000/settings.png" />
+                            </div>
+                            <p class="mx-2 mb-0" style="padding-top: 2px;">帳戶管理</p>
+                        </div>
+                    </a>
+                    <a class="dropdown-item" href="/login">
+                        <div class="row pl-2">
+                            <div class="dropdown-item-icon">
+                                <img src="https://img.icons8.com/fluent/24/000000/logout-rounded.png" />
+                            </div>
+                            <p class="mx-2 mb-0" style="padding-top: 2px;">登入</p>
+                        </div>
+                    </a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="d-flex justify-content-center">
+        <div class="col-8 text-left pb-5" style="padding-top: 100px;">
+            <div class="card shadow my-5">
+                <div class="card-body">
+                    <h4 class="card-title mb-4">共同必修</h4>
+                    <h5 class="card-subtitle my-4 text-muted">中文</h5>
+                    <div class="progress mb-4" style="height: 20px;">
+                        <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    {% for course in studentCourseData %}
+                        {% if course['category'] == 'AC' %}
+                        <div class="row px-5">
+                            <p class="mr-5">{{ course['id'] }}</p>
+                            <p class="mr-auto">{{ course['name'] }}</p>
+                            <p class="mr-5">{{ course['credit'] }}學分</p>
+                            <p>學期總分：{{ course['score'] }}</p>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                    <h5 class="card-subtitle my-4 text-muted">英文</h5>
+                    <div class="progress mb-4" style="height: 20px;">
+                        <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    {% for course in studentCourseData %}
+                        {% if course['category'] == 'AE' %}
+                        <div class="row px-5">
+                            <p class="mr-5">{{ course['id'] }}</p>
+                            <p class="mr-auto">{{ course['name'] }}</p>
+                            <p class="mr-5">{{ course['credit'] }}學分</p>
+                            <p>學期總分：{{ course['score'] }}</p>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                    <h5 class="card-subtitle my-4 text-muted">其他</h5>
+                    {% for course in studentCourseData %}
+                        {% if course['category'] == 'A3' %}
+                        <div class="row px-5">
+                            <p class="mr-5">{{ course['id'] }}</p>
+                            <p class="mr-auto">{{ course['name'] }}</p>
+                            <p class="mr-5">{{ course['credit'] }}學分</p>
+                            <p>學期總分：{{ course['score'] }}</p>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="card shadow my-5">
+                <div class="card-body">
+                    <h4 class="card-title mb-4">通識選修</h4>
+                    <div class="progress mb-4" style="height: 20px;">
+                        <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <h5 class="card-subtitle my-4">核心通識</h5>
+                    <div class="progress mb-4" style="height: 20px;">
+                        <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <h6 class="card-subtitle my-4 text-muted">思維方法</h6>
+                    {% for course in studentCourseData %}
+                        {% if course['category'] == 'B1' %}
+                        <div class="row px-5">
+                            <p class="mr-5">{{ course['id'] }}</p>
+                            <p class="mr-auto">{{ course['name'] }}</p>
+                            <p class="mr-5">{{ course['credit'] }}學分</p>
+                            <p>學期總分：{{ course['score'] }}</p>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                    <h6 class="card-subtitle my-4 text-muted">美學素養</h6>
+                    {% for course in studentCourseData %}
+                        {% if course['category'] == 'B2' %}
+                        <div class="row px-5">
+                            <p class="mr-5">{{ course['id'] }}</p>
+                            <p class="mr-auto">{{ course['name'] }}</p>
+                            <p class="mr-5">{{ course['credit'] }}學分</p>
+                            <p>學期總分：{{ course['score'] }}</p>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                    <h6 class="card-subtitle my-4 text-muted">公民素養</h6>
+                    {% for course in studentCourseData %}
+                        {% if course['category'] == 'B3' %}
+                        <div class="row px-5">
+                            <p class="mr-5">{{ course['id'] }}</p>
+                            <p class="mr-auto">{{ course['name'] }}</p>
+                            <p class="mr-5">{{ course['credit'] }}學分</p>
+                            <p>學期總分：{{ course['score'] }}</p>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                    <h6 class="card-subtitle my-4 text-muted">文化素養</h6>
+                    {% for course in studentCourseData %}
+                        {% if course['category'] == 'B4' %}
+                        <div class="row px-5">
+                            <p class="mr-5">{{ course['id'] }}</p>
+                            <p class="mr-auto">{{ course['name'] }}</p>
+                            <p class="mr-5">{{ course['credit'] }}學分</p>
+                            <p>學期總分：{{ course['score'] }}</p>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                    <h6 class="card-subtitle my-4 text-muted">科學素養</h6>
+                    {% for course in studentCourseData %}
+                        {% if course['category'] == 'B5' %}
+                        <div class="row px-5">
+                            <p class="mr-5">{{ course['id'] }}</p>
+                            <p class="mr-auto">{{ course['name'] }}</p>
+                            <p class="mr-5">{{ course['credit'] }}學分</p>
+                            <p>學期總分：{{ course['score'] }}</p>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                    <h6 class="card-subtitle my-4 text-muted">倫理素養</h6>
+                    {% for course in studentCourseData %}
+                        {% if course['category'] == 'B6' %}
+                        <div class="row px-5">
+                            <p class="mr-5">{{ course['id'] }}</p>
+                            <p class="mr-auto">{{ course['name'] }}</p>
+                            <p class="mr-5">{{ course['credit'] }}學分</p>
+                            <p>學期總分：{{ course['score'] }}</p>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                    <h5 class="card-subtitle my-4">博雅通識</h5>
+                    <div class="progress mb-4" style="height: 20px;">
+                        <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Bootstrap CDN START-->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"
+        integrity="sha512-yDlE7vpGDP7o2eftkCiPZ+yuUyEcaBwoJoIhdXv71KZWugFqEphIS3PU60lEkFaz8RxaVsMpSvQxMBaKVwA5xg=="
+        crossorigin="anonymous"></script>
+    <!--Bootstrap CDN END-->
+    <script type="text/javascript" src="/static/js/chart.js"></script>
+</body>
+
+</html>

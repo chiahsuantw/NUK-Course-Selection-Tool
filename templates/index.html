@@ -70,12 +70,12 @@
                             <p class="mx-2 mb-0" style="padding-top: 2px;">帳戶管理</p>
                         </div>
                     </a>
-                    <a class="dropdown-item" href="#!">
+                    <a class="dropdown-item" href="/login">
                         <div class="row pl-2">
                             <div class="dropdown-item-icon">
                                 <img src="https://img.icons8.com/fluent/24/000000/logout-rounded.png" />
                             </div>
-                            <p class="mx-2 mb-0" style="padding-top: 2px;">登出</p>
+                            <p class="mx-2 mb-0" style="padding-top: 2px;">登入</p>
                         </div>
                     </a>
                 </div>
@@ -327,11 +327,12 @@
                                 <img src="https://img.icons8.com/fluent/36/000000/print.png"/>
                             </a>
                             -->
-                            <a href="javascript: selected()" class="ml-auto" data-toggle="tooltip" data-placement="top" title="已選課程">
-                                <img src="https://img.icons8.com/fluent/36/000000/checkmark.png"/>
+                            <a href="javascript: selected()" class="ml-auto" data-toggle="tooltip" data-placement="top"
+                                title="已選課程">
+                                <img src="https://img.icons8.com/fluent/36/000000/checkmark.png" />
                             </a>
                             <a href="/" class="ml-3" data-toggle="tooltip" data-placement="top" title="移除全部">
-                                <img src="https://img.icons8.com/fluent/36/000000/filled-trash.png"/>
+                                <img src="https://img.icons8.com/fluent/36/000000/filled-trash.png" />
                             </a>
                             <a class="ml-3" data-toggle="tooltip" data-placement="top" title="使用方式">
                                 <img class="mr-2" src="https://img.icons8.com/fluent/36/000000/info.png" />
@@ -342,8 +343,11 @@
                                 <tbody>
                                     {% for i in courseData %}
                                     <tr class="control {{ i['dept'] }}-{{ i['grade'] }}" style="display: none;">
-                                        <td id="selectBox" width="5%"><input id="{{ i['id'] }}{{ i['grade'] }}" class="checkBox" value="{{ i['period'] }}" type="checkbox"></td>
-                                        <td id="courseName"><p class="font-weight-bold mb-0">{{ i['name'] }} {{ i['class'] }}</p></td>
+                                        <td id="selectBox" width="5%"><input id="{{ i['id'] }}{{ i['grade'] }}"
+                                                class="checkBox" value="{{ i['period'] }}" type="checkbox"></td>
+                                        <td id="courseName">
+                                            <p class="font-weight-bold mb-0">{{ i['name'] }} {{ i['class'] }}</p>
+                                        </td>
                                         <td id="courseTeacher" width="15%">{{ i['teacher'] }}</td>
                                         <td id="courseCategory" style="display: none;">{{ i['category'] }}</td>
                                         <td id="courseLocation" style="display: none;">{{ i['location'] }}</td>
@@ -369,36 +373,15 @@
                                         <td width="5%"><img style="width: 26px; height: 26px;"
                                                 src="/static/img/{{ i['category'] }}.png"></td>
                                         <td id="courseCredit" width="10%">{{ i['credit'] }}學分</td>
-                                        <td width="5%"><a class="dcardLink" href="" target="_blank"><img style="width: 26px; height: 26px;"
-                                                src="/static/img/dcard.png"></a></td>
+                                        <td width="5%"><a class="dcardLink" href="" target="_blank"><img
+                                                    style="width: 26px; height: 26px;" src="/static/img/dcard.png"></a>
+                                        </td>
                                     </tr>
                                     {% endfor %}
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Close tab warning -->
-    <div class="modal fade" id="leaveCheck" tabindex="-1" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    即將刪除所有選課
-                    確定要執行嗎？
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                    <button type="button" class="btn btn-primary">確認</button>
                 </div>
             </div>
         </div>
@@ -418,7 +401,7 @@
         integrity="sha512-yDlE7vpGDP7o2eftkCiPZ+yuUyEcaBwoJoIhdXv71KZWugFqEphIS3PU60lEkFaz8RxaVsMpSvQxMBaKVwA5xg=="
         crossorigin="anonymous"></script>
     <!--Bootstrap CDN END-->
-    
+
     <!--html2canvas //Enhancement: render id:timeTable and save as jpg files//
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"
         integrity="sha512-OqcrADJLG261FZjar4Z6c4CfLqd861A3yPNMb+vRQ2JwzFT49WT4lozrh3bcKxHxtDTgNiqgYbEUStzvZQRfgQ=="

@@ -4,18 +4,40 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
+
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    
+    <link rel="stylesheet" href="/static/css/login.css">
     <link rel="icon" href="/static/img/icon.png" type="image/x-icon">
 
     <title>登入 · 高大選課工具</title>
 </head>
 
 <body class="text-center">
-    <p>hello login</p>
+
+    <form class="form-signin" action='login' method='POST'>
+        <!-- <img class="mb-4" src="/docs/4.5/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72"> -->
+        <h1 class="h3 mb-3 font-weight-normal">登入</h1>
+        <label for="account" class="sr-only">Account</label>
+        <input type="text" id="account" name="account" class="form-control" placeholder="帳號" required autofocus>
+        <label for="password" class="sr-only">Password</label>
+        <input type="password" id="password" name="password" class="form-control" placeholder="密碼" required>
+
+        <!--快顯錯誤提示-->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }}">
+            <span>{{ message }}</span>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        <button class="btn btn-lg btn-primary btn-block" name="submit" type="submit">送出</button>
+        <p class="mt-5 mb-3 text-muted">&copy; 2020 高大選課工具</p>
+    </form>
 
     <!--Bootstrap CDN START-->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
