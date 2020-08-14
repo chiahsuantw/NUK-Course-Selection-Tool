@@ -8,7 +8,10 @@ app.config['SECRET_KEY'] = '3c178af81e8f023e05fc72c56757417158aaeff46e23263df647
 ENV = 'PROD'
 
 with open('static\\json\\studentCourse.json', 'r', encoding='utf-8-sig') as jsonFile1:
-        studentCourseData = json.load(jsonFile1)
+    studentCourseData = json.load(jsonFile1)
+
+with open('static\\json\\student_credits.json', 'r', encoding='utf-8-sig') as jsonFile3:
+    studentCourseCredits = json.load(jsonFile3)
 
 if ENV == 'DEV':
     with open('static\\json\\course.json', 'r', encoding='utf-8-sig') as jsonFile2:
@@ -54,7 +57,7 @@ def logout():
 
 @app.route('/profile')
 def profile():
-    return render_template('profile.html', studentCourseData=studentCourseData)
+    return render_template('profile.html', studentCourseData=studentCourseData, studentCourseCredits=studentCourseCredits)
 
 
 if __name__ == "__main__":

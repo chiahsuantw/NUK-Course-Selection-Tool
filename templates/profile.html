@@ -62,14 +62,26 @@
         </ul>
     </nav>
 
+
     <div class="d-flex justify-content-center">
-        <div class="col-8 text-left pb-5" style="padding-top: 100px;">
-            <div class="card shadow my-5">
+        <div class="col-lg-8 text-left pb-5" style="padding-top: 100px;">
+            <div style="border-radius: 20px" class="card shadow my-5">
                 <div class="card-body">
-                    <h4 class="card-title mb-4">共同必修</h4>
-                    <h5 class="card-subtitle my-4 text-muted">中文</h5>
+                    <div class="row justify-content-center mt-2">
+                        <img class="mx-4" style="width: 45px;" src="/static/img/diploma.svg">
+                        <h2 id="totalCredit">目前已修 0 學分</h2>
+                    </div>
+                </div>
+            </div>
+            <div style="border-radius: 20px" class="card shadow my-5">
+                <div class="card-body">
+                    <h4 class="card-title mb-4 mt-2">共同必修</h4>
+                    <div class="row px-3 justify-content-between">
+                        <h5 class="card-subtitle my-4 text-muted">中文</h5>
+                        <h6 id="text-chinese" class="card-subtitle mt-5 mb-2 text-muted">已修 0 / 4 學分</h6>
+                    </div>
                     <div class="progress mb-4" style="height: 20px;">
-                        <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div id="progress-chinese" style="background-color: #f48fb1;" class="progress-bar" role="progressbar" style="width: 0%;"></div>
                     </div>
                     {% for course in studentCourseData %}
                         {% if course['category'] == 'AC' %}
@@ -81,9 +93,12 @@
                         </div>
                         {% endif %}
                     {% endfor %}
-                    <h5 class="card-subtitle my-4 text-muted">英文</h5>
+                    <div class="row px-3 justify-content-between">
+                        <h5 class="card-subtitle my-4 text-muted">英文</h5>
+                        <h6 id="text-english" class="card-subtitle mt-5 mb-2 text-muted">已修 0 / 4 學分</h6>
+                    </div>
                     <div class="progress mb-4" style="height: 20px;">
-                        <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div id="progress-english" style="background-color: #f48fb1;" class="progress-bar" role="progressbar" style="width: 0%;"></div>
                     </div>
                     {% for course in studentCourseData %}
                         {% if course['category'] == 'AE' %}
@@ -108,15 +123,21 @@
                     {% endfor %}
                 </div>
             </div>
-            <div class="card shadow my-5">
+            <div style="border-radius: 20px" class="card shadow my-5">
                 <div class="card-body">
-                    <h4 class="card-title mb-4">通識選修</h4>
-                    <div class="progress mb-4" style="height: 20px;">
-                        <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="row px-3 justify-content-between">
+                        <h4 class="card-title mb-4 mt-2">通識選修</h4>
+                        <h6 id="text-general" class="card-subtitle mt-5 mb-2 text-muted">已修 0 / 24 學分</h6>
                     </div>
-                    <h5 class="card-subtitle my-4">核心通識</h5>
                     <div class="progress mb-4" style="height: 20px;">
-                        <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div id="progress-general" class="progress-bar" style="background-color: #ffcc80;" role="progressbar" style="width: 0%;"></div>
+                    </div>
+                    <div class="row px-3 justify-content-between">
+                        <h5 class="card-subtitle my-4">核心通識</h5>
+                        <h6 id="text-core" class="card-subtitle mt-5 mb-2 text-muted">已修 0 / 4 向度</h6>
+                    </div>
+                    <div class="progress mb-4" style="height: 20px;">
+                        <div id="progress-core" class="progress-bar" style="background-color: #ffcc80;" role="progressbar" style="width: 0%;"></div>
                     </div>
                     <h6 class="card-subtitle my-4 text-muted">思維方法</h6>
                     {% for course in studentCourseData %}
@@ -184,13 +205,99 @@
                         </div>
                         {% endif %}
                     {% endfor %}
-                    <h5 class="card-subtitle my-4">博雅通識</h5>
-                    <div class="progress mb-4" style="height: 20px;">
-                        <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="row px-3 justify-content-between">
+                        <h5 class="card-subtitle my-4">博雅通識</h5>
+                        <h6 id="text-side" class="card-subtitle mt-5 mb-2 text-muted">已修 0 / 3 向度</h6>
                     </div>
+                    <div class="progress mb-4" style="height: 20px;">
+                        <div id="progress-side" class="progress-bar" style="background-color: #ffcc80;" role="progressbar" style="width: 0%;"></div>
+                    </div>
+                    <h6 class="card-subtitle my-4 text-muted">人文科學類</h6>
+                    {% for course in studentCourseData %}
+                        {% if course['category'] == 'C1' %}
+                        <div class="row px-5">
+                            <p class="mr-5">{{ course['id'] }}</p>
+                            <p class="mr-auto">{{ course['name'] }}</p>
+                            <p class="mr-5">{{ course['credit'] }}學分</p>
+                            <p>學期總分：{{ course['score'] }}</p>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                    <h6 class="card-subtitle my-4 text-muted">社會科學類</h6>
+                    {% for course in studentCourseData %}
+                        {% if course['category'] == 'C2' %}
+                        <div class="row px-5">
+                            <p class="mr-5">{{ course['id'] }}</p>
+                            <p class="mr-auto">{{ course['name'] }}</p>
+                            <p class="mr-5">{{ course['credit'] }}學分</p>
+                            <p>學期總分：{{ course['score'] }}</p>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                    <h6 class="card-subtitle my-4 text-muted">自然科學類</h6>
+                    {% for course in studentCourseData %}
+                        {% if course['category'] == 'C3' %}
+                        <div class="row px-5">
+                            <p class="mr-5">{{ course['id'] }}</p>
+                            <p class="mr-auto">{{ course['name'] }}</p>
+                            <p class="mr-5">{{ course['credit'] }}學分</p>
+                            <p>學期總分：{{ course['score'] }}</p>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            <div style="border-radius: 20px" class="card shadow my-5">
+                <div class="card-body">
+                    <div class="row px-3 justify-content-between">
+                        <h4 class="card-title mb-4 mt-2">必修</h4>
+                        <h6 id="text-necessary" class="card-subtitle mt-2 mb-4 text-muted">已修 0 學分</h6>
+                    </div>
+                    {% for course in studentCourseData %}
+                        {% if course['category'] == 'A1' %}
+                        <div class="row px-5">
+                            <p class="mr-5">{{ course['id'] }}</p>
+                            <p class="mr-auto">{{ course['name'] }}</p>
+                            <p class="mr-5">{{ course['credit'] }}學分</p>
+                            <p>學期總分：{{ course['score'] }}</p>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                    <div class="dropdown-divider my-4"></div>
+                    <div class="row px-3 justify-content-between">
+                        <h4 class="card-title mb-4 mt-2">選修</h4>
+                        <h6 id="text-optional" class="card-subtitle mt-2 mb-4 text-muted">已修 0 學分</h6>
+                    </div>
+                    {% for course in studentCourseData %}
+                        {% if course['category'] == 'A2' %}
+                        <div class="row px-5">
+                            <p class="mr-5">{{ course['id'] }}</p>
+                            <p class="mr-auto">{{ course['name'] }}</p>
+                            <p class="mr-5">{{ course['credit'] }}學分</p>
+                            <p>學期總分：{{ course['score'] }}</p>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
                 </div>
             </div>
         </div>
+    </div>
+
+    <div style="display: none;" class="col">
+        <p id='credit-A1'>{{ studentCourseCredits['A1'] }}</p>
+        <p id='credit-A2'>{{ studentCourseCredits['A2'] }}</p>
+        <p id='credit-A3'>{{ studentCourseCredits['A3'] }}</p>
+        <p id='credit-AC'>{{ studentCourseCredits['AC'] }}</p>
+        <p id='credit-AE'>{{ studentCourseCredits['AE'] }}</p>
+        <p id='credit-B1'>{{ studentCourseCredits['B1'] }}</p>
+        <p id='credit-B2'>{{ studentCourseCredits['B2'] }}</p>
+        <p id='credit-B3'>{{ studentCourseCredits['B3'] }}</p>
+        <p id='credit-B4'>{{ studentCourseCredits['B4'] }}</p>
+        <p id='credit-B5'>{{ studentCourseCredits['B5'] }}</p>
+        <p id='credit-B6'>{{ studentCourseCredits['B6'] }}</p>
+        <p id='credit-C1'>{{ studentCourseCredits['C1'] }}</p>
+        <p id='credit-C2'>{{ studentCourseCredits['C2'] }}</p>
+        <p id='credit-C3'>{{ studentCourseCredits['C3'] }}</p>
     </div>
 
     <!--Bootstrap CDN START-->
