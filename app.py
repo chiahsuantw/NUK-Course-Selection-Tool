@@ -7,7 +7,7 @@ import hashlib
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '3c178af81e8f023e05fc72c56757417158aaeff46e23263df647d9fdc4ad2452'
 
-ENV = 'DEV'
+ENV = 'PROD'
 
 # def user_account():
 #     return request.cookies.get('Account')
