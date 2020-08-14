@@ -78,7 +78,6 @@ def logout():
 
 @app.route('/profile')
 def profile():
-<<<<<<< HEAD
     cookieAccount = request.cookies.get('Account')
     cookiePassword = request.cookies.get('Password')
     set_user_data(cookieAccount, cookiePassword)
@@ -87,8 +86,6 @@ def profile():
     studentCourseCredits = get_student_progress()
     if cookieAccount == None or cookiePassword == None:
         return redirect(url_for('login'))
-=======
->>>>>>> b2963d88f484997198164b96e747af5a39f6ec19
     return render_template('profile.html', studentCourseData=studentCourseData, studentCourseCredits=studentCourseCredits)
 
 
