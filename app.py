@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, make_response
-from scraper import run, get_student_course, get_student_progress
+from scraper import run, get_student_course, get_student_progress, get_graduate_info
 import requests
 import json
 import hashlib
@@ -22,10 +22,21 @@ else:
 def index():
     cookieAccount = request.cookies.get('Account')
     cookiePassword = request.cookies.get('Password')
+    cookieName = request.cookies.get('Name')
+    
+    userName = '訪客'
+    userId = 'A0000000'
     hasLoggedIn = 'False'
+    
     if cookieAccount != None and cookiePassword != None:
         hasLoggedIn = 'True'
-    return render_template('index.html', hasLoggedIn=hasLoggedIn, courseData=courseData)
+        userName = cookieName
+        userId = cookieAccount
+    return render_template('index.html', 
+                            userName=userName, 
+                            userId=userId, 
+                            hasLoggedIn=hasLoggedIn, 
+                            courseData=courseData)
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -50,7 +61,9 @@ def login():
     res.encoding = 'big5'
 
     if res.headers['Content-Length'] != '992':
+        studentGraduateInfo = get_graduate_info(account, password)  # 取得學生基本資料
         response = make_response(redirect(url_for('profile')))
+        response.set_cookie('Name', studentGraduateInfo['student_name'])
         response.set_cookie('Account', account)
         response.set_cookie('Password', password)
         return response
@@ -65,6 +78,7 @@ def logout():
         res = make_response(redirect(url_for('index')))
         res.delete_cookie('Account')
         res.delete_cookie('Password')
+        res.delete_cookie('Name')
         return res
     else:
         return redirect(url_for('index'))
@@ -74,12 +88,20 @@ def logout():
 def profile():
     cookieAccount = request.cookies.get('Account')
     cookiePassword = request.cookies.get('Password')
+    cookieName = request.cookies.get('Name')
+
     if cookieAccount == None or cookiePassword == None:
         return redirect(url_for('login'))
 
+    userName = cookieName
     studentCourseData = get_student_course(run(cookieAccount, cookiePassword))
     studentCourseCredits = get_student_progress(run(cookieAccount, cookiePassword))
+    studentGraduateInfo = get_graduate_info(cookieAccount, cookiePassword)
+    
     return render_template('profile.html',
+                            userName=userName,
+                            userId=cookieAccount,
+                            studentGraduateInfo=studentGraduateInfo,
                             studentCourseData=studentCourseData,
                             studentCourseCredits=studentCourseCredits)
 

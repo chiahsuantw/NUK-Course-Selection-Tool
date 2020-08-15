@@ -36,8 +36,8 @@
                     <div class="dropdown-header d-flex align-items-center">
                         <img class="dropdown-user-img" style="width: 54px; height: 54px;" src="/static/img/user.png">
                         <div class="dropdown-user-details ml-3">
-                            <h5 class="mb-0">使用者</h5>
-                            <div class="">A1080000</div>
+                            <h5 class="mb-0">{{ userName }}</h5>
+                            <div class="">{{ userId }}</div>
                         </div>
                     </div>
                     <div class="dropdown-divider"></div>
@@ -67,9 +67,33 @@
         <div class="col-lg-8 text-left pb-5" style="padding-top: 100px;">
             <div style="border-radius: 20px" class="card shadow my-5">
                 <div class="card-body">
-                    <div class="row justify-content-center mt-2">
-                        <img class="mx-4" style="width: 45px;" src="/static/img/diploma.svg">
-                        <h2 id="totalCredit">目前已修 0 學分</h2>
+                    <div class="row justify-content-center py-3 pl-4 pr-5 pb-0">
+                        <div class="col text-center">
+                            <img src="/static/img/user.png"/>
+                            <h5 id="text-student-name">林嘉軒</h5>
+                        </div>
+                        <div class="col">
+                            <div class="row">
+                                <img class="mx-2" style="height: 30px;" src="https://img.icons8.com/fluent/30/000000/gender-neutral-user.png"/>
+                                <h4 class="mb-0" style="color:midnightblue">個人資料</h4>
+                            </div>
+                            <div class="dropdown-divider my-3"></div>
+                            <p id="text-aca">院別：</p>
+                            <p id="text-year">入學年度：</p>
+                            <p id="text-dept">系所：</p>
+                            <p id="text-class">組別：</p>
+                        </div>
+                        <div class="col">
+                            <div class="row">
+                                <img class="mx-2" style="height: 30px;" src="https://img.icons8.com/fluent/30/000000/reading.png"/>
+                                <h4 class="mb-0" style="color:midnightblue">學分資訊</h4>
+                            </div>
+                            <div class="dropdown-divider my-3"></div>
+                            <p id="text-lowest-credit">最低畢業學分數：</p>
+                            <p id="text-necess-credit">必修學分數：</p>
+                            <p id="text-option-credit">選修學分數：</p>
+                            <p id="totalCredit">目前已修學分：</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -251,7 +275,10 @@
                 <div class="card-body">
                     <div class="row px-3 justify-content-between">
                         <h4 class="card-title mb-4 mt-2">必修</h4>
-                        <h6 id="text-necessary" class="card-subtitle mt-2 mb-4 text-muted">已修 0 學分</h6>
+                        <h6 id="text-necessary" class="card-subtitle mt-5 mb-2 text-muted">已修 0 學分</h6>
+                    </div>
+                    <div class="progress mb-4" style="height: 20px;">
+                        <div id="progress-necessary" style="background-color: #90caf9;" class="progress-bar" role="progressbar" style="width: 0%;"></div>
                     </div>
                     {% for course in studentCourseData %}
                         {% if course['category'] == 'A1' %}
@@ -266,7 +293,10 @@
                     <div class="dropdown-divider my-4"></div>
                     <div class="row px-3 justify-content-between">
                         <h4 class="card-title mb-4 mt-2">選修</h4>
-                        <h6 id="text-optional" class="card-subtitle mt-2 mb-4 text-muted">已修 0 學分</h6>
+                        <h6 id="text-optional" class="card-subtitle mt-5 mb-2 text-muted">已修 0 學分</h6>
+                    </div>
+                    <div class="progress mb-4" style="height: 20px;">
+                        <div id="progress-optional" style="background-color: #aed581;" class="progress-bar" role="progressbar" style="width: 0%;"></div>
                     </div>
                     {% for course in studentCourseData %}
                         {% if course['category'] == 'A2' %}
@@ -298,6 +328,17 @@
         <p id='credit-C1'>{{ studentCourseCredits['C1'] }}</p>
         <p id='credit-C2'>{{ studentCourseCredits['C2'] }}</p>
         <p id='credit-C3'>{{ studentCourseCredits['C3'] }}</p>
+    </div>
+
+    <div style="display: none;" class="col">
+        <p id='student-name'>{{ studentGraduateInfo['student_name'] }}</p>
+        <p id='student-aca'>{{ studentGraduateInfo['院別'] }}</p>
+        <p id='student-aca-year'>{{ studentGraduateInfo['student_acayear'] }}</p>
+        <p id='student-dept'>{{ studentGraduateInfo['系所'] }}</p>
+        <p id='student-class'>{{ studentGraduateInfo['組別'] }}</p>
+        <p id='student-necess-credit'>{{ studentGraduateInfo['系所必修學分數'] }}</p>
+        <p id='student-option-credit'>{{ studentGraduateInfo['系所選修學分數'] }}</p>
+        <p id='student-lowest-credit'>{{ studentGraduateInfo['最低畢業學分數'] }}</p>
     </div>
 
     <!--Bootstrap CDN START-->

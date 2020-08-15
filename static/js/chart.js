@@ -1,3 +1,4 @@
+// 學分爬蟲後資料處理
 $(document).ready(function () {
     
     var chineseCredits = parseFloat($('#credit-AC').text());
@@ -35,8 +36,13 @@ $(document).ready(function () {
     $('#text-core').text('已修 ' + coreProgress + ' / 4 向度');
     $('#text-side').text('已修 ' + sideProgress + ' / 3 向度');
 
-    $('#text-necessary').text('已修 ' + parseFloat($('#credit-A1').text()) + ' 學分');
-    $('#text-optional').text('已修 ' + parseFloat($('#credit-A2').text()) + ' 學分');
+    $('#text-necessary').text('已修 ' + parseFloat($('#credit-A1').text()) + ' / ' + $('#student-necess-credit').text());
+    $('#text-optional').text('已修 ' + parseFloat($('#credit-A2').text()) + ' / ' + $('#student-option-credit').text());
+    console.log(parseFloat($('#student-necess-credit').text().slice(0, -3)))
+    $('#progress-necessary').css('width', (parseFloat($('#credit-A1').text()) / 
+                                            parseFloat($('#student-necess-credit').text().slice(0, -3)) * 100).toString() + '%');
+    $('#progress-optional').css('width', (parseFloat($('#credit-A2').text()) / 
+                                            parseFloat($('#student-option-credit').text().slice(0, -3)) * 100).toString() + '%');
 
     total = 0;
     total += parseFloat($('#credit-A1').text());
@@ -54,12 +60,24 @@ $(document).ready(function () {
     total += parseFloat($('#credit-C2').text());
     total += parseFloat($('#credit-C3').text());
     
-    console.log(total);
-    $('#totalCredit').text('目前已修 ' + total + ' 學分');
+    $('#totalCredit').text('目前已修：' + total + ' 學分');
     
     $('#progress-chinese').css('width', (chineseCredits / 4 * 100).toString() + '%');
     $('#progress-english').css('width', (englishCredits / 4 * 100).toString() + '%');
     $('#progress-general').css('width', ((coreGeneralEduCredits + sideGeneralEduCredits) / 24 * 100).toString() + '%');
     $('#progress-core').css('width', (coreProgress / 4 * 100).toString() + '%');
     $('#progress-side').css('width', (sideProgress / 3 * 100).toString() + '%');
+});
+
+// 學生個人資料處理
+$(document).ready(function () {
+    $('#text-student-name').text($('#student-name').text());
+    $('#text-aca').text('學院：' + $('#student-aca').text());
+    $('#text-year').text('入學年度：' + $('#student-aca-year').text() + ' 學年度');
+    $('#text-dept').text('系所：' + $('#student-dept').text());
+    $('#text-class').text('組別：' + $('#student-class').text());
+
+    $('#text-lowest-credit').text('系必修學分數：' + $('#student-necess-credit').text());
+    $('#text-necess-credit').text('系選修學分數：' + $('#student-option-credit').text());
+    $('#text-option-credit').text('最低畢業學分數：' + $('#student-lowest-credit').text());
 });
