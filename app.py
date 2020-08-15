@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, make_response
-from scraper import set_user_data, get_student_course, get_student_progress
+from scraper import run, get_student_course, get_student_progress
 import requests
 import json
 import hashlib
@@ -9,18 +9,6 @@ app.config['SECRET_KEY'] = '3c178af81e8f023e05fc72c56757417158aaeff46e23263df647
 
 ENV = 'PROD'
 
-# def user_account():
-#     return request.cookies.get('Account')
-
-# def user_password():
-#     return request.cookies.get('Password')
-
-# with open('static\\json\\studentCourse.json', 'r', encoding='utf-8-sig') as jsonFile1:
-#     studentCourseData = json.load(jsonFile1)
-
-# with open('static\\json\\student_credits.json', 'r', encoding='utf-8-sig') as jsonFile3:
-#     studentCourseCredits = json.load(jsonFile3)
-
 if ENV == 'DEV':
     with open('static\\json\\course.json', 'r', encoding='utf-8-sig') as jsonFile2:
         courseData = json.load(jsonFile2)
@@ -29,13 +17,24 @@ else:
     response = requests.get(url)
     courseData = json.loads(response.text)
 
+
 @app.route('/')
 def index():
-    return render_template('index.html', courseData=courseData)
+    cookieAccount = request.cookies.get('Account')
+    cookiePassword = request.cookies.get('Password')
+    hasLoggedIn = 'False'
+    if cookieAccount != None and cookiePassword != None:
+        hasLoggedIn = 'True'
+    return render_template('index.html', hasLoggedIn=hasLoggedIn, courseData=courseData)
 
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    cookieAccount = request.cookies.get('Account')
+    cookiePassword = request.cookies.get('Password')
+    if cookieAccount != None and cookiePassword != None:
+        return redirect(url_for('profile'))
+
     if request.method == 'GET':
         return render_template('login.html')
 
@@ -62,31 +61,27 @@ def login():
 
 @app.route('/logout')
 def logout():
-    return 'logout'
-
-
-# @app.route('/delcookie')
-# def delete_cookie():
-#     if request.cookies.get('TeamName') != None:
-#         res = make_response(redirect(url_for('home')))
-#         res.delete_cookie('TeamName')
-#         res.delete_cookie('User')
-#         return res
-#     else:
-#         return redirect(url_for('home'))
+    if request.cookies.get('Account') != None:
+        res = make_response(redirect(url_for('index')))
+        res.delete_cookie('Account')
+        res.delete_cookie('Password')
+        return res
+    else:
+        return redirect(url_for('index'))
 
 
 @app.route('/profile')
 def profile():
     cookieAccount = request.cookies.get('Account')
     cookiePassword = request.cookies.get('Password')
-    set_user_data(cookieAccount, cookiePassword)
-
-    studentCourseData = get_student_course()
-    studentCourseCredits = get_student_progress()
     if cookieAccount == None or cookiePassword == None:
         return redirect(url_for('login'))
-    return render_template('profile.html', studentCourseData=studentCourseData, studentCourseCredits=studentCourseCredits)
+
+    studentCourseData = get_student_course(run(cookieAccount, cookiePassword))
+    studentCourseCredits = get_student_progress(run(cookieAccount, cookiePassword))
+    return render_template('profile.html',
+                            studentCourseData=studentCourseData,
+                            studentCourseCredits=studentCourseCredits)
 
 
 if __name__ == "__main__":
