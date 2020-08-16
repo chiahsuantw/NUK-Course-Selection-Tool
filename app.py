@@ -20,6 +20,11 @@ else:
 
 @app.route('/')
 def index():
+    return 'index'
+
+
+@app.route('/home')
+def home():
     cookieAccount = request.cookies.get('Account')
     cookiePassword = request.cookies.get('Password')
     cookieName = request.cookies.get('Name')
@@ -32,11 +37,33 @@ def index():
         hasLoggedIn = 'True'
         userName = cookieName
         userId = cookieAccount
-    return render_template('index.html', 
+    return render_template('home.html', 
                             userName=userName, 
                             userId=userId, 
                             hasLoggedIn=hasLoggedIn, 
                             courseData=courseData)
+
+
+@app.route('/profile')
+def profile():
+    cookieAccount = request.cookies.get('Account')
+    cookiePassword = request.cookies.get('Password')
+    cookieName = request.cookies.get('Name')
+
+    if cookieAccount == None or cookiePassword == None:
+        return redirect(url_for('login'))
+
+    userName = cookieName
+    studentCourseData = get_student_course(run(cookieAccount, cookiePassword))
+    studentCourseCredits = get_student_progress(run(cookieAccount, cookiePassword))
+    studentGraduateInfo = get_graduate_info(cookieAccount, cookiePassword)
+    
+    return render_template('profile.html',
+                            userName=userName,
+                            userId=cookieAccount,
+                            studentGraduateInfo=studentGraduateInfo,
+                            studentCourseData=studentCourseData,
+                            studentCourseCredits=studentCourseCredits)
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -75,17 +102,38 @@ def login():
 @app.route('/logout')
 def logout():
     if request.cookies.get('Account') != None:
-        res = make_response(redirect(url_for('index')))
+        res = make_response(redirect(url_for('home')))
         res.delete_cookie('Account')
         res.delete_cookie('Password')
         res.delete_cookie('Name')
         return res
     else:
-        return redirect(url_for('index'))
+        return redirect(url_for('home'))
 
 
-@app.route('/profile')
-def profile():
+@app.route('/m/home')
+def mobile_home():
+    cookieAccount = request.cookies.get('Account')
+    cookiePassword = request.cookies.get('Password')
+    cookieName = request.cookies.get('Name')
+    
+    userName = '訪客'
+    userId = 'A0000000'
+    hasLoggedIn = 'False'
+    
+    if cookieAccount != None and cookiePassword != None:
+        hasLoggedIn = 'True'
+        userName = cookieName
+        userId = cookieAccount
+    return render_template('mobile_home.html', 
+                            userName=userName, 
+                            userId=userId, 
+                            hasLoggedIn=hasLoggedIn, 
+                            courseData=courseData)
+
+
+@app.route('/m/profile')
+def mobile_profile():
     cookieAccount = request.cookies.get('Account')
     cookiePassword = request.cookies.get('Password')
     cookieName = request.cookies.get('Name')
@@ -98,7 +146,7 @@ def profile():
     studentCourseCredits = get_student_progress(run(cookieAccount, cookiePassword))
     studentGraduateInfo = get_graduate_info(cookieAccount, cookiePassword)
     
-    return render_template('profile.html',
+    return render_template('mobile_profile.html',
                             userName=userName,
                             userId=cookieAccount,
                             studentGraduateInfo=studentGraduateInfo,

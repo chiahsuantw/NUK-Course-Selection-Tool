@@ -39,7 +39,7 @@ $(document).ready(function () {
 
     $('#text-necessary').text('已修 ' + parseFloat($('#credit-A1').text()) + ' / ' + $('#student-necess-credit').text());
     $('#text-optional').text('已修 ' + parseFloat($('#credit-A2').text()) + ' / ' + $('#student-option-credit').text());
-    console.log(parseFloat($('#student-necess-credit').text().slice(0, -3)))
+
     $('#progress-necessary').css('width', (parseFloat($('#credit-A1').text()) / 
                                             parseFloat($('#student-necess-credit').text().slice(0, -3)) * 100).toString() + '%');
     $('#progress-optional').css('width', (parseFloat($('#credit-A2').text()) / 

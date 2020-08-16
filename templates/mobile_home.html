@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="h-100">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/css/bootstrap-select.min.css"
+        integrity="sha512-ARJR74swou2y0Q2V9k0GbzQ/5vJ2RBSoCWokg4zkfM29Fb3vZEQyv0iWBMW/yvKgyHSR/7D64pFMmU8nYmbRkg=="
+        crossorigin="anonymous" />
+    <link rel="icon" href="/static/img/icon.png" type="image/x-icon">
+    <style>
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+    </style>
+    <title>高大選課工具</title>
+</head>
+
+<body class="nav-fixed h-100">
+    <nav class="topnav navbar navbar-expand shadow navbar-light bg-white" id="topnavbar" style="z-index: 1035;">
+        <a class="navbar-brand active" href="/home">
+            <ul class="navbar-nav align-items-center">
+                <img class="mr-2" style="width: 32px; height: 32px;"
+                    src="https://img.icons8.com/fluent/32/000000/calendar.png" />
+                <h4 class="mt-1">高大選課工具</h4>
+            </ul>
+        </a>
+        <ul class="navbar-nav align-items-center ml-auto">
+            <!-- <li class="nav-item  ml-2 mr-3">
+                <div class="row shadow rounded-pill px-2" style="background-color: #036fc6;">
+                    <p id="credit" style="color: white;" class="m-1">已選學分 0</p>
+                    <div class="col align-self-center p-0">
+                        <img id="warningIcon" style="height: 24px;" src="https://img.icons8.com/fluent/24/000000/cancel.png"/>
+                    </div>
+                </div>
+            </li> -->
+            <li class="nav-item dropdown no-caret mr-2 dropdown-user">
+                <a class="btn btn-icon btn-transparent-dark dropdown-toggle" id="navbarDropdownUserImage"
+                    href="javascript:void(0);" role="button" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                    <img style="width: 36px; height: 36px;" src="/static/img/user.png">
+                </a>
+                <div class="dropdown-menu dropdown-menu-right border-0 shadow animated--fade-in-up mt-4 p-3"
+                    aria-labelledby="navbarDropdownUserImage">
+                    <div class="dropdown-header d-flex align-items-center">
+                        <img class="dropdown-user-img" style="width: 54px; height: 54px;" src="/static/img/user.png">
+                        <div class="dropdown-user-details ml-3">
+                            <h5 class="mb-0">{{ userName }}</h5>
+                            <div class="">{{ userId }}</div>
+                        </div>
+                    </div>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="/profile">
+                        <div class="row pl-2">
+                            <div class="dropdown-item-icon">
+                                <img src="https://img.icons8.com/fluent/24/000000/resume-website.png"/>
+                            </div>
+                            <p class="mx-2 mb-0" style="padding-top: 2px;">我的學分</p>
+                        </div>
+                    </a>
+                    {% if hasLoggedIn == 'False' %}
+                    <a class="dropdown-item" href="/login">
+                        <div class="row pl-2">
+                            <div class="dropdown-item-icon">
+                                <img src="https://img.icons8.com/fluent/24/000000/key.png"/>
+                            </div>
+                            <p class="mx-2 mb-0" style="padding-top: 2px;">登入</p>
+                        </div>
+                    </a>
+                    {% else %}
+                    <a class="dropdown-item" href="/logout">
+                        <div class="row pl-2">
+                            <div class="dropdown-item-icon">
+                                <img src="https://img.icons8.com/fluent/24/000000/exit.png"/>
+                            </div>
+                            <p class="mx-2 mb-0" style="padding-top: 2px;">登出</p>
+                        </div>
+                    </a>
+                    {% endif %}
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="jumbotron fixed-top mb-0 h-100 rounded-0 px-4 pb-4" style="padding-top: 90px;">
+        <div class="row h-100">
+            <div class="col-xl-12 p-0 mb-4 h-100">
+                <div style="border-radius: 20px" class="card h-100 p-2 shadow">
+                    <div class="card-body h-100 justify-content-center p-2">
+                        <div class="row mx-2 mb-3">
+                            <select id="deptSelect" class="selectpicker show-tick mx-1" data-width="fit"
+                                data-style="btn-info">
+                                <option value="GR">共同必修</option>
+                                <option value="CC">核心通識</option>
+                                <option value="LI">通識人文科學類</option>
+                                <option value="SC">通識自然科學類</option>
+                                <option value="SO">通識社會科學類</option>
+                                <option value="MI">通識微學分</option>
+                                <option value="CD">全民國防教育類</option>
+                                <option value="IN">興趣選修</option>
+                                <option data-divider="true"></option>
+                                <option value="WL">西洋語文學系</option>
+                                <option value="KH">運動健康與休閒學系</option>
+                                <option value="CCD">工藝與創意設計學系</option>
+                                <option value="DA">建築學系</option>
+                                <option value="CDA">創意設計與建築學系</option>
+                                <option value="EL">東亞語文學系</option>
+                                <option value="DAP">運動競技學系</option>
+                                <option value="CHS">人文社會科學院共同課程</option>
+                                <option data-divider="true"></option>
+                                <option value="LA">法律學系</option>
+                                <option value="GL">政治法律學系</option>
+                                <option value="FL">財經法律學系</option>
+                                <option value="CCL">法學院共同課程</option>
+                                <option data-divider="true"></option>
+                                <option value="AE">應用經濟學系</option>
+                                <option value="FI">金融管理學系</option>
+                                <option value="IM">資訊管理學系</option>
+                                <option value="AB">亞太工商管理學系</option>
+                                <option value="CCM">管理學院共同課程</option>
+                                <option data-divider="true"></option>
+                                <option value="AM">應用數學系</option>
+                                <option value="AC">應用化學系</option>
+                                <option value="AP">應用物理學系</option>
+                                <option value="LS">生命科學系</option>
+                                <option value="CCS">理學院共同課程</option>
+                                <option data-divider="true"></option>
+                                <option value="EE">電機工程學系</option>
+                                <option value="CE">土木與環境工程學系</option>
+                                <option value="CS">資訊工程學系</option>
+                                <option value="CM">化學工程及材料工程學系</option>
+                                <option data-divider="true"></option>
+                                <option value="ISP">國際學生系</option>
+                                <option value="IFD">創新學院不分系</option>
+                            </select>
+                            <select id="gradeSelect" class="selectpicker show-tick mx-1" data-width="fit"
+                                data-style="btn-info">
+                                <option value="1">大一</option>
+                                <option value="2">大二</option>
+                                <option value="3">大三</option>
+                                <option value="4">大四</option>
+                            </select>
+                            <!--SearchBox //Enhancement: search course by typing keywords//
+                            <div class="form-group mx-2">
+                                <input type="search" class="form-control searchCourse" placeholder="搜尋" data-table="courseTable">
+                            </div>
+                            <a data-toggle="tooltip" data-placement="top" title="搜尋課程、教授">
+                                <img style="width: 36px; height: 36px;" src="https://img.icons8.com/fluent/36/000000/search.png"/>
+                            </a>-->
+                            <!--PrintTable() //Enhancement: render id:timeTable and save as jpg files//
+                            <a class="ml-auto" href="javascript: printTable()" data-toggle="tooltip" data-placement="top" title="輸出課表">
+                                <img src="https://img.icons8.com/fluent/36/000000/print.png"/>
+                            </a>
+                            -->
+                            <!-- <a href="javascript: selected()" class="ml-auto" data-toggle="tooltip" data-placement="top"
+                                title="已選課程">
+                                <img src="https://img.icons8.com/fluent/36/000000/checkmark.png" />
+                            </a>
+                            <a href="/home" class="ml-3" data-toggle="tooltip" data-placement="top" title="移除全部">
+                                <img src="https://img.icons8.com/fluent/36/000000/filled-trash.png" />
+                            </a>
+                            <a href="javascript: save()" class="ml-3" data-toggle="tooltip" data-placement="top" title="下載選課資料">
+                                <img src="https://img.icons8.com/fluent/36/000000/save.png"/>
+                            </a> -->
+                            <a class="ml-auto" data-toggle="tooltip" data-placement="top" title="使用方式">
+                                <img class="mr-2" src="https://img.icons8.com/fluent/36/000000/info.png" />
+                            </a>
+                        </div>
+                        <div id="scrollControl" style="height: calc(100% - 62px);" class="overflow-auto">
+                            <table class="table table-hover courseTable">
+                                <tbody>
+                                    {% for i in courseData %}
+                                    <tr class="control {{ i['dept'] }}-{{ i['grade'] }}" style="display: none;">
+                                        <td class="pl-2 pr-0" width="50%" id="courseName">
+                                            <p style="font-size:medium;" class="font-weight-bold mb-0">{{ i['name'] }} {{ i['class'] }}</p>
+                                        </td>
+                                        <td width="20%" id="courseTeacher"><p style="font-size:small;">{{ i['teacher'] }}</p></td>
+                                        <td width="20%">
+                                            {% for j in i['period'] %}
+                                            {% if j[0] == 1 %}
+                                            <small style="font-size: x-small;">一{{ j[1] }},</small>
+                                            {% elif j[0] == 2 %}
+                                            <small style="font-size: x-small;">二{{ j[1] }},</small>
+                                            {% elif j[0] == 3 %}
+                                            <small style="font-size: x-small;">三{{ j[1] }},</small>
+                                            {% elif j[0] == 4 %}
+                                            <small style="font-size: x-small;">四{{ j[1] }},</small>
+                                            {% elif j[0] == 5 %}
+                                            <small style="font-size: x-small;">五{{ j[1] }},</small>
+                                            {% elif j[0] == 6 %}
+                                            <small style="font-size: x-small;">六{{ j[1] }},</small>
+                                            {% elif j[0] == 7 %}
+                                            <small style="font-size: x-small;">日{{ j[1] }},</small>
+                                            {% endif %}
+                                            {% endfor %}
+                                        </td>
+                                        <td class="pl-0 pr-2"><a class="dcardLink" href="" target="_blank"><img
+                                                    style="width: 26px; height: 26px;" src="/static/img/dcard.png"></a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                                
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Bootstrap CDN START-->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"
+        integrity="sha512-yDlE7vpGDP7o2eftkCiPZ+yuUyEcaBwoJoIhdXv71KZWugFqEphIS3PU60lEkFaz8RxaVsMpSvQxMBaKVwA5xg=="
+        crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="/static/js/style.js"></script>
+    <script type="text/javascript" src="/static/js/table.js"></script>
+</body>
+
+</html>
