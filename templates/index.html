@@ -44,6 +44,9 @@
             <li class="nav-item  ml-2 mr-3">
                 <div class="row shadow rounded-pill px-2" style="background-color: #036fc6;">
                     <p id="credit" style="color: white;" class="m-1">已選學分 0</p>
+                    <div class="col align-self-center p-0">
+                        <img id="warningIcon" style="height: 24px;" src="https://img.icons8.com/fluent/24/000000/cancel.png"/>
+                    </div>
                 </div>
             </li>
             <li class="nav-item dropdown no-caret mr-2 dropdown-user">
@@ -345,6 +348,9 @@
                             <a href="/" class="ml-3" data-toggle="tooltip" data-placement="top" title="移除全部">
                                 <img src="https://img.icons8.com/fluent/36/000000/filled-trash.png" />
                             </a>
+                            <a href="javascript: save()" class="ml-3" data-toggle="tooltip" data-placement="top" title="下載選課資料">
+                                <img src="https://img.icons8.com/fluent/36/000000/save.png"/>
+                            </a>
                             <a class="ml-3" data-toggle="tooltip" data-placement="top" title="使用方式">
                                 <img class="mr-2" src="https://img.icons8.com/fluent/36/000000/info.png" />
                             </a>
@@ -360,6 +366,7 @@
                                             <p class="font-weight-bold mb-0">{{ i['name'] }} {{ i['class'] }}</p>
                                         </td>
                                         <td id="courseTeacher" width="15%">{{ i['teacher'] }}</td>
+                                        <td id="courseDept" style="display: none;">{{ i['dept'] }}</td>
                                         <td id="courseCategory" style="display: none;">{{ i['category'] }}</td>
                                         <td id="courseLocation" style="display: none;">{{ i['location'] }}</td>
                                         <td width="17%">
@@ -390,6 +397,7 @@
                                     </tr>
                                     {% endfor %}
                                 </tbody>
+                                
                             </table>
                         </div>
                     </div>

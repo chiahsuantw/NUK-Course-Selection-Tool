@@ -269,12 +269,29 @@
                         </div>
                         {% endif %}
                     {% endfor %}
+                    <div class="row px-3 justify-content-between">
+                        <h5 class="card-subtitle my-4">跨院選修與微學分</h5>
+                        <h6 id="text-cross" class="card-subtitle mt-5 mb-2 text-muted">已修 0 / 6 向度</h6>
+                    </div>
+                    <div class="progress mb-4" style="height: 20px;">
+                        <div id="progress-cross" class="progress-bar" style="background-color: #ffcc80;" role="progressbar" style="width: 0%;"></div>
+                    </div>
+                    {% for course in studentCourseData %}
+                        {% if course['category'] == 'D0' %}
+                        <div class="row px-5">
+                            <p class="mr-5">{{ course['id'] }}</p>
+                            <p class="mr-auto">{{ course['name'] }}</p>
+                            <p class="mr-5">{{ course['credit'] }}學分</p>
+                            <p>學期總分：{{ course['score'] }}</p>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
                 </div>
             </div>
             <div style="border-radius: 20px" class="card shadow my-5">
                 <div class="card-body">
                     <div class="row px-3 justify-content-between">
-                        <h4 class="card-title mb-4 mt-2">必修</h4>
+                        <h4 class="card-title mb-4 mt-2">系必修</h4>
                         <h6 id="text-necessary" class="card-subtitle mt-5 mb-2 text-muted">已修 0 學分</h6>
                     </div>
                     <div class="progress mb-4" style="height: 20px;">
@@ -292,7 +309,7 @@
                     {% endfor %}
                     <div class="dropdown-divider my-4"></div>
                     <div class="row px-3 justify-content-between">
-                        <h4 class="card-title mb-4 mt-2">選修</h4>
+                        <h4 class="card-title mb-4 mt-2">系選修</h4>
                         <h6 id="text-optional" class="card-subtitle mt-5 mb-2 text-muted">已修 0 學分</h6>
                     </div>
                     <div class="progress mb-4" style="height: 20px;">
@@ -328,6 +345,7 @@
         <p id='credit-C1'>{{ studentCourseCredits['C1'] }}</p>
         <p id='credit-C2'>{{ studentCourseCredits['C2'] }}</p>
         <p id='credit-C3'>{{ studentCourseCredits['C3'] }}</p>
+        <p id='credit-D0'>{{ studentCourseCredits['D0'] }}</p>
     </div>
 
     <div style="display: none;" class="col">

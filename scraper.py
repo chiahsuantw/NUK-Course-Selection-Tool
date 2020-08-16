@@ -95,12 +95,13 @@ def run(account, password):
         elif course_id[0:2] == 'SC':
             df_doneCourse.loc[doneCourse.index(course), 'category'] = 'C3'
         else:
-            if course[4] and course_id[:2] == student_aca_code:
-                # 若為它系畢修，將視為選修學分
-                df_doneCourse.loc[doneCourse.index(course), 'category'] = 'A1'
+            if course_id[:2] != student_aca_code:
+                # 跨院選修及微學分通識
+                df_doneCourse.loc[doneCourse.index(course), 'category'] = 'D0'
+            elif course[4]:
+                df_doneCourse.loc[doneCourse.index(course), 'category'] = 'A1' 
             else:
                 df_doneCourse.loc[doneCourse.index(course), 'category'] = 'A2'
-
     return df_doneCourse
 
 
@@ -157,7 +158,7 @@ def get_student_progress(df_doneCourse):
 
     # 處理漏掉的項度
     cateclass = ['A1', 'A2', 'A3', 'AC', 'AE', 'B1',
-                'B2', 'B3', 'B4', 'B5', 'B6', 'C1', 'C2', 'C3']
+                'B2', 'B3', 'B4', 'B5', 'B6', 'C1', 'C2', 'C3', 'D0']
     for cate in [cates for cates in cateclass if cates not in df_courseBar.keys()]:
         df_courseBar[cate] = 0.0
 
