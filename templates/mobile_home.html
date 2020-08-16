@@ -155,42 +155,17 @@
                                 <option value="3">大三</option>
                                 <option value="4">大四</option>
                             </select>
-                            <!--SearchBox //Enhancement: search course by typing keywords//
-                            <div class="form-group mx-2">
-                                <input type="search" class="form-control searchCourse" placeholder="搜尋" data-table="courseTable">
-                            </div>
-                            <a data-toggle="tooltip" data-placement="top" title="搜尋課程、教授">
-                                <img style="width: 36px; height: 36px;" src="https://img.icons8.com/fluent/36/000000/search.png"/>
-                            </a>-->
-                            <!--PrintTable() //Enhancement: render id:timeTable and save as jpg files//
-                            <a class="ml-auto" href="javascript: printTable()" data-toggle="tooltip" data-placement="top" title="輸出課表">
-                                <img src="https://img.icons8.com/fluent/36/000000/print.png"/>
-                            </a>
-                            -->
-                            <!-- <a href="javascript: selected()" class="ml-auto" data-toggle="tooltip" data-placement="top"
-                                title="已選課程">
-                                <img src="https://img.icons8.com/fluent/36/000000/checkmark.png" />
-                            </a>
-                            <a href="/home" class="ml-3" data-toggle="tooltip" data-placement="top" title="移除全部">
-                                <img src="https://img.icons8.com/fluent/36/000000/filled-trash.png" />
-                            </a>
-                            <a href="javascript: save()" class="ml-3" data-toggle="tooltip" data-placement="top" title="下載選課資料">
-                                <img src="https://img.icons8.com/fluent/36/000000/save.png"/>
-                            </a> -->
-                            <a class="ml-auto" data-toggle="tooltip" data-placement="top" title="使用方式">
-                                <img class="mr-2" src="https://img.icons8.com/fluent/36/000000/info.png" />
-                            </a>
                         </div>
-                        <div id="scrollControl" style="height: calc(100% - 62px);" class="overflow-auto">
+                        <div id="scrollControl" style="height: calc(100% - 100px);" class="overflow-auto">
                             <table class="table table-hover courseTable">
                                 <tbody>
                                     {% for i in courseData %}
                                     <tr class="control {{ i['dept'] }}-{{ i['grade'] }}" style="display: none;">
-                                        <td class="pl-2 pr-0" width="50%" id="courseName">
+                                        <td class="pl-2 pr-1" width="50%" id="courseName">
                                             <p style="font-size:medium;" class="font-weight-bold mb-0">{{ i['name'] }} {{ i['class'] }}</p>
                                         </td>
-                                        <td width="20%" id="courseTeacher"><p style="font-size:small;">{{ i['teacher'] }}</p></td>
-                                        <td width="20%">
+                                        <td class="px-1" width="20%" id="courseTeacher"><p style="font-size:small;">{{ i['teacher'] }}</p></td>
+                                        <td class="px-1" width="20%">
                                             {% for j in i['period'] %}
                                             {% if j[0] == 1 %}
                                             <small style="font-size: x-small;">一{{ j[1] }},</small>
