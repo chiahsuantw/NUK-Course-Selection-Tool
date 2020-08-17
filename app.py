@@ -20,7 +20,7 @@ else:
 
 @app.route('/')
 def index():
-    return 'index'
+    return redirect(url_for('home'))
 
 
 @app.route('/home')
