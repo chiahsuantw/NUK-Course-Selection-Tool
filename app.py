@@ -57,10 +57,16 @@ def profile():
     studentCourseData = get_student_course(run(cookieAccount, cookiePassword))
     studentCourseCredits = get_student_progress(run(cookieAccount, cookiePassword))
     studentGraduateInfo = get_graduate_info(cookieAccount, cookiePassword)
+
+    userPicUrl = '/static/img/user.png'
+    r = requests.get('http://elearning.nuk.edu.tw/_uploadfiles/stuphoto/' + cookieAccount.lower() + '.jpg')
+    if r.status_code == 200:
+        userPicUrl = 'http://elearning.nuk.edu.tw/_uploadfiles/stuphoto/' + cookieAccount.lower() + '.jpg'
     
     return render_template('profile.html',
                             userName=userName,
                             userId=cookieAccount,
+                            userPicUrl=userPicUrl,
                             studentGraduateInfo=studentGraduateInfo,
                             studentCourseData=studentCourseData,
                             studentCourseCredits=studentCourseCredits)
@@ -152,6 +158,39 @@ def mobile_profile():
                             studentGraduateInfo=studentGraduateInfo,
                             studentCourseData=studentCourseData,
                             studentCourseCredits=studentCourseCredits)
+
+
+@app.route('/m/login', methods=['GET', 'POST'])
+def mobile_login():
+    cookieAccount = request.cookies.get('Account')
+    cookiePassword = request.cookies.get('Password')
+    if cookieAccount != None and cookiePassword != None:
+        return redirect(url_for('mobile_profile'))
+
+    if request.method == 'GET':
+        return render_template('login.html')
+
+    account = request.form['account']
+    password = request.form['password']
+
+    res = requests.post(
+        'https://aca.nuk.edu.tw/Student2/Menu1.asp',
+        {
+            'Account': account,
+            'Password': password
+        })
+    res.encoding = 'big5'
+
+    if res.headers['Content-Length'] != '992':
+        studentGraduateInfo = get_graduate_info(account, password)  # 取得學生基本資料
+        response = make_response(redirect(url_for('profile')))
+        response.set_cookie('Name', studentGraduateInfo['student_name'])
+        response.set_cookie('Account', account)
+        response.set_cookie('Password', password)
+        return response
+    else:
+        flash('教務系統說登入錯誤', 'danger')
+        return redirect(url_for('mobile_login'))
 
 
 if __name__ == "__main__":

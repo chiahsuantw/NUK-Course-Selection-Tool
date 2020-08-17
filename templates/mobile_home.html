@@ -11,23 +11,6 @@
         integrity="sha512-ARJR74swou2y0Q2V9k0GbzQ/5vJ2RBSoCWokg4zkfM29Fb3vZEQyv0iWBMW/yvKgyHSR/7D64pFMmU8nYmbRkg=="
         crossorigin="anonymous" />
     <link rel="icon" href="/static/img/icon.png" type="image/x-icon">
-    <style>
-        ::-webkit-scrollbar {
-            width: 5px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #888;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #555;
-        }
-    </style>
     <title>高大選課工具</title>
 </head>
 
@@ -41,14 +24,6 @@
             </ul>
         </a>
         <ul class="navbar-nav align-items-center ml-auto">
-            <!-- <li class="nav-item  ml-2 mr-3">
-                <div class="row shadow rounded-pill px-2" style="background-color: #036fc6;">
-                    <p id="credit" style="color: white;" class="m-1">已選學分 0</p>
-                    <div class="col align-self-center p-0">
-                        <img id="warningIcon" style="height: 24px;" src="https://img.icons8.com/fluent/24/000000/cancel.png"/>
-                    </div>
-                </div>
-            </li> -->
             <li class="nav-item dropdown no-caret mr-2 dropdown-user">
                 <a class="btn btn-icon btn-transparent-dark dropdown-toggle" id="navbarDropdownUserImage"
                     href="javascript:void(0);" role="button" data-toggle="dropdown" aria-haspopup="true"
@@ -68,16 +43,16 @@
                     <a class="dropdown-item" href="/profile">
                         <div class="row pl-2">
                             <div class="dropdown-item-icon">
-                                <img src="https://img.icons8.com/fluent/24/000000/resume-website.png"/>
+                                <img src="https://img.icons8.com/fluent/24/000000/resume-website.png" />
                             </div>
                             <p class="mx-2 mb-0" style="padding-top: 2px;">我的學分</p>
                         </div>
                     </a>
                     {% if hasLoggedIn == 'False' %}
-                    <a class="dropdown-item" href="/login">
+                    <a class="dropdown-item" href="/m/login">
                         <div class="row pl-2">
                             <div class="dropdown-item-icon">
-                                <img src="https://img.icons8.com/fluent/24/000000/key.png"/>
+                                <img src="https://img.icons8.com/fluent/24/000000/key.png" />
                             </div>
                             <p class="mx-2 mb-0" style="padding-top: 2px;">登入</p>
                         </div>
@@ -86,7 +61,7 @@
                     <a class="dropdown-item" href="/logout">
                         <div class="row pl-2">
                             <div class="dropdown-item-icon">
-                                <img src="https://img.icons8.com/fluent/24/000000/exit.png"/>
+                                <img src="https://img.icons8.com/fluent/24/000000/exit.png" />
                             </div>
                             <p class="mx-2 mb-0" style="padding-top: 2px;">登出</p>
                         </div>
@@ -157,15 +132,19 @@
                             </select>
                         </div>
                         <div id="scrollControl" style="height: calc(100% - 100px);" class="overflow-auto">
-                            <table class="table table-hover courseTable">
+                            <table class="table table-hover courseTable"
+                                style="width: inherit; height: inherit; overflow: auto;">
                                 <tbody>
                                     {% for i in courseData %}
                                     <tr class="control {{ i['dept'] }}-{{ i['grade'] }}" style="display: none;">
-                                        <td class="pl-2 pr-1" width="50%" id="courseName">
-                                            <p style="font-size:medium;" class="font-weight-bold mb-0">{{ i['name'] }} {{ i['class'] }}</p>
+                                        <td class="pl-2 pr-1" id="courseName">
+                                            <p style="font-size:medium;" class="font-weight-bold mb-0">{{ i['name'] }}
+                                                {{ i['class'] }}</p>
                                         </td>
-                                        <td class="px-1" width="20%" id="courseTeacher"><p style="font-size:small;">{{ i['teacher'] }}</p></td>
-                                        <td class="px-1" width="20%">
+                                        <td class="px-1" id="courseTeacher">
+                                            <p style="font-size:small;">{{ i['teacher'] }}</p>
+                                        </td>
+                                        <td class="px-1">
                                             {% for j in i['period'] %}
                                             {% if j[0] == 1 %}
                                             <small style="font-size: x-small;">一{{ j[1] }},</small>
@@ -190,7 +169,7 @@
                                     </tr>
                                     {% endfor %}
                                 </tbody>
-                                
+
                             </table>
                         </div>
                     </div>
