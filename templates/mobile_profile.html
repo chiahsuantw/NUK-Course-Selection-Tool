@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/profile.css">
+    <link rel="icon" href="/static/img/icon.png" type="image/x-icon">
+
+    <title>我的學分 · 高大選課工具</title>
+</head>
+
+<body class="text-center">
+
+    <nav class="fixed-top topnav navbar navbar-expand shadow navbar-light bg-white" id="topnavbar"
+        style="z-index: 1035;">
+        <a class="navbar-brand active" href="/m/home">
+            <ul class="navbar-nav align-items-center">
+                <img class="mr-2" style="width: 32px; height: 32px;"
+                    src="https://img.icons8.com/fluent/32/000000/calendar.png" />
+                <h4 class="mt-1">高大選課工具</h4>
+            </ul>
+        </a>
+        <ul class="navbar-nav align-items-center ml-auto">
+            <li class="nav-item dropdown no-caret mr-2 dropdown-user">
+                <a class="btn btn-icon btn-transparent-dark dropdown-toggle" id="navbarDropdownUserImage"
+                    href="javascript:void(0);" role="button" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                    <img style="width: 36px; height: 36px;" src="/static/img/user.png">
+                </a>
+                <div class="dropdown-menu dropdown-menu-right border-0 shadow animated--fade-in-up mt-4 p-3"
+                    aria-labelledby="navbarDropdownUserImage">
+                    <div class="dropdown-header d-flex align-items-center">
+                        <img class="dropdown-user-img" style="width: 54px; height: 54px;" src="/static/img/user.png">
+                        <div class="dropdown-user-details ml-3">
+                            <h5 class="mb-0">{{ userName }}</h5>
+                            <div class="">{{ userId }}</div>
+                        </div>
+                    </div>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="/profile">
+                        <div class="row pl-2">
+                            <div class="dropdown-item-icon">
+                                <img src="https://img.icons8.com/fluent/24/000000/monitor.png"/>
+                            </div>
+                            <p class="mx-2 mb-0" style="padding-top: 2px;">電腦版</p>
+                        </div>
+                    </a>
+                    <a class="dropdown-item" href="/m/home">
+                        <div class="row pl-2">
+                            <div class="dropdown-item-icon">
+                                <img src="https://img.icons8.com/fluent/24/000000/calendar.png" />
+                            </div>
+                            <p class="mx-2 mb-0" style="padding-top: 2px;">選課輔助</p>
+                        </div>
+                    </a>
+                    <a class="dropdown-item" href="/m/logout">
+                        <div class="row pl-2">
+                            <div class="dropdown-item-icon">
+                                <img src="https://img.icons8.com/fluent/24/000000/exit.png" />
+                            </div>
+                            <p class="mx-2 mb-0" style="padding-top: 2px;">登出</p>
+                        </div>
+                    </a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+
+    <div class="d-flex justify-content-center">
+        <div class="col-lg-8 text-left pb-5" style="padding-top: 60px;">
+            <div style="border-radius: 20px" class="card shadow my-5">
+                <div class="card-body">
+                    <div class="row justify-content-center py-3 px-4 pb-0">
+                        <div class="col-xl-4 mt-3 text-center">
+                            <img style="height: 100px; width: 100px; border-radius: 50px; border: outset;" src="{{ userPicUrl }}" />
+                            <h3 class="m-3" id="text-student-name">林嘉軒</h3>
+                        </div>
+                        <div class="col-xl-4 mt-3">
+                            <div class="row justify-content-center">
+                                <img class="mx-2" style="height: 30px;"
+                                    src="https://img.icons8.com/fluent/30/000000/gender-neutral-user.png" />
+                                <h4 class="mb-0" style="color:midnightblue">個人資料</h4>
+                            </div>
+                            <div class="dropdown-divider my-3"></div>
+                            <p id="text-aca">院別：</p>
+                            <p id="text-year">入學年度：</p>
+                            <p id="text-dept">系所：</p>
+                            <p id="text-class">組別：</p>
+                        </div>
+                        <div class="col-xl-4 mt-3">
+                            <div class="row justify-content-center">
+                                <img class="mx-2" style="height: 30px;"
+                                    src="https://img.icons8.com/fluent/30/000000/reading.png" />
+                                <h4 class="mb-0" style="color:midnightblue">學分資訊</h4>
+                            </div>
+                            <div class="dropdown-divider my-3"></div>
+                            <p id="text-lowest-credit">最低畢業學分數：</p>
+                            <p id="text-necess-credit">必修學分數：</p>
+                            <p id="text-option-credit">選修學分數：</p>
+                            <p id="totalCredit">目前已修學分：</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="border-radius: 20px" class="card shadow my-5">
+                <div class="card-body">
+                    <div class="row px-3 justify-content-center">
+                        <h4 class="card-title mb-4 mt-2">共同必修</h4>
+                    </div>
+                    <div class="row px-3 justify-content-center">
+                        <h5 class="card-subtitle my-3 text-muted">中文</h5>
+                    </div>
+                    <div class="row px-3 justify-content-end">
+                        <h6 id="text-chinese" class="card-subtitle mb-2 text-muted">已修 0 / 4 學分</h6>
+                    </div>
+                    <div class="progress mb-4" style="height: 20px;">
+                        <div id="progress-chinese" style="background-color: #f48fb1;" class="progress-bar"
+                            role="progressbar" style="width: 0%;"></div>
+                    </div>
+                    {% for course in studentCourseData %}
+                    {% if course['category'] == 'AC' %}
+                    <div class="row px-3 justify-content-between">
+                        <div class="col-8 p-0 text-truncate">
+                            <p>{{ course['name'] }}</p>
+                        </div>
+                        <div class="col-3 p-0 text-right">
+                            <p>總分：{{ course['score'] }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    <div class="dropdown-divider my-2"></div>
+                    <div class="row px-3 justify-content-center">
+                        <h5 class="card-subtitle my-3 text-muted">英文</h5>
+                    </div>
+                    <div class="row px-3 justify-content-end">
+                        <h6 id="text-english" class="card-subtitle mb-2 text-muted">已修 0 / 4 學分</h6>
+                    </div>
+                    <div class="progress mb-4" style="height: 20px;">
+                        <div id="progress-english" style="background-color: #f48fb1;" class="progress-bar"
+                            role="progressbar" style="width: 0%;"></div>
+                    </div>
+                    {% for course in studentCourseData %}
+                    {% if course['category'] == 'AE' %}
+                    <div class="row px-3 justify-content-between">
+                        <div class="col-8 p-0 text-truncate">
+                            <p>{{ course['name'] }}</p>
+                        </div>
+                        <div class="col-3 p-0 text-right">
+                            <p>總分：{{ course['score'] }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    <div class="dropdown-divider my-2"></div>
+                    <div class="row px-3 justify-content-center">
+                        <h5 class="card-subtitle my-3 text-muted">其他</h5>
+                    </div>
+                    {% for course in studentCourseData %}
+                    {% if course['category'] == 'A3' %}
+                    <div class="row px-3 justify-content-between">
+                        <div class="col-8 p-0 text-truncate">
+                            <p>{{ course['name'] }}</p>
+                        </div>
+                        <div class="col-3 p-0 text-right">
+                            <p>總分：{{ course['score'] }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            <div style="border-radius: 20px" class="card shadow my-5">
+                <div class="card-body">
+                    <div class="row px-3 justify-content-center">
+                        <h4 class="card-title mb-4 mt-2">通識選修</h4>
+                    </div>
+                    <div class="row px-3 justify-content-end">
+                        <h6 id="text-general" class="card-subtitle mb-2 text-muted">已修 0 / 24 學分</h6>
+                    </div>
+                    <div class="progress mb-4" style="height: 20px;">
+                        <div id="progress-general" class="progress-bar" style="background-color: #ffcc80;"
+                            role="progressbar" style="width: 0%;"></div>
+                    </div>
+                    <div class="row px-3 justify-content-center">
+                        <h5 class="card-subtitle my-3 text-muted">核心通識</h5>
+                    </div>
+                    <div class="row px-3 justify-content-end">
+                        <h6 id="text-core" class="card-subtitle mb-2 text-muted">已修 0 / 4 向度</h6>
+                    </div>
+                    <div class="progress mb-4" style="height: 20px;">
+                        <div id="progress-core" class="progress-bar" style="background-color: #ffcc80;"
+                            role="progressbar" style="width: 0%;"></div>
+                    </div>
+                    <div class="row px-3 justify-content-center">
+                        <h6 class="card-subtitle my-4 text-muted">思維方法</h6>
+                    </div>
+                    {% for course in studentCourseData %}
+                    {% if course['category'] == 'B1' %}
+                    <div class="row px-3 justify-content-between">
+                        <div class="col-8 p-0 text-truncate">
+                            <p>{{ course['name'] }}</p>
+                        </div>
+                        <div class="col-3 p-0 text-right">
+                            <p>總分：{{ course['score'] }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    <div class="row px-3 justify-content-center">
+                        <h6 class="card-subtitle my-4 text-muted">美學素養</h6>
+                    </div>
+                    {% for course in studentCourseData %}
+                    {% if course['category'] == 'B2' %}
+                    <div class="row px-3 justify-content-between">
+                        <div class="col-8 p-0 text-truncate">
+                            <p>{{ course['name'] }}</p>
+                        </div>
+                        <div class="col-3 p-0 text-right">
+                            <p>總分：{{ course['score'] }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    <div class="row px-3 justify-content-center">
+                        <h6 class="card-subtitle my-4 text-muted">公民素養</h6>
+                    </div>
+                    {% for course in studentCourseData %}
+                    {% if course['category'] == 'B3' %}
+                    <div class="row px-3 justify-content-between">
+                        <div class="col-8 p-0 text-truncate">
+                            <p>{{ course['name'] }}</p>
+                        </div>
+                        <div class="col-3 p-0 text-right">
+                            <p>總分：{{ course['score'] }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    <div class="row px-3 justify-content-center">
+                        <h6 class="card-subtitle my-4 text-muted">文化素養</h6>
+                    </div>
+                    {% for course in studentCourseData %}
+                    {% if course['category'] == 'B4' %}
+                    <div class="row px-3 justify-content-between">
+                        <div class="col-8 p-0 text-truncate">
+                            <p>{{ course['name'] }}</p>
+                        </div>
+                        <div class="col-3 p-0 text-right">
+                            <p>總分：{{ course['score'] }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    <div class="row px-3 justify-content-center">
+                        <h6 class="card-subtitle my-4 text-muted">科學素養</h6>
+                    </div>
+                    {% for course in studentCourseData %}
+                    {% if course['category'] == 'B5' %}
+                    <div class="row px-3 justify-content-between">
+                        <div class="col-8 p-0 text-truncate">
+                            <p>{{ course['name'] }}</p>
+                        </div>
+                        <div class="col-3 p-0 text-right">
+                            <p>總分：{{ course['score'] }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    <div class="row px-3 justify-content-center">
+                        <h6 class="card-subtitle my-4 text-muted">倫理素養</h6>
+                    </div>
+                    {% for course in studentCourseData %}
+                    {% if course['category'] == 'B6' %}
+                    <div class="row px-3 justify-content-between">
+                        <div class="col-8 p-0 text-truncate">
+                            <p>{{ course['name'] }}</p>
+                        </div>
+                        <div class="col-3 p-0 text-right">
+                            <p>總分：{{ course['score'] }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    <div class="dropdown-divider my-2"></div>
+                    <div class="row px-3 justify-content-center">
+                        <h5 class="card-subtitle my-3 text-muted">博雅通識</h5>
+                    </div>
+                    <div class="row px-3 justify-content-end">
+                        <h6 id="text-side" class="card-subtitle mb-2 text-muted">已修 0 / 3 向度</h6>
+                    </div>
+                    <div class="progress mb-4" style="height: 20px;">
+                        <div id="progress-side" class="progress-bar" style="background-color: #ffcc80;"
+                            role="progressbar" style="width: 0%;"></div>
+                    </div>
+                    <div class="row px-3 justify-content-center">
+                        <h6 class="card-subtitle my-4 text-muted">人文科學類</h6>
+                    </div>
+                    {% for course in studentCourseData %}
+                    {% if course['category'] == 'C1' %}
+                    <div class="row px-3 justify-content-between">
+                        <div class="col-8 p-0 text-truncate">
+                            <p>{{ course['name'] }}</p>
+                        </div>
+                        <div class="col-3 p-0 text-right">
+                            <p>總分：{{ course['score'] }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    <div class="row px-3 justify-content-center">
+                        <h6 class="card-subtitle my-4 text-muted">社會科學類</h6>
+                    </div>
+                    {% for course in studentCourseData %}
+                    {% if course['category'] == 'C2' %}
+                    <div class="row px-3 justify-content-between">
+                        <div class="col-8 p-0 text-truncate">
+                            <p>{{ course['name'] }}</p>
+                        </div>
+                        <div class="col-3 p-0 text-right">
+                            <p>總分：{{ course['score'] }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    <div class="row px-3 justify-content-center">
+                        <h6 class="card-subtitle my-4 text-muted">自然科學類</h6>
+                    </div>
+                    {% for course in studentCourseData %}
+                    {% if course['category'] == 'C3' %}
+                    <div class="row px-3 justify-content-between">
+                        <div class="col-8 p-0 text-truncate">
+                            <p>{{ course['name'] }}</p>
+                        </div>
+                        <div class="col-3 p-0 text-right">
+                            <p>總分：{{ course['score'] }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    <div class="dropdown-divider my-2"></div>
+                    <div class="row px-3 justify-content-center">
+                        <h5 class="card-subtitle my-3 text-muted">跨院選修與微學分</h5>
+                    </div>
+                    <div class="row px-3 justify-content-end">
+                        <h6 id="text-cross" class="card-subtitle mb-2 text-muted">已修 0 / 6 學分</h6>
+                    </div>
+                    <div class="progress mb-4" style="height: 20px;">
+                        <div id="progress-cross" class="progress-bar" style="background-color: #ffcc80;"
+                            role="progressbar" style="width: 0%;"></div>
+                    </div>
+                    {% for course in studentCourseData %}
+                    {% if course['category'] == 'D0' %}
+                    <div class="row px-3 justify-content-between">
+                        <div class="col-8 p-0 text-truncate">
+                            <p class="mr-auto">{{ course['name'] }}</p>
+                        </div>
+                        <div class="col-3 p-0 text-right">
+                            <p>總分：{{ course['score'] }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            <div style="border-radius: 20px" class="card shadow my-5">
+                <div class="card-body">
+                    <div class="row px-3 justify-content-center">
+                        <h4 class="card-title mb-4 mt-2">系必修</h4>
+                    </div>
+                    <div class="row px-3 justify-content-end">
+                        <h6 id="text-necessary" class="card-subtitle mb-2 text-muted">已修 0 學分</h6>
+                    </div>
+                    <div class="progress mb-4" style="height: 20px;">
+                        <div id="progress-necessary" style="background-color: #90caf9;" class="progress-bar"
+                            role="progressbar" style="width: 0%;"></div>
+                    </div>
+                    {% for course in studentCourseData %}
+                    {% if course['category'] == 'A1' %}
+                    <div class="row px-3 justify-content-between">
+                        <div class="col-8 p-0 text-truncate">
+                            <p>{{ course['name'] }}</p>
+                        </div>
+                        <div class="col-3 p-0 text-right">
+                            <p>總分：{{ course['score'] }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    <div class="dropdown-divider my-4"></div>
+                    <div class="row px-3 justify-content-center">
+                        <h4 class="card-title mb-4 mt-2">系選修</h4>
+                    </div>
+                    <div class="row px-3 justify-content-end">
+                        <h6 id="text-optional" class="card-subtitle mb-2 text-muted">已修 0 學分</h6>
+                    </div>
+                    <div class="progress mb-4" style="height: 20px;">
+                        <div id="progress-optional" style="background-color: #aed581;" class="progress-bar"
+                            role="progressbar" style="width: 0%;"></div>
+                    </div>
+                    {% for course in studentCourseData %}
+                    {% if course['category'] == 'A2' %}
+                    <div class="row px-3 justify-content-between">
+                        <div class="col-8 p-0 text-truncate">
+                            <p>{{ course['name'] }}</p>
+                        </div>
+                        <div class="col-3 p-0 text-right">
+                            <p>總分：{{ course['score'] }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="display: none;" class="col">
+        <p id='credit-A1'>{{ studentCourseCredits['A1'] }}</p>
+        <p id='credit-A2'>{{ studentCourseCredits['A2'] }}</p>
+        <p id='credit-A3'>{{ studentCourseCredits['A3'] }}</p>
+        <p id='credit-AC'>{{ studentCourseCredits['AC'] }}</p>
+        <p id='credit-AE'>{{ studentCourseCredits['AE'] }}</p>
+        <p id='credit-B1'>{{ studentCourseCredits['B1'] }}</p>
+        <p id='credit-B2'>{{ studentCourseCredits['B2'] }}</p>
+        <p id='credit-B3'>{{ studentCourseCredits['B3'] }}</p>
+        <p id='credit-B4'>{{ studentCourseCredits['B4'] }}</p>
+        <p id='credit-B5'>{{ studentCourseCredits['B5'] }}</p>
+        <p id='credit-B6'>{{ studentCourseCredits['B6'] }}</p>
+        <p id='credit-C1'>{{ studentCourseCredits['C1'] }}</p>
+        <p id='credit-C2'>{{ studentCourseCredits['C2'] }}</p>
+        <p id='credit-C3'>{{ studentCourseCredits['C3'] }}</p>
+        <p id='credit-D0'>{{ studentCourseCredits['D0'] }}</p>
+    </div>
+
+    <div style="display: none;" class="col">
+        <p id='student-name'>{{ studentGraduateInfo['student_name'] }}</p>
+        <p id='student-aca'>{{ studentGraduateInfo['院別'] }}</p>
+        <p id='student-aca-year'>{{ studentGraduateInfo['student_acayear'] }}</p>
+        <p id='student-dept'>{{ studentGraduateInfo['系所'] }}</p>
+        <p id='student-class'>{{ studentGraduateInfo['組別'] }}</p>
+        <p id='student-necess-credit'>{{ studentGraduateInfo['系所必修學分數'] }}</p>
+        <p id='student-option-credit'>{{ studentGraduateInfo['系所選修學分數'] }}</p>
+        <p id='student-lowest-credit'>{{ studentGraduateInfo['最低畢業學分數'] }}</p>
+    </div>
+
+    <!--Bootstrap CDN START-->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"
+        integrity="sha512-yDlE7vpGDP7o2eftkCiPZ+yuUyEcaBwoJoIhdXv71KZWugFqEphIS3PU60lEkFaz8RxaVsMpSvQxMBaKVwA5xg=="
+        crossorigin="anonymous"></script>
+    <!--Bootstrap CDN END-->
+    <script type="text/javascript" src="/static/js/chart.js"></script>
+</body>
+
+</html>

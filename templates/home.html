@@ -2,8 +2,8 @@
 <html lang="zh-TW" class="h-100">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet"
@@ -33,7 +33,7 @@
 
 <body class="nav-fixed h-100">
     <nav class="topnav navbar navbar-expand shadow navbar-light bg-white" id="topnavbar" style="z-index: 1035;">
-        <a class="navbar-brand active" href="/">
+        <a class="navbar-brand active" href="/home">
             <ul class="navbar-nav align-items-center">
                 <img class="mr-2" style="width: 32px; height: 32px;"
                     src="https://img.icons8.com/fluent/32/000000/calendar.png" />
@@ -44,6 +44,9 @@
             <li class="nav-item  ml-2 mr-3">
                 <div class="row shadow rounded-pill px-2" style="background-color: #036fc6;">
                     <p id="credit" style="color: white;" class="m-1">已選學分 0</p>
+                    <div class="col align-self-center p-0">
+                        <img id="warningIcon" style="height: 24px;" src="https://img.icons8.com/fluent/24/000000/cancel.png"/>
+                    </div>
                 </div>
             </li>
             <li class="nav-item dropdown no-caret mr-2 dropdown-user">
@@ -57,27 +60,46 @@
                     <div class="dropdown-header d-flex align-items-center">
                         <img class="dropdown-user-img" style="width: 54px; height: 54px;" src="/static/img/user.png">
                         <div class="dropdown-user-details ml-3">
-                            <h5 class="mb-0">使用者</h5>
-                            <div class="">A1080000</div>
+                            <h5 class="mb-0">{{ userName }}</h5>
+                            <div class="">{{ userId }}</div>
                         </div>
                     </div>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#!">
+                    <a class="dropdown-item" href="/m/home">
                         <div class="row pl-2">
                             <div class="dropdown-item-icon">
-                                <img src="https://img.icons8.com/fluent/24/000000/settings.png" />
+                                <img src="https://img.icons8.com/fluent/24/000000/android.png"/>
                             </div>
-                            <p class="mx-2 mb-0" style="padding-top: 2px;">帳戶管理</p>
+                            <p class="mx-2 mb-0" style="padding-top: 2px;">手機版</p>
                         </div>
                     </a>
-                    <a class="dropdown-item" href="#!">
+                    <a class="dropdown-item" href="/profile">
                         <div class="row pl-2">
                             <div class="dropdown-item-icon">
-                                <img src="https://img.icons8.com/fluent/24/000000/logout-rounded.png" />
+                                <img src="https://img.icons8.com/fluent/24/000000/resume-website.png"/>
+                            </div>
+                            <p class="mx-2 mb-0" style="padding-top: 2px;">我的學分</p>
+                        </div>
+                    </a>
+                    {% if hasLoggedIn == 'False' %}
+                    <a class="dropdown-item" href="/login">
+                        <div class="row pl-2">
+                            <div class="dropdown-item-icon">
+                                <img src="https://img.icons8.com/fluent/24/000000/key.png"/>
+                            </div>
+                            <p class="mx-2 mb-0" style="padding-top: 2px;">登入</p>
+                        </div>
+                    </a>
+                    {% else %}
+                    <a class="dropdown-item" href="/logout">
+                        <div class="row pl-2">
+                            <div class="dropdown-item-icon">
+                                <img src="https://img.icons8.com/fluent/24/000000/exit.png"/>
                             </div>
                             <p class="mx-2 mb-0" style="padding-top: 2px;">登出</p>
                         </div>
                     </a>
+                    {% endif %}
                 </div>
             </li>
         </ul>
@@ -112,8 +134,8 @@
                         </thead>
                     </table>
                 </div>
-                <div style="height: calc(100% - 62px);" class="overflow-auto">
-                    <table id="timeTable" style="table-layout: fixed; word-break: break-all;" class="table table-borderless mb-0">
+                <div id="timeTable" style="height: calc(100% - 62px);" class="overflow-auto">
+                    <table style="table-layout: fixed; word-break: break-all;" class="table table-borderless mb-0">
                         <tbody class="table-active text-center">
                             <tr style="height: 85px;">
                                 <td width="60" class="table-light">
@@ -315,21 +337,27 @@
                                 <option value="3">大三</option>
                                 <option value="4">大四</option>
                             </select>
-                            <!--搜尋系統
+                            <!--SearchBox //Enhancement: search course by typing keywords//
                             <div class="form-group mx-2">
                                 <input type="search" class="form-control searchCourse" placeholder="搜尋" data-table="courseTable">
                             </div>
                             <a data-toggle="tooltip" data-placement="top" title="搜尋課程、教授">
                                 <img style="width: 36px; height: 36px;" src="https://img.icons8.com/fluent/36/000000/search.png"/>
                             </a>-->
+                            <!--PrintTable() //Enhancement: render id:timeTable and save as jpg files//
                             <a class="ml-auto" href="javascript: printTable()" data-toggle="tooltip" data-placement="top" title="輸出課表">
                                 <img src="https://img.icons8.com/fluent/36/000000/print.png"/>
                             </a>
-                            <a href="javascript: selected()" class="ml-3" data-toggle="tooltip" data-placement="top" title="已選課程">
-                                <img src="https://img.icons8.com/fluent/36/000000/checkmark.png"/>
+                            -->
+                            <a href="javascript: selected()" class="ml-auto" data-toggle="tooltip" data-placement="top"
+                                title="已選課程">
+                                <img src="https://img.icons8.com/fluent/36/000000/checkmark.png" />
                             </a>
-                            <a href="/" class="ml-3" data-toggle="tooltip" data-placement="top" title="移除全部">
-                                <img src="https://img.icons8.com/fluent/36/000000/filled-trash.png"/>
+                            <a href="/home" class="ml-3" data-toggle="tooltip" data-placement="top" title="移除全部">
+                                <img src="https://img.icons8.com/fluent/36/000000/filled-trash.png" />
+                            </a>
+                            <a href="javascript: save()" class="ml-3" data-toggle="tooltip" data-placement="top" title="下載選課資料">
+                                <img src="https://img.icons8.com/fluent/36/000000/save.png"/>
                             </a>
                             <a class="ml-3" data-toggle="tooltip" data-placement="top" title="使用方式">
                                 <img class="mr-2" src="https://img.icons8.com/fluent/36/000000/info.png" />
@@ -340,9 +368,13 @@
                                 <tbody>
                                     {% for i in courseData %}
                                     <tr class="control {{ i['dept'] }}-{{ i['grade'] }}" style="display: none;">
-                                        <td id="selectBox" width="5%"><input id="{{ i['id'] }}{{ i['grade'] }}" class="checkBox" value="{{ i['period'] }}" type="checkbox"></td>
-                                        <td id="courseName"><p class="font-weight-bold mb-0">{{ i['name'] }} {{ i['class'] }}</p></td>
+                                        <td id="selectBox" width="5%"><input id="{{ i['id'] }}{{ i['grade'] }}"
+                                                class="checkBox" value="{{ i['period'] }}" type="checkbox"></td>
+                                        <td id="courseName">
+                                            <p class="font-weight-bold mb-0">{{ i['name'] }} {{ i['class'] }}</p>
+                                        </td>
                                         <td id="courseTeacher" width="15%">{{ i['teacher'] }}</td>
+                                        <td id="courseDept" style="display: none;">{{ i['dept'] }}</td>
                                         <td id="courseCategory" style="display: none;">{{ i['category'] }}</td>
                                         <td id="courseLocation" style="display: none;">{{ i['location'] }}</td>
                                         <td width="17%">
@@ -367,11 +399,13 @@
                                         <td width="5%"><img style="width: 26px; height: 26px;"
                                                 src="/static/img/{{ i['category'] }}.png"></td>
                                         <td id="courseCredit" width="10%">{{ i['credit'] }}學分</td>
-                                        <td width="5%"><a class="dcardLink" href="" target="_blank"><img style="width: 26px; height: 26px;"
-                                                src="/static/img/dcard.png"></a></td>
+                                        <td width="5%"><a class="dcardLink" href="" target="_blank"><img
+                                                    style="width: 26px; height: 26px;" src="/static/img/dcard.png"></a>
+                                        </td>
                                     </tr>
                                     {% endfor %}
                                 </tbody>
+                                
                             </table>
                         </div>
                     </div>
@@ -380,28 +414,7 @@
         </div>
     </div>
 
-    <!-- Close tab warning -->
-    <div class="modal fade" id="leaveCheck" tabindex="-1" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    即將刪除所有選課
-                    確定要執行嗎？
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                    <button type="button" class="btn btn-primary">確認</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
+    <!--Bootstrap CDN START-->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
@@ -414,12 +427,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"
         integrity="sha512-yDlE7vpGDP7o2eftkCiPZ+yuUyEcaBwoJoIhdXv71KZWugFqEphIS3PU60lEkFaz8RxaVsMpSvQxMBaKVwA5xg=="
         crossorigin="anonymous"></script>
+    <!--Bootstrap CDN END-->
+
+    <!--html2canvas //Enhancement: render id:timeTable and save as jpg files//
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"
         integrity="sha512-OqcrADJLG261FZjar4Z6c4CfLqd861A3yPNMb+vRQ2JwzFT49WT4lozrh3bcKxHxtDTgNiqgYbEUStzvZQRfgQ=="
         crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/canvas2image@1.0.5/canvas2image.js"
-        integrity="sha256-lwXqgxDJYQCqafTwWj/c8s03nd+AEpMV83MjoNJAtto=" crossorigin="anonymous"></script>
-
+    -->
     <script type="text/javascript" src="/static/js/style.js"></script>
     <script type="text/javascript" src="/static/js/table.js"></script>
 </body>

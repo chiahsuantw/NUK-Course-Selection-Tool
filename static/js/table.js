@@ -1,3 +1,42 @@
+// 常數
+var courseId = new Map([
+    ['MI', '通識微學分'],
+    ['GR', '共同必修系列'],
+    ['CC', '核心通識'],
+    ['LI', '通識人文科學類'],
+    ['SC', '通識自然科學類'],
+    ['SO', '通識社會科學類'],
+    ['CD', '全民國防教育類'],
+    ['IN', '興趣選修'],
+    ['WL', '西洋語文學系'],
+    ['KH', '運動健康與休閒學系'],
+    ['CCD', '工藝與創意設計學系'],
+    ['DA', '建築學系'],
+    ['CDA', '創意設計與建築學系'],
+    ['EL', '東亞語文學系'],
+    ['DAP', '運動競技學系'],
+    ['CHS', '人文社會科學院共同課程'],
+    ['LA', '法律學系'],
+    ['GL', '政治法律學系'],
+    ['DL', '財經法律學系'],
+    ['CCL', '法學院共同課程'],
+    ['AE', '應用經濟學系'],
+    ['IM', '資訊管理學系'],
+    ['CCM', '管理學院共同課程'],
+    ['AM', '應用數學系'],
+    ['AC', '應用化學系'],
+    ['AP', '應用物理學系'],
+    ['CCS', '理學院共同課程'],
+    ['EE', '電機工程學系'],
+    ['CE', '土木與環境工程學系'],
+    ['CS', '資訊工程學系'],
+    ['CM', '化學工程及材料工程學系'],
+    ['LS', '生命科學系'],
+    ['AB', '亞太工商管理學系'],
+    ['ISP', '國際學生系'],
+    ['IFD', '創新學院不分系']
+]);
+
 // 搜尋課程功能
 (function (document) {
     'use strict';
@@ -221,6 +260,12 @@ $('.checkBox').click(function () {
         // 已選學分加總
         sumOfCredit += parseInt($(this).parent().siblings('#courseCredit').text());
         $('#credit').text('已選學分 ' + sumOfCredit.toString());
+        if(sumOfCredit > 25)
+            $('#warningIcon').attr('src', 'https://img.icons8.com/fluent/24/000000/box-important.png');
+        else if(sumOfCredit < 15)
+            $('#warningIcon').attr('src', 'https://img.icons8.com/fluent/24/000000/cancel.png');
+        else
+            $('#warningIcon').attr('src', 'https://img.icons8.com/fluent/24/000000/checked.png');
     }
     else {
 
@@ -256,19 +301,46 @@ $('.checkBox').click(function () {
         //學分加總移除
         sumOfCredit -= parseInt($(this).parent().siblings('#courseCredit').text());
         $('#credit').text('已選學分 ' + sumOfCredit.toString());
+        if(sumOfCredit > 25)
+            $('#warningIcon').attr('src', 'https://img.icons8.com/fluent/24/000000/box-important.png');
+        else if(sumOfCredit < 15)
+            $('#warningIcon').attr('src', 'https://img.icons8.com/fluent/24/000000/cancel.png');
+        else
+            $('#warningIcon').attr('src', 'https://img.icons8.com/fluent/24/000000/checked.png');
     }
 });
 
 
-// 輸出課表圖檔 !!! 維修中 !!!
-function printTable() {
-    console.log('目前功能正在維修中');
-    // var opts = {useCORS: true}
-    // html2canvas($("#timeTable"), opts).then( function(canvas){
-    //     var context = canvas.getContext('2d');
-    //     var image = Canvas2Image.convertToJPEG(canvas, canvas.width, canvas.height);
-    //     Canvas2Image.saveAsJPEG(image, canvas.width, canvas.height)
-    // });
+// 輸出課表 CSV 資料
+// String To CSV File and Downloader 
+function exportToCSV( _csvString ) {
+    var downloadLink = document.createElement("a");
+    downloadLink.download = "Selected_Course.csv";
+    downloadLink.innerHTML = "Download File";
+    if (window.webkitURL != null) {
+        var code = encodeURIComponent( _csvString );
+        if ( navigator.appVersion.indexOf("Win")==-1 ) {
+            downloadLink.href = "data:application/csv;charset=utf-8," + code;
+        } else {
+            downloadLink.href = "data:application/csv;charset=utf-8,%EF%BB%BF" + code;
+        }
+    }
+    downloadLink.click();
+}
+// 輸出 CSV 原始字串
+// replace(/^\s*|\s*$/g,"") is for removing spaces
+function save() {
+
+    var csvContent = '類別, 課程代號, 課程名稱, 教師\r\n';
+
+    for (var key of selectedCourseList.keys()) {
+        csvContent += courseId.get($('#' + key).parent().siblings('#courseDept').text()).replace(/^\s*|\s*$/g,"") + ', ';
+        csvContent += key.slice(0, -1).replace(/^\s*|\s*$/g,"") + ', ';
+        csvContent += $('#' + key).parent().siblings('#courseName').children().text().replace(/^\s*|\s*$/g,"") + ', ';
+        csvContent += $('#' + key).parent().siblings('#courseTeacher').text().replace(/^\s*|\s*$/g,"") + '\r\n';
+    }
+
+    exportToCSV(csvContent);
 }
 
 
