@@ -151,10 +151,16 @@ def mobile_profile():
     studentCourseData = get_student_course(run(cookieAccount, cookiePassword))
     studentCourseCredits = get_student_progress(run(cookieAccount, cookiePassword))
     studentGraduateInfo = get_graduate_info(cookieAccount, cookiePassword)
+
+    userPicUrl = '/static/img/user.png'
+    r = requests.get('http://elearning.nuk.edu.tw/_uploadfiles/stuphoto/' + cookieAccount.lower() + '.jpg')
+    if r.status_code == 200:
+        userPicUrl = 'http://elearning.nuk.edu.tw/_uploadfiles/stuphoto/' + cookieAccount.lower() + '.jpg'
     
     return render_template('mobile_profile.html',
                             userName=userName,
                             userId=cookieAccount,
+                            userPicUrl=userPicUrl,
                             studentGraduateInfo=studentGraduateInfo,
                             studentCourseData=studentCourseData,
                             studentCourseCredits=studentCourseCredits)
@@ -183,7 +189,7 @@ def mobile_login():
 
     if res.headers['Content-Length'] != '992':
         studentGraduateInfo = get_graduate_info(account, password)  # 取得學生基本資料
-        response = make_response(redirect(url_for('profile')))
+        response = make_response(redirect(url_for('mobile_profile')))
         response.set_cookie('Name', studentGraduateInfo['student_name'])
         response.set_cookie('Account', account)
         response.set_cookie('Password', password)
@@ -192,6 +198,17 @@ def mobile_login():
         flash('教務系統說登入錯誤', 'danger')
         return redirect(url_for('mobile_login'))
 
+
+@app.route('/m/logout')
+def mobile_logout():
+    if request.cookies.get('Account') != None:
+        res = make_response(redirect(url_for('mobile_home')))
+        res.delete_cookie('Account')
+        res.delete_cookie('Password')
+        res.delete_cookie('Name')
+        return res
+    else:
+        return redirect(url_for('mobile_home'))
 
 if __name__ == "__main__":
     app.run(debug=True)

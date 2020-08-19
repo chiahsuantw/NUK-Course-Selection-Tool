@@ -14,9 +14,9 @@
     <title>高大選課工具</title>
 </head>
 
-<body class="nav-fixed h-100">
+<body class="nav-fixed">
     <nav class="topnav navbar navbar-expand shadow navbar-light bg-white" id="topnavbar" style="z-index: 1035;">
-        <a class="navbar-brand active" href="/home">
+        <a class="navbar-brand active" href="/m/home">
             <ul class="navbar-nav align-items-center">
                 <img class="mr-2" style="width: 32px; height: 32px;"
                     src="https://img.icons8.com/fluent/32/000000/calendar.png" />
@@ -40,7 +40,15 @@
                         </div>
                     </div>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/profile">
+                    <a class="dropdown-item" href="/home">
+                        <div class="row pl-2">
+                            <div class="dropdown-item-icon">
+                                <img src="https://img.icons8.com/fluent/24/000000/monitor.png"/>
+                            </div>
+                            <p class="mx-2 mb-0" style="padding-top: 2px;">電腦版</p>
+                        </div>
+                    </a>
+                    <a class="dropdown-item" href="/m/profile">
                         <div class="row pl-2">
                             <div class="dropdown-item-icon">
                                 <img src="https://img.icons8.com/fluent/24/000000/resume-website.png" />
@@ -58,7 +66,7 @@
                         </div>
                     </a>
                     {% else %}
-                    <a class="dropdown-item" href="/logout">
+                    <a class="dropdown-item" href="/m/logout">
                         <div class="row pl-2">
                             <div class="dropdown-item-icon">
                                 <img src="https://img.icons8.com/fluent/24/000000/exit.png" />
@@ -72,112 +80,99 @@
         </ul>
     </nav>
 
-    <div class="jumbotron fixed-top mb-0 h-100 rounded-0 px-4 pb-4" style="padding-top: 90px;">
-        <div class="row h-100">
-            <div class="col-xl-12 p-0 mb-4 h-100">
-                <div style="border-radius: 20px" class="card h-100 p-2 shadow">
-                    <div class="card-body h-100 justify-content-center p-2">
-                        <div class="row mx-2 mb-3">
-                            <select id="deptSelect" class="selectpicker show-tick mx-1" data-width="fit"
-                                data-style="btn-info">
-                                <option value="GR">共同必修</option>
-                                <option value="CC">核心通識</option>
-                                <option value="LI">通識人文科學類</option>
-                                <option value="SC">通識自然科學類</option>
-                                <option value="SO">通識社會科學類</option>
-                                <option value="MI">通識微學分</option>
-                                <option value="CD">全民國防教育類</option>
-                                <option value="IN">興趣選修</option>
-                                <option data-divider="true"></option>
-                                <option value="WL">西洋語文學系</option>
-                                <option value="KH">運動健康與休閒學系</option>
-                                <option value="CCD">工藝與創意設計學系</option>
-                                <option value="DA">建築學系</option>
-                                <option value="CDA">創意設計與建築學系</option>
-                                <option value="EL">東亞語文學系</option>
-                                <option value="DAP">運動競技學系</option>
-                                <option value="CHS">人文社會科學院共同課程</option>
-                                <option data-divider="true"></option>
-                                <option value="LA">法律學系</option>
-                                <option value="GL">政治法律學系</option>
-                                <option value="FL">財經法律學系</option>
-                                <option value="CCL">法學院共同課程</option>
-                                <option data-divider="true"></option>
-                                <option value="AE">應用經濟學系</option>
-                                <option value="FI">金融管理學系</option>
-                                <option value="IM">資訊管理學系</option>
-                                <option value="AB">亞太工商管理學系</option>
-                                <option value="CCM">管理學院共同課程</option>
-                                <option data-divider="true"></option>
-                                <option value="AM">應用數學系</option>
-                                <option value="AC">應用化學系</option>
-                                <option value="AP">應用物理學系</option>
-                                <option value="LS">生命科學系</option>
-                                <option value="CCS">理學院共同課程</option>
-                                <option data-divider="true"></option>
-                                <option value="EE">電機工程學系</option>
-                                <option value="CE">土木與環境工程學系</option>
-                                <option value="CS">資訊工程學系</option>
-                                <option value="CM">化學工程及材料工程學系</option>
-                                <option data-divider="true"></option>
-                                <option value="ISP">國際學生系</option>
-                                <option value="IFD">創新學院不分系</option>
-                            </select>
-                            <select id="gradeSelect" class="selectpicker show-tick mx-1" data-width="fit"
-                                data-style="btn-info">
-                                <option value="1">大一</option>
-                                <option value="2">大二</option>
-                                <option value="3">大三</option>
-                                <option value="4">大四</option>
-                            </select>
-                        </div>
-                        <div id="scrollControl" style="height: calc(100% - 100px);" class="overflow-auto">
-                            <table class="table table-hover courseTable"
-                                style="width: inherit; height: inherit; overflow: auto;">
-                                <tbody>
-                                    {% for i in courseData %}
-                                    <tr class="control {{ i['dept'] }}-{{ i['grade'] }}" style="display: none;">
-                                        <td class="pl-2 pr-1" id="courseName">
-                                            <p style="font-size:medium;" class="font-weight-bold mb-0">{{ i['name'] }}
-                                                {{ i['class'] }}</p>
-                                        </td>
-                                        <td class="px-1" id="courseTeacher">
-                                            <p style="font-size:small;">{{ i['teacher'] }}</p>
-                                        </td>
-                                        <td class="px-1">
-                                            {% for j in i['period'] %}
-                                            {% if j[0] == 1 %}
-                                            <small style="font-size: x-small;">一{{ j[1] }},</small>
-                                            {% elif j[0] == 2 %}
-                                            <small style="font-size: x-small;">二{{ j[1] }},</small>
-                                            {% elif j[0] == 3 %}
-                                            <small style="font-size: x-small;">三{{ j[1] }},</small>
-                                            {% elif j[0] == 4 %}
-                                            <small style="font-size: x-small;">四{{ j[1] }},</small>
-                                            {% elif j[0] == 5 %}
-                                            <small style="font-size: x-small;">五{{ j[1] }},</small>
-                                            {% elif j[0] == 6 %}
-                                            <small style="font-size: x-small;">六{{ j[1] }},</small>
-                                            {% elif j[0] == 7 %}
-                                            <small style="font-size: x-small;">日{{ j[1] }},</small>
-                                            {% endif %}
-                                            {% endfor %}
-                                        </td>
-                                        <td class="pl-0 pr-2"><a class="dcardLink" href="" target="_blank"><img
-                                                    style="width: 26px; height: 26px;" src="/static/img/dcard.png"></a>
-                                        </td>
-                                    </tr>
-                                    {% endfor %}
-                                </tbody>
-
-                            </table>
-                        </div>
-                    </div>
+    <div class="col p-3">
+        <div class="row px-2">
+            <div style="width: fit-content;" class="container p-0 m-1">
+                <select id="deptSelect" class="selectpicker show-tick mx-1" data-width="fit"
+                    data-style="btn-info">
+                    <option value="GR">共同必修</option>
+                    <option value="CC">核心通識</option>
+                    <option value="LI">通識人文科學類</option>
+                    <option value="SC">通識自然科學類</option>
+                    <option value="SO">通識社會科學類</option>
+                    <option value="MI">通識微學分</option>
+                    <option value="CD">全民國防教育類</option>
+                    <option value="IN">興趣選修</option>
+                    <option data-divider="true"></option>
+                    <option value="WL">西洋語文學系</option>
+                    <option value="KH">運動健康與休閒學系</option>
+                    <option value="CCD">工藝與創意設計學系</option>
+                    <option value="DA">建築學系</option>
+                    <option value="CDA">創意設計與建築學系</option>
+                    <option value="EL">東亞語文學系</option>
+                    <option value="DAP">運動競技學系</option>
+                    <option value="CHS">人文社會科學院共同課程</option>
+                    <option data-divider="true"></option>
+                    <option value="LA">法律學系</option>
+                    <option value="GL">政治法律學系</option>
+                    <option value="FL">財經法律學系</option>
+                    <option value="CCL">法學院共同課程</option>
+                    <option data-divider="true"></option>
+                    <option value="AE">應用經濟學系</option>
+                    <option value="FI">金融管理學系</option>
+                    <option value="IM">資訊管理學系</option>
+                    <option value="AB">亞太工商管理學系</option>
+                    <option value="CCM">管理學院共同課程</option>
+                    <option data-divider="true"></option>
+                    <option value="AM">應用數學系</option>
+                    <option value="AC">應用化學系</option>
+                    <option value="AP">應用物理學系</option>
+                    <option value="LS">生命科學系</option>
+                    <option value="CCS">理學院共同課程</option>
+                    <option data-divider="true"></option>
+                    <option value="EE">電機工程學系</option>
+                    <option value="CE">土木與環境工程學系</option>
+                    <option value="CS">資訊工程學系</option>
+                    <option value="CM">化學工程及材料工程學系</option>
+                    <option data-divider="true"></option>
+                    <option value="ISP">國際學生系</option>
+                    <option value="IFD">創新學院不分系</option>
+                </select>
+            </div>
+            <div style="width: fit-content;" class="container p-0 m-1">
+                <select id="gradeSelect" class="selectpicker show-tick mx-1" data-width="fit"
+                    data-style="btn-info">
+                    <option value="1">大一</option>
+                    <option value="2">大二</option>
+                    <option value="3">大三</option>
+                    <option value="4">大四</option>
+                </select>
+            </div>
+        </div>
+        {% for i in courseData %}
+        <div class="card py-2 my-2 control {{ i['dept'] }}-{{ i['grade'] }} shadow" style="display: none;">
+            <div class="row px-4">
+                <div class="col-6 p-1">{{ i['name'] }} {{ i['class'] }}</div>
+                <div id="courseTeacher" class="col-3 p-1">{{ i['teacher'] }}</div>
+                <div class="col-2 p-0">
+                    {% for j in i['period'] %}
+                    {% if j[0] == 1 %}
+                    <small style="font-size: x-small;">一{{ j[1] }},</small>
+                    {% elif j[0] == 2 %}
+                    <small style="font-size: x-small;">二{{ j[1] }},</small>
+                    {% elif j[0] == 3 %}
+                    <small style="font-size: x-small;">三{{ j[1] }},</small>
+                    {% elif j[0] == 4 %}
+                    <small style="font-size: x-small;">四{{ j[1] }},</small>
+                    {% elif j[0] == 5 %}
+                    <small style="font-size: x-small;">五{{ j[1] }},</small>
+                    {% elif j[0] == 6 %}
+                    <small style="font-size: x-small;">六{{ j[1] }},</small>
+                    {% elif j[0] == 7 %}
+                    <small style="font-size: x-small;">日{{ j[1] }},</small>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="col-1 p-0">
+                    <a class="dcardLink align-middle" href="" target="_blank">
+                        <img style="width: 20px; height: 20px;" src="/static/img/dcard.png">
+                    </a>
                 </div>
             </div>
         </div>
+        {% endfor %}
     </div>
-
+    
     <!--Bootstrap CDN START-->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
