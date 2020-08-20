@@ -20,7 +20,7 @@ else:
 
 @app.route('/')
 def index():
-    return redirect(url_for('home'))
+    return render_template('terms_of_service.html')
 
 
 @app.route('/home')
@@ -145,7 +145,7 @@ def mobile_profile():
     cookieName = request.cookies.get('Name')
 
     if cookieAccount == None or cookiePassword == None:
-        return redirect(url_for('login'))
+        return redirect(url_for('mobile_login'))
 
     userName = cookieName
     studentCourseData = get_student_course(run(cookieAccount, cookiePassword))
@@ -210,5 +210,7 @@ def mobile_logout():
     else:
         return redirect(url_for('mobile_home'))
 
+
 if __name__ == "__main__":
     app.run(debug=True)
+    
