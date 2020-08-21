@@ -2,13 +2,12 @@ from flask import Flask, render_template, request, redirect, url_for, flash, mak
 from scraper import run, get_student_course, get_student_progress, get_graduate_info
 import requests
 import json
-import hashlib
 
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '3c178af81e8f023e05fc72c56757417158aaeff46e23263df647d9fdc4ad2452'
 
-# get course data from API sever
+# get course data from API server
 url = 'https://e7401c50-a59b-4ef9-9a40-a5ddf3852603.mock.pstmn.io/courseData'
 response = requests.get(url)
 courseData = json.loads(response.text)
@@ -24,20 +23,20 @@ def home():
     cookieAccount = request.cookies.get('Account')
     cookiePassword = request.cookies.get('Password')
     cookieName = request.cookies.get('Name')
-    
+
     userName = '訪客'
     userId = 'A0000000'
     hasLoggedIn = 'False'
-    
+
     if cookieAccount != None and cookiePassword != None:
         hasLoggedIn = 'True'
         userName = cookieName
         userId = cookieAccount
-    return render_template('home.html', 
-                            userName=userName, 
-                            userId=userId, 
-                            hasLoggedIn=hasLoggedIn, 
-                            courseData=courseData)
+    return render_template('home.html',
+                           userName=userName,
+                           userId=userId,
+                           hasLoggedIn=hasLoggedIn,
+                           courseData=courseData)
 
 
 @app.route('/profile')
@@ -51,21 +50,24 @@ def profile():
 
     userName = cookieName
     studentCourseData = get_student_course(run(cookieAccount, cookiePassword))
-    studentCourseCredits = get_student_progress(run(cookieAccount, cookiePassword))
+    studentCourseCredits = get_student_progress(
+        run(cookieAccount, cookiePassword))
     studentGraduateInfo = get_graduate_info(cookieAccount, cookiePassword)
 
     userPicUrl = '/static/img/user.png'
-    r = requests.get('http://elearning.nuk.edu.tw/_uploadfiles/stuphoto/' + cookieAccount.lower() + '.jpg')
+    r = requests.get(
+        'http://elearning.nuk.edu.tw/_uploadfiles/stuphoto/' + cookieAccount.lower() + '.jpg')
     if r.status_code == 200:
-        userPicUrl = 'http://elearning.nuk.edu.tw/_uploadfiles/stuphoto/' + cookieAccount.lower() + '.jpg'
-    
+        userPicUrl = 'http://elearning.nuk.edu.tw/_uploadfiles/stuphoto/' + \
+            cookieAccount.lower() + '.jpg'
+
     return render_template('profile.html',
-                            userName=userName,
-                            userId=cookieAccount,
-                            userPicUrl=userPicUrl,
-                            studentGraduateInfo=studentGraduateInfo,
-                            studentCourseData=studentCourseData,
-                            studentCourseCredits=studentCourseCredits)
+                           userName=userName,
+                           userId=cookieAccount,
+                           userPicUrl=userPicUrl,
+                           studentGraduateInfo=studentGraduateInfo,
+                           studentCourseData=studentCourseData,
+                           studentCourseCredits=studentCourseCredits)
 
 
 @app.route('/guide')
@@ -77,16 +79,16 @@ def guide():
     userName = '訪客'
     userId = 'A0000000'
     hasLoggedIn = 'False'
-    
+
     if cookieAccount != None and cookiePassword != None:
         hasLoggedIn = 'True'
         userName = cookieName
         userId = cookieAccount
 
-    return render_template('how_to_use.html', 
-                            userName=userName, 
-                            userId=userId, 
-                            hasLoggedIn=hasLoggedIn)
+    return render_template('how_to_use.html',
+                           userName=userName,
+                           userId=userId,
+                           hasLoggedIn=hasLoggedIn)
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -141,20 +143,20 @@ def mobile_home():
     cookieAccount = request.cookies.get('Account')
     cookiePassword = request.cookies.get('Password')
     cookieName = request.cookies.get('Name')
-    
+
     userName = '訪客'
     userId = 'A0000000'
     hasLoggedIn = 'False'
-    
+
     if cookieAccount != None and cookiePassword != None:
         hasLoggedIn = 'True'
         userName = cookieName
         userId = cookieAccount
-    return render_template('mobile_home.html', 
-                            userName=userName, 
-                            userId=userId, 
-                            hasLoggedIn=hasLoggedIn, 
-                            courseData=courseData)
+    return render_template('mobile_home.html',
+                           userName=userName,
+                           userId=userId,
+                           hasLoggedIn=hasLoggedIn,
+                           courseData=courseData)
 
 
 @app.route('/m/profile')
@@ -168,21 +170,24 @@ def mobile_profile():
 
     userName = cookieName
     studentCourseData = get_student_course(run(cookieAccount, cookiePassword))
-    studentCourseCredits = get_student_progress(run(cookieAccount, cookiePassword))
+    studentCourseCredits = get_student_progress(
+        run(cookieAccount, cookiePassword))
     studentGraduateInfo = get_graduate_info(cookieAccount, cookiePassword)
 
     userPicUrl = '/static/img/user.png'
-    r = requests.get('http://elearning.nuk.edu.tw/_uploadfiles/stuphoto/' + cookieAccount.lower() + '.jpg')
+    r = requests.get(
+        'http://elearning.nuk.edu.tw/_uploadfiles/stuphoto/' + cookieAccount.lower() + '.jpg')
     if r.status_code == 200:
-        userPicUrl = 'http://elearning.nuk.edu.tw/_uploadfiles/stuphoto/' + cookieAccount.lower() + '.jpg'
-    
+        userPicUrl = 'http://elearning.nuk.edu.tw/_uploadfiles/stuphoto/' + \
+            cookieAccount.lower() + '.jpg'
+
     return render_template('mobile_profile.html',
-                            userName=userName,
-                            userId=cookieAccount,
-                            userPicUrl=userPicUrl,
-                            studentGraduateInfo=studentGraduateInfo,
-                            studentCourseData=studentCourseData,
-                            studentCourseCredits=studentCourseCredits)
+                           userName=userName,
+                           userId=cookieAccount,
+                           userPicUrl=userPicUrl,
+                           studentGraduateInfo=studentGraduateInfo,
+                           studentCourseData=studentCourseData,
+                           studentCourseCredits=studentCourseCredits)
 
 
 @app.route('/m/login', methods=['GET', 'POST'])
@@ -231,5 +236,4 @@ def mobile_logout():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
-    
+    app.run()

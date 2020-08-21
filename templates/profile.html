@@ -5,7 +5,6 @@
     <meta charset="utf-8">
     <!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
 
-    <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="/static/css/profile.css">
@@ -17,7 +16,8 @@
 
 <body class="text-center">
 
-    <nav class="fixed-top topnav navbar navbar-expand shadow navbar-light bg-white" id="topnavbar" style="z-index: 1035;">
+    <nav class="fixed-top topnav navbar navbar-expand shadow navbar-light bg-white" id="topnavbar"
+        style="z-index: 1035;">
         <a class="navbar-brand active" href="/home">
             <ul class="navbar-nav align-items-center">
                 <img class="mr-2" style="width: 32px; height: 32px;"
@@ -45,7 +45,7 @@
                     <a class="dropdown-item" href="/m/profile">
                         <div class="row pl-2">
                             <div class="dropdown-item-icon">
-                                <img src="https://img.icons8.com/fluent/24/000000/android.png"/>
+                                <img src="https://img.icons8.com/fluent/24/000000/android.png" />
                             </div>
                             <p class="mx-2 mb-0" style="padding-top: 2px;">手機版</p>
                         </div>
@@ -53,7 +53,7 @@
                     <a class="dropdown-item" href="/home">
                         <div class="row pl-2">
                             <div class="dropdown-item-icon">
-                                <img src="https://img.icons8.com/fluent/24/000000/calendar.png"/>
+                                <img src="https://img.icons8.com/fluent/24/000000/calendar.png" />
                             </div>
                             <p class="mx-2 mb-0" style="padding-top: 2px;">選課輔助</p>
                         </div>
@@ -61,7 +61,7 @@
                     <a class="dropdown-item" href="/logout">
                         <div class="row pl-2">
                             <div class="dropdown-item-icon">
-                                <img src="https://img.icons8.com/fluent/24/000000/exit.png"/>
+                                <img src="https://img.icons8.com/fluent/24/000000/exit.png" />
                             </div>
                             <p class="mx-2 mb-0" style="padding-top: 2px;">登出</p>
                         </div>
@@ -78,12 +78,14 @@
                 <div class="card-body">
                     <div class="row justify-content-center py-3 pl-4 pr-5 pb-0">
                         <div class="col-xl-4 text-center">
-                            <img class="m-4" style="width: 150px; height: 150px; border-radius: 75px; border: outset;" src="{{ userPicUrl }}"/>
+                            <img class="m-4" style="width: 150px; height: 150px; border-radius: 75px; border: outset;"
+                                src="{{ userPicUrl }}" />
                             <h4 id="text-student-name">林嘉軒</h4>
                         </div>
                         <div class="col-xl-4 mt-3">
                             <div class="row">
-                                <img class="mx-2" style="height: 30px;" src="https://img.icons8.com/fluent/30/000000/gender-neutral-user.png"/>
+                                <img class="mx-2" style="height: 30px;"
+                                    src="https://img.icons8.com/fluent/30/000000/gender-neutral-user.png" />
                                 <h4 class="mb-0" style="color:midnightblue">個人資料</h4>
                             </div>
                             <div class="dropdown-divider my-3"></div>
@@ -94,7 +96,8 @@
                         </div>
                         <div class="col-xl-4 mt-3">
                             <div class="row">
-                                <img class="mx-2" style="height: 30px;" src="https://img.icons8.com/fluent/30/000000/reading.png"/>
+                                <img class="mx-2" style="height: 30px;"
+                                    src="https://img.icons8.com/fluent/30/000000/reading.png" />
                                 <h4 class="mb-0" style="color:midnightblue">學分資訊</h4>
                             </div>
                             <div class="dropdown-divider my-3"></div>
@@ -114,45 +117,47 @@
                         <h6 id="text-chinese" class="card-subtitle mt-5 mb-2 text-muted">已修 0 / 4 學分</h6>
                     </div>
                     <div class="progress mb-4" style="height: 20px;">
-                        <div id="progress-chinese" style="background-color: #f48fb1;" class="progress-bar" role="progressbar" style="width: 0%;"></div>
+                        <div id="progress-chinese" style="background-color: #f48fb1;" class="progress-bar"
+                            role="progressbar" style="width: 0%;"></div>
                     </div>
                     {% for course in studentCourseData %}
-                        {% if course['category'] == 'AC' %}
-                        <div class="row px-5">
-                            <p class="mr-5">{{ course['id'] }}</p>
-                            <p class="mr-auto">{{ course['name'] }}</p>
-                            <p class="mr-5">{{ course['credit'] }}學分</p>
-                            <p>學期總分：{{ course['score'] }}</p>
-                        </div>
-                        {% endif %}
+                    {% if course['category'] == 'AC' %}
+                    <div class="row px-5">
+                        <p class="mr-5">{{ course['id'] }}</p>
+                        <p class="mr-auto">{{ course['name'] }}</p>
+                        <p class="mr-5">{{ course['credit'] }}學分</p>
+                        <p>學期總分：{{ course['score'] }}</p>
+                    </div>
+                    {% endif %}
                     {% endfor %}
                     <div class="row px-3 justify-content-between">
                         <h5 class="card-subtitle my-4 text-muted">英文</h5>
                         <h6 id="text-english" class="card-subtitle mt-5 mb-2 text-muted">已修 0 / 4 學分</h6>
                     </div>
                     <div class="progress mb-4" style="height: 20px;">
-                        <div id="progress-english" style="background-color: #f48fb1;" class="progress-bar" role="progressbar" style="width: 0%;"></div>
+                        <div id="progress-english" style="background-color: #f48fb1;" class="progress-bar"
+                            role="progressbar" style="width: 0%;"></div>
                     </div>
                     {% for course in studentCourseData %}
-                        {% if course['category'] == 'AE' %}
-                        <div class="row px-5">
-                            <p class="mr-5">{{ course['id'] }}</p>
-                            <p class="mr-auto">{{ course['name'] }}</p>
-                            <p class="mr-5">{{ course['credit'] }}學分</p>
-                            <p>學期總分：{{ course['score'] }}</p>
-                        </div>
-                        {% endif %}
+                    {% if course['category'] == 'AE' %}
+                    <div class="row px-5">
+                        <p class="mr-5">{{ course['id'] }}</p>
+                        <p class="mr-auto">{{ course['name'] }}</p>
+                        <p class="mr-5">{{ course['credit'] }}學分</p>
+                        <p>學期總分：{{ course['score'] }}</p>
+                    </div>
+                    {% endif %}
                     {% endfor %}
                     <h5 class="card-subtitle my-4 text-muted">其他</h5>
                     {% for course in studentCourseData %}
-                        {% if course['category'] == 'A3' %}
-                        <div class="row px-5">
-                            <p class="mr-5">{{ course['id'] }}</p>
-                            <p class="mr-auto">{{ course['name'] }}</p>
-                            <p class="mr-5">{{ course['credit'] }}學分</p>
-                            <p>學期總分：{{ course['score'] }}</p>
-                        </div>
-                        {% endif %}
+                    {% if course['category'] == 'A3' %}
+                    <div class="row px-5">
+                        <p class="mr-5">{{ course['id'] }}</p>
+                        <p class="mr-auto">{{ course['name'] }}</p>
+                        <p class="mr-5">{{ course['credit'] }}學分</p>
+                        <p>學期總分：{{ course['score'] }}</p>
+                    </div>
+                    {% endif %}
                     {% endfor %}
                 </div>
             </div>
@@ -163,137 +168,141 @@
                         <h6 id="text-general" class="card-subtitle mt-5 mb-2 text-muted">已修 0 / 24 學分</h6>
                     </div>
                     <div class="progress mb-4" style="height: 20px;">
-                        <div id="progress-general" class="progress-bar" style="background-color: #ffcc80;" role="progressbar" style="width: 0%;"></div>
+                        <div id="progress-general" class="progress-bar" style="background-color: #ffcc80;"
+                            role="progressbar" style="width: 0%;"></div>
                     </div>
                     <div class="row px-3 justify-content-between">
                         <h5 class="card-subtitle my-4">核心通識</h5>
                         <h6 id="text-core" class="card-subtitle mt-5 mb-2 text-muted">已修 0 / 4 向度</h6>
                     </div>
                     <div class="progress mb-4" style="height: 20px;">
-                        <div id="progress-core" class="progress-bar" style="background-color: #ffcc80;" role="progressbar" style="width: 0%;"></div>
+                        <div id="progress-core" class="progress-bar" style="background-color: #ffcc80;"
+                            role="progressbar" style="width: 0%;"></div>
                     </div>
                     <h6 class="card-subtitle my-4 text-muted">思維方法</h6>
                     {% for course in studentCourseData %}
-                        {% if course['category'] == 'B1' %}
-                        <div class="row px-5">
-                            <p class="mr-5">{{ course['id'] }}</p>
-                            <p class="mr-auto">{{ course['name'] }}</p>
-                            <p class="mr-5">{{ course['credit'] }}學分</p>
-                            <p>學期總分：{{ course['score'] }}</p>
-                        </div>
-                        {% endif %}
+                    {% if course['category'] == 'B1' %}
+                    <div class="row px-5">
+                        <p class="mr-5">{{ course['id'] }}</p>
+                        <p class="mr-auto">{{ course['name'] }}</p>
+                        <p class="mr-5">{{ course['credit'] }}學分</p>
+                        <p>學期總分：{{ course['score'] }}</p>
+                    </div>
+                    {% endif %}
                     {% endfor %}
                     <h6 class="card-subtitle my-4 text-muted">美學素養</h6>
                     {% for course in studentCourseData %}
-                        {% if course['category'] == 'B2' %}
-                        <div class="row px-5">
-                            <p class="mr-5">{{ course['id'] }}</p>
-                            <p class="mr-auto">{{ course['name'] }}</p>
-                            <p class="mr-5">{{ course['credit'] }}學分</p>
-                            <p>學期總分：{{ course['score'] }}</p>
-                        </div>
-                        {% endif %}
+                    {% if course['category'] == 'B2' %}
+                    <div class="row px-5">
+                        <p class="mr-5">{{ course['id'] }}</p>
+                        <p class="mr-auto">{{ course['name'] }}</p>
+                        <p class="mr-5">{{ course['credit'] }}學分</p>
+                        <p>學期總分：{{ course['score'] }}</p>
+                    </div>
+                    {% endif %}
                     {% endfor %}
                     <h6 class="card-subtitle my-4 text-muted">公民素養</h6>
                     {% for course in studentCourseData %}
-                        {% if course['category'] == 'B3' %}
-                        <div class="row px-5">
-                            <p class="mr-5">{{ course['id'] }}</p>
-                            <p class="mr-auto">{{ course['name'] }}</p>
-                            <p class="mr-5">{{ course['credit'] }}學分</p>
-                            <p>學期總分：{{ course['score'] }}</p>
-                        </div>
-                        {% endif %}
+                    {% if course['category'] == 'B3' %}
+                    <div class="row px-5">
+                        <p class="mr-5">{{ course['id'] }}</p>
+                        <p class="mr-auto">{{ course['name'] }}</p>
+                        <p class="mr-5">{{ course['credit'] }}學分</p>
+                        <p>學期總分：{{ course['score'] }}</p>
+                    </div>
+                    {% endif %}
                     {% endfor %}
                     <h6 class="card-subtitle my-4 text-muted">文化素養</h6>
                     {% for course in studentCourseData %}
-                        {% if course['category'] == 'B4' %}
-                        <div class="row px-5">
-                            <p class="mr-5">{{ course['id'] }}</p>
-                            <p class="mr-auto">{{ course['name'] }}</p>
-                            <p class="mr-5">{{ course['credit'] }}學分</p>
-                            <p>學期總分：{{ course['score'] }}</p>
-                        </div>
-                        {% endif %}
+                    {% if course['category'] == 'B4' %}
+                    <div class="row px-5">
+                        <p class="mr-5">{{ course['id'] }}</p>
+                        <p class="mr-auto">{{ course['name'] }}</p>
+                        <p class="mr-5">{{ course['credit'] }}學分</p>
+                        <p>學期總分：{{ course['score'] }}</p>
+                    </div>
+                    {% endif %}
                     {% endfor %}
                     <h6 class="card-subtitle my-4 text-muted">科學素養</h6>
                     {% for course in studentCourseData %}
-                        {% if course['category'] == 'B5' %}
-                        <div class="row px-5">
-                            <p class="mr-5">{{ course['id'] }}</p>
-                            <p class="mr-auto">{{ course['name'] }}</p>
-                            <p class="mr-5">{{ course['credit'] }}學分</p>
-                            <p>學期總分：{{ course['score'] }}</p>
-                        </div>
-                        {% endif %}
+                    {% if course['category'] == 'B5' %}
+                    <div class="row px-5">
+                        <p class="mr-5">{{ course['id'] }}</p>
+                        <p class="mr-auto">{{ course['name'] }}</p>
+                        <p class="mr-5">{{ course['credit'] }}學分</p>
+                        <p>學期總分：{{ course['score'] }}</p>
+                    </div>
+                    {% endif %}
                     {% endfor %}
                     <h6 class="card-subtitle my-4 text-muted">倫理素養</h6>
                     {% for course in studentCourseData %}
-                        {% if course['category'] == 'B6' %}
-                        <div class="row px-5">
-                            <p class="mr-5">{{ course['id'] }}</p>
-                            <p class="mr-auto">{{ course['name'] }}</p>
-                            <p class="mr-5">{{ course['credit'] }}學分</p>
-                            <p>學期總分：{{ course['score'] }}</p>
-                        </div>
-                        {% endif %}
+                    {% if course['category'] == 'B6' %}
+                    <div class="row px-5">
+                        <p class="mr-5">{{ course['id'] }}</p>
+                        <p class="mr-auto">{{ course['name'] }}</p>
+                        <p class="mr-5">{{ course['credit'] }}學分</p>
+                        <p>學期總分：{{ course['score'] }}</p>
+                    </div>
+                    {% endif %}
                     {% endfor %}
                     <div class="row px-3 justify-content-between">
                         <h5 class="card-subtitle my-4">博雅通識</h5>
                         <h6 id="text-side" class="card-subtitle mt-5 mb-2 text-muted">已修 0 / 3 向度</h6>
                     </div>
                     <div class="progress mb-4" style="height: 20px;">
-                        <div id="progress-side" class="progress-bar" style="background-color: #ffcc80;" role="progressbar" style="width: 0%;"></div>
+                        <div id="progress-side" class="progress-bar" style="background-color: #ffcc80;"
+                            role="progressbar" style="width: 0%;"></div>
                     </div>
                     <h6 class="card-subtitle my-4 text-muted">人文科學類</h6>
                     {% for course in studentCourseData %}
-                        {% if course['category'] == 'C1' %}
-                        <div class="row px-5">
-                            <p class="mr-5">{{ course['id'] }}</p>
-                            <p class="mr-auto">{{ course['name'] }}</p>
-                            <p class="mr-5">{{ course['credit'] }}學分</p>
-                            <p>學期總分：{{ course['score'] }}</p>
-                        </div>
-                        {% endif %}
+                    {% if course['category'] == 'C1' %}
+                    <div class="row px-5">
+                        <p class="mr-5">{{ course['id'] }}</p>
+                        <p class="mr-auto">{{ course['name'] }}</p>
+                        <p class="mr-5">{{ course['credit'] }}學分</p>
+                        <p>學期總分：{{ course['score'] }}</p>
+                    </div>
+                    {% endif %}
                     {% endfor %}
                     <h6 class="card-subtitle my-4 text-muted">社會科學類</h6>
                     {% for course in studentCourseData %}
-                        {% if course['category'] == 'C2' %}
-                        <div class="row px-5">
-                            <p class="mr-5">{{ course['id'] }}</p>
-                            <p class="mr-auto">{{ course['name'] }}</p>
-                            <p class="mr-5">{{ course['credit'] }}學分</p>
-                            <p>學期總分：{{ course['score'] }}</p>
-                        </div>
-                        {% endif %}
+                    {% if course['category'] == 'C2' %}
+                    <div class="row px-5">
+                        <p class="mr-5">{{ course['id'] }}</p>
+                        <p class="mr-auto">{{ course['name'] }}</p>
+                        <p class="mr-5">{{ course['credit'] }}學分</p>
+                        <p>學期總分：{{ course['score'] }}</p>
+                    </div>
+                    {% endif %}
                     {% endfor %}
                     <h6 class="card-subtitle my-4 text-muted">自然科學類</h6>
                     {% for course in studentCourseData %}
-                        {% if course['category'] == 'C3' %}
-                        <div class="row px-5">
-                            <p class="mr-5">{{ course['id'] }}</p>
-                            <p class="mr-auto">{{ course['name'] }}</p>
-                            <p class="mr-5">{{ course['credit'] }}學分</p>
-                            <p>學期總分：{{ course['score'] }}</p>
-                        </div>
-                        {% endif %}
+                    {% if course['category'] == 'C3' %}
+                    <div class="row px-5">
+                        <p class="mr-5">{{ course['id'] }}</p>
+                        <p class="mr-auto">{{ course['name'] }}</p>
+                        <p class="mr-5">{{ course['credit'] }}學分</p>
+                        <p>學期總分：{{ course['score'] }}</p>
+                    </div>
+                    {% endif %}
                     {% endfor %}
                     <div class="row px-3 justify-content-between">
                         <h5 class="card-subtitle my-4">跨院選修與微學分</h5>
                         <h6 id="text-cross" class="card-subtitle mt-5 mb-2 text-muted">已修 0 / 6 向度</h6>
                     </div>
                     <div class="progress mb-4" style="height: 20px;">
-                        <div id="progress-cross" class="progress-bar" style="background-color: #ffcc80;" role="progressbar" style="width: 0%;"></div>
+                        <div id="progress-cross" class="progress-bar" style="background-color: #ffcc80;"
+                            role="progressbar" style="width: 0%;"></div>
                     </div>
                     {% for course in studentCourseData %}
-                        {% if course['category'] == 'D0' %}
-                        <div class="row px-5">
-                            <p class="mr-5">{{ course['id'] }}</p>
-                            <p class="mr-auto">{{ course['name'] }}</p>
-                            <p class="mr-5">{{ course['credit'] }}學分</p>
-                            <p>學期總分：{{ course['score'] }}</p>
-                        </div>
-                        {% endif %}
+                    {% if course['category'] == 'D0' %}
+                    <div class="row px-5">
+                        <p class="mr-5">{{ course['id'] }}</p>
+                        <p class="mr-auto">{{ course['name'] }}</p>
+                        <p class="mr-5">{{ course['credit'] }}學分</p>
+                        <p>學期總分：{{ course['score'] }}</p>
+                    </div>
+                    {% endif %}
                     {% endfor %}
                 </div>
             </div>
@@ -304,17 +313,18 @@
                         <h6 id="text-necessary" class="card-subtitle mt-5 mb-2 text-muted">已修 0 學分</h6>
                     </div>
                     <div class="progress mb-4" style="height: 20px;">
-                        <div id="progress-necessary" style="background-color: #90caf9;" class="progress-bar" role="progressbar" style="width: 0%;"></div>
+                        <div id="progress-necessary" style="background-color: #90caf9;" class="progress-bar"
+                            role="progressbar" style="width: 0%;"></div>
                     </div>
                     {% for course in studentCourseData %}
-                        {% if course['category'] == 'A1' %}
-                        <div class="row px-5">
-                            <p class="mr-5">{{ course['id'] }}</p>
-                            <p class="mr-auto">{{ course['name'] }}</p>
-                            <p class="mr-5">{{ course['credit'] }}學分</p>
-                            <p>學期總分：{{ course['score'] }}</p>
-                        </div>
-                        {% endif %}
+                    {% if course['category'] == 'A1' %}
+                    <div class="row px-5">
+                        <p class="mr-5">{{ course['id'] }}</p>
+                        <p class="mr-auto">{{ course['name'] }}</p>
+                        <p class="mr-5">{{ course['credit'] }}學分</p>
+                        <p>學期總分：{{ course['score'] }}</p>
+                    </div>
+                    {% endif %}
                     {% endfor %}
                     <div class="dropdown-divider my-4"></div>
                     <div class="row px-3 justify-content-between">
@@ -322,17 +332,18 @@
                         <h6 id="text-optional" class="card-subtitle mt-5 mb-2 text-muted">已修 0 學分</h6>
                     </div>
                     <div class="progress mb-4" style="height: 20px;">
-                        <div id="progress-optional" style="background-color: #aed581;" class="progress-bar" role="progressbar" style="width: 0%;"></div>
+                        <div id="progress-optional" style="background-color: #aed581;" class="progress-bar"
+                            role="progressbar" style="width: 0%;"></div>
                     </div>
                     {% for course in studentCourseData %}
-                        {% if course['category'] == 'A2' %}
-                        <div class="row px-5">
-                            <p class="mr-5">{{ course['id'] }}</p>
-                            <p class="mr-auto">{{ course['name'] }}</p>
-                            <p class="mr-5">{{ course['credit'] }}學分</p>
-                            <p>學期總分：{{ course['score'] }}</p>
-                        </div>
-                        {% endif %}
+                    {% if course['category'] == 'A2' %}
+                    <div class="row px-5">
+                        <p class="mr-5">{{ course['id'] }}</p>
+                        <p class="mr-auto">{{ course['name'] }}</p>
+                        <p class="mr-5">{{ course['credit'] }}學分</p>
+                        <p>學期總分：{{ course['score'] }}</p>
+                    </div>
+                    {% endif %}
                     {% endfor %}
                 </div>
             </div>

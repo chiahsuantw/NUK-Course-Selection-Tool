@@ -1,6 +1,6 @@
 // 學分爬蟲後資料處理
 $(document).ready(function () {
-    
+
     var chineseCredits = parseFloat($('#credit-AC').text());
     var englishCredits = parseFloat($('#credit-AE').text());
 
@@ -8,15 +8,15 @@ $(document).ready(function () {
     $('#text-english').text('已修 ' + englishCredits + ' / 4 學分');
 
     var coreGeneralEduCredits = parseFloat($('#credit-B1').text()) +
-                                parseFloat($('#credit-B2').text()) +
-                                parseFloat($('#credit-B3').text()) +
-                                parseFloat($('#credit-B4').text()) +
-                                parseFloat($('#credit-B5').text()) +
-                                parseFloat($('#credit-B6').text());
+        parseFloat($('#credit-B2').text()) +
+        parseFloat($('#credit-B3').text()) +
+        parseFloat($('#credit-B4').text()) +
+        parseFloat($('#credit-B5').text()) +
+        parseFloat($('#credit-B6').text());
 
     var sideGeneralEduCredits = parseFloat($('#credit-C1').text()) +
-                                parseFloat($('#credit-C2').text()) +
-                                parseFloat($('#credit-C3').text());
+        parseFloat($('#credit-C2').text()) +
+        parseFloat($('#credit-C3').text());
 
     var coreProgress = 0;
     var sideProgress = 0;
@@ -40,10 +40,10 @@ $(document).ready(function () {
     $('#text-necessary').text('已修 ' + parseFloat($('#credit-A1').text()) + ' / ' + $('#student-necess-credit').text());
     $('#text-optional').text('已修 ' + parseFloat($('#credit-A2').text()) + ' / ' + $('#student-option-credit').text());
 
-    $('#progress-necessary').css('width', (parseFloat($('#credit-A1').text()) / 
-                                            parseFloat($('#student-necess-credit').text().slice(0, -3)) * 100).toString() + '%');
-    $('#progress-optional').css('width', (parseFloat($('#credit-A2').text()) / 
-                                            parseFloat($('#student-option-credit').text().slice(0, -3)) * 100).toString() + '%');
+    $('#progress-necessary').css('width', (parseFloat($('#credit-A1').text()) /
+        parseFloat($('#student-necess-credit').text().slice(0, -3)) * 100).toString() + '%');
+    $('#progress-optional').css('width', (parseFloat($('#credit-A2').text()) /
+        parseFloat($('#student-option-credit').text().slice(0, -3)) * 100).toString() + '%');
 
     // 總計已修所有學分
     total = 0;
@@ -62,9 +62,9 @@ $(document).ready(function () {
     total += parseFloat($('#credit-C2').text());
     total += parseFloat($('#credit-C3').text());
     total += parseFloat($('#credit-D0').text());
-    
+
     $('#totalCredit').text('目前已修：' + total + ' 學分');
-    
+
     //設定進度條
     $('#progress-chinese').css('width', (chineseCredits / 4 * 100).toString() + '%');
     $('#progress-english').css('width', (englishCredits / 4 * 100).toString() + '%');

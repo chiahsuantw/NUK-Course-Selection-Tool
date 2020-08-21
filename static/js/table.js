@@ -154,8 +154,8 @@ $('#gradeSelect').on('change', function () {
 
 
 // 已選課程 按鈕點擊事件
-function selected(){
-    
+function selected() {
+
     // 隱藏所有課程列表
     // var allCourse = $(".control");
     // for (i = 0; i < allCourse.length; i++) {
@@ -163,9 +163,9 @@ function selected(){
     //         allCourse[i].style.display = "none";
     //     }
     // }
-    $('.control').each(function(){
+    $('.control').each(function () {
         $(this).css('display', '');
-        if(!$(this).children('#selectBox').children().prop("checked")){
+        if (!$(this).children('#selectBox').children().prop("checked")) {
             $(this).css('display', 'none');
         }
     });
@@ -196,7 +196,7 @@ $('.checkBox').click(function () {
         var timeList = JSON.parse($(this).val()); // 轉換時間資訊成List
 
         conflictedCourseList = new Set();
-        
+
         // 初始化選中課程資訊
         courseInfo = new Map();
         courseInfo.set('name', courseName);
@@ -245,13 +245,13 @@ $('.checkBox').click(function () {
             }
 
             //處理中午課程時間
-            if(timeList[i][1] == '4.5'){
+            if (timeList[i][1] == '4.5') {
                 timeList[i][1] = '13';
             }
-            
+
             $('#table-' + timeList[i][0] + '-' + timeList[i][1]).css("background-color", colorCode);
             $('#table-' + timeList[i][0] + '-' + timeList[i][1]).html('<small class="p-0">' + courseName + '</small>');
-            
+
             // 設定目前所有選中課程在table資訊
             courseInfo.set('color', colorCode);
             timeTableInfo.set('table-' + timeList[i][0] + '-' + timeList[i][1], courseInfo);
@@ -260,9 +260,9 @@ $('.checkBox').click(function () {
         // 已選學分加總
         sumOfCredit += parseInt($(this).parent().siblings('#courseCredit').text());
         $('#credit').text('已選學分 ' + sumOfCredit.toString());
-        if(sumOfCredit > 25)
+        if (sumOfCredit > 25)
             $('#warningIcon').attr('src', 'https://img.icons8.com/fluent/24/000000/box-important.png');
-        else if(sumOfCredit < 15)
+        else if (sumOfCredit < 15)
             $('#warningIcon').attr('src', 'https://img.icons8.com/fluent/24/000000/cancel.png');
         else
             $('#warningIcon').attr('src', 'https://img.icons8.com/fluent/24/000000/checked.png');
@@ -286,9 +286,9 @@ $('.checkBox').click(function () {
         // 課表
         timeList = JSON.parse($(this).val());
         for (i = 0; i < timeList.length; i++) {
-            
+
             //處理中午課程時間
-            if(timeList[i][1] == '4.5'){
+            if (timeList[i][1] == '4.5') {
                 timeList[i][1] = '13';
             }
 
@@ -301,9 +301,9 @@ $('.checkBox').click(function () {
         //學分加總移除
         sumOfCredit -= parseInt($(this).parent().siblings('#courseCredit').text());
         $('#credit').text('已選學分 ' + sumOfCredit.toString());
-        if(sumOfCredit > 25)
+        if (sumOfCredit > 25)
             $('#warningIcon').attr('src', 'https://img.icons8.com/fluent/24/000000/box-important.png');
-        else if(sumOfCredit < 15)
+        else if (sumOfCredit < 15)
             $('#warningIcon').attr('src', 'https://img.icons8.com/fluent/24/000000/cancel.png');
         else
             $('#warningIcon').attr('src', 'https://img.icons8.com/fluent/24/000000/checked.png');
@@ -313,13 +313,13 @@ $('.checkBox').click(function () {
 
 // 輸出課表 CSV 資料
 // String To CSV File and Downloader 
-function exportToCSV( _csvString ) {
+function exportToCSV(_csvString) {
     var downloadLink = document.createElement("a");
     downloadLink.download = "Selected_Course.csv";
     downloadLink.innerHTML = "Download File";
     if (window.webkitURL != null) {
-        var code = encodeURIComponent( _csvString );
-        if ( navigator.appVersion.indexOf("Win")==-1 ) {
+        var code = encodeURIComponent(_csvString);
+        if (navigator.appVersion.indexOf("Win") == -1) {
             downloadLink.href = "data:application/csv;charset=utf-8," + code;
         } else {
             downloadLink.href = "data:application/csv;charset=utf-8,%EF%BB%BF" + code;
@@ -334,10 +334,10 @@ function save() {
     var csvContent = '類別, 課程代號, 課程名稱, 教師\r\n';
 
     for (var key of selectedCourseList.keys()) {
-        csvContent += courseId.get($('#' + key).parent().siblings('#courseDept').text()).replace(/^\s*|\s*$/g,"") + ', ';
-        csvContent += key.slice(0, -1).replace(/^\s*|\s*$/g,"") + ', ';
-        csvContent += $('#' + key).parent().siblings('#courseName').children().text().replace(/^\s*|\s*$/g,"") + ', ';
-        csvContent += $('#' + key).parent().siblings('#courseTeacher').text().replace(/^\s*|\s*$/g,"") + '\r\n';
+        csvContent += courseId.get($('#' + key).parent().siblings('#courseDept').text()).replace(/^\s*|\s*$/g, "") + ', ';
+        csvContent += key.slice(0, -1).replace(/^\s*|\s*$/g, "") + ', ';
+        csvContent += $('#' + key).parent().siblings('#courseName').children().text().replace(/^\s*|\s*$/g, "") + ', ';
+        csvContent += $('#' + key).parent().siblings('#courseTeacher').text().replace(/^\s*|\s*$/g, "") + '\r\n';
     }
 
     exportToCSV(csvContent);
@@ -377,7 +377,7 @@ $(".dcardLink").click(function () {
 //     return 'rgb(' + parseInt(result[1], 16) + ', ' + parseInt(result[2], 16) + ', ' + parseInt(result[3], 16) + ')';
 // }
 
-$(".colorBox").mouseover(function(){
+$(".colorBox").mouseover(function () {
 
     if (timeTableInfo.has($(this).attr('id'))) {
         var color = timeTableInfo.get($(this).attr('id')).get('color');
@@ -402,60 +402,60 @@ $(".colorBox").mouseover(function(){
         var position = 0;
         var hasComma = false;
         for (i = 0; i < teacher.length; i++) {
-            if (teacher[i] == ','){
+            if (teacher[i] == ',') {
                 hasComma = true;
                 break;
             }
             position++
         }
         teacher = teacher.substring(0, position);
-        if(hasComma == true){
+        if (hasComma == true) {
             teacher += '+';
         }
 
         // 分析教室代號
         console.log(location.slice(0, 3));
-        if(location.slice(0, 3) == 'B01'){
+        if (location.slice(0, 3) == 'B01') {
             location = '[綜-' + location.slice(4) + ']';
         }
-        else if(location.slice(0, 3) == 'C01'){
+        else if (location.slice(0, 3) == 'C01') {
             location = '[工-' + location.slice(4) + ']';
         }
-        else if(location.slice(0, 3) == 'C02'){
+        else if (location.slice(0, 3) == 'C02') {
             location = '[理-' + location.slice(4) + ']';
         }
-        else if(location.slice(0, 3) == 'K01'){
+        else if (location.slice(0, 3) == 'K01') {
             location = '[體-' + location.slice(4) + ']';
         }
-        else if(location.slice(0, 3) == 'L01'){
+        else if (location.slice(0, 3) == 'L01') {
             location = '[圖-' + location.slice(4) + ']';
         }
-        else if(location.slice(0, 3) == 'L02'){
+        else if (location.slice(0, 3) == 'L02') {
             location = '[法-' + location.slice(4) + ']';
         }
-        else if(location.slice(0, 3) == 'M01'){
+        else if (location.slice(0, 3) == 'M01') {
             location = '[管-' + location.slice(4) + ']';
         }
-        else if(location.slice(0, 3) == 'H1-'){
+        else if (location.slice(0, 3) == 'H1-') {
             location = '[人1-' + location.slice(4) + ']';
         }
-        else if(location.slice(0, 3) == 'H2-'){
+        else if (location.slice(0, 3) == 'H2-') {
             location = '[人2-' + location.slice(4) + ']';
         }
 
         // 去除'其他教室'字串
-        if(location.search('其他教室') != -1){
+        if (location.search('其他教室') != -1) {
             location = location.slice(0, location.search('其他教室')) + '+]';
         }
 
         $(this).css('background-color', darkColor);
-        $(this).html(teacher+'<br>'+location);
+        $(this).html(teacher + '<br>' + location);
     }
 });
 
 
-$(".colorBox").mouseout(function(){
-    if(timeTableInfo.has($(this).attr('id'))){
+$(".colorBox").mouseout(function () {
+    if (timeTableInfo.has($(this).attr('id'))) {
         var color = timeTableInfo.get($(this).attr('id')).get('color');
         var name = timeTableInfo.get($(this).attr('id')).get('name');
         $(this).css('background-color', color);

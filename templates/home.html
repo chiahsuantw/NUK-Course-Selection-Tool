@@ -47,7 +47,8 @@
                 <div class="row shadow rounded-pill px-2" style="background-color: #036fc6;">
                     <p id="credit" style="color: white;" class="m-1">已選學分 0</p>
                     <div class="col align-self-center p-0">
-                        <img id="warningIcon" style="height: 24px;" src="https://img.icons8.com/fluent/24/000000/cancel.png"/>
+                        <img id="warningIcon" style="height: 24px;"
+                            src="https://img.icons8.com/fluent/24/000000/cancel.png" />
                     </div>
                 </div>
             </li>
@@ -70,7 +71,7 @@
                     <a class="dropdown-item" href="/m/home">
                         <div class="row pl-2">
                             <div class="dropdown-item-icon">
-                                <img src="https://img.icons8.com/fluent/24/000000/android.png"/>
+                                <img src="https://img.icons8.com/fluent/24/000000/android.png" />
                             </div>
                             <p class="mx-2 mb-0" style="padding-top: 2px;">手機版</p>
                         </div>
@@ -78,7 +79,7 @@
                     <a class="dropdown-item" href="/profile">
                         <div class="row pl-2">
                             <div class="dropdown-item-icon">
-                                <img src="https://img.icons8.com/fluent/24/000000/resume-website.png"/>
+                                <img src="https://img.icons8.com/fluent/24/000000/resume-website.png" />
                             </div>
                             <p class="mx-2 mb-0" style="padding-top: 2px;">我的學分</p>
                         </div>
@@ -87,7 +88,7 @@
                     <a class="dropdown-item" href="/login">
                         <div class="row pl-2">
                             <div class="dropdown-item-icon">
-                                <img src="https://img.icons8.com/fluent/24/000000/key.png"/>
+                                <img src="https://img.icons8.com/fluent/24/000000/key.png" />
                             </div>
                             <p class="mx-2 mb-0" style="padding-top: 2px;">登入</p>
                         </div>
@@ -96,7 +97,7 @@
                     <a class="dropdown-item" href="/logout">
                         <div class="row pl-2">
                             <div class="dropdown-item-icon">
-                                <img src="https://img.icons8.com/fluent/24/000000/exit.png"/>
+                                <img src="https://img.icons8.com/fluent/24/000000/exit.png" />
                             </div>
                             <p class="mx-2 mb-0" style="padding-top: 2px;">登出</p>
                         </div>
@@ -346,11 +347,6 @@
                             <a data-toggle="tooltip" data-placement="top" title="搜尋課程、教授">
                                 <img style="width: 36px; height: 36px;" src="https://img.icons8.com/fluent/36/000000/search.png"/>
                             </a>-->
-                            <!--PrintTable() //Enhancement: render id:timeTable and save as jpg files//
-                            <a class="ml-auto" href="javascript: printTable()" data-toggle="tooltip" data-placement="top" title="輸出課表">
-                                <img src="https://img.icons8.com/fluent/36/000000/print.png"/>
-                            </a>
-                            -->
                             <a href="javascript: selected()" class="ml-auto" data-toggle="tooltip" data-placement="top"
                                 title="已選課程">
                                 <img src="https://img.icons8.com/fluent/36/000000/checkmark.png" />
@@ -358,8 +354,9 @@
                             <a href="/home" class="ml-3" data-toggle="tooltip" data-placement="top" title="移除全部">
                                 <img src="https://img.icons8.com/fluent/36/000000/filled-trash.png" />
                             </a>
-                            <a href="javascript: save()" class="ml-3" data-toggle="tooltip" data-placement="top" title="下載選課資料">
-                                <img src="https://img.icons8.com/fluent/36/000000/save.png"/>
+                            <a href="javascript: save()" class="ml-3" data-toggle="tooltip" data-placement="top"
+                                title="下載選課資料">
+                                <img src="https://img.icons8.com/fluent/36/000000/save.png" />
                             </a>
                             <a href="/guide" class="ml-3" data-toggle="tooltip" data-placement="top" title="使用方式">
                                 <img class="mr-2" src="https://img.icons8.com/fluent/36/000000/info.png" />
@@ -407,7 +404,7 @@
                                     </tr>
                                     {% endfor %}
                                 </tbody>
-                                
+
                             </table>
                         </div>
                     </div>
@@ -431,11 +428,6 @@
         crossorigin="anonymous"></script>
     <!--Bootstrap CDN END-->
 
-    <!--html2canvas //Enhancement: render id:timeTable and save as jpg files//
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"
-        integrity="sha512-OqcrADJLG261FZjar4Z6c4CfLqd861A3yPNMb+vRQ2JwzFT49WT4lozrh3bcKxHxtDTgNiqgYbEUStzvZQRfgQ=="
-        crossorigin="anonymous"></script>
-    -->
     <script type="text/javascript" src="/static/js/style.js"></script>
     <script type="text/javascript" src="/static/js/table.js"></script>
 </body>
