@@ -68,6 +68,27 @@ def profile():
                             studentCourseCredits=studentCourseCredits)
 
 
+@app.route('/guide')
+def guide():
+    cookieAccount = request.cookies.get('Account')
+    cookiePassword = request.cookies.get('Password')
+    cookieName = request.cookies.get('Name')
+
+    userName = '訪客'
+    userId = 'A0000000'
+    hasLoggedIn = 'False'
+    
+    if cookieAccount != None and cookiePassword != None:
+        hasLoggedIn = 'True'
+        userName = cookieName
+        userId = cookieAccount
+
+    return render_template('how_to_use.html', 
+                            userName=userName, 
+                            userId=userId, 
+                            hasLoggedIn=hasLoggedIn)
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     cookieAccount = request.cookies.get('Account')
@@ -112,6 +133,8 @@ def logout():
     else:
         return redirect(url_for('home'))
 
+
+# ===== 手機頁面路由 ===== #
 
 @app.route('/m/home')
 def mobile_home():

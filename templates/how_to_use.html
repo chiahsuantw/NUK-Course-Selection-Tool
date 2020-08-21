@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/profile.css">
+    <link rel="icon" href="/static/img/icon.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300&display=swap" rel="stylesheet">
+    <link href="/static/css/font.css" rel="stylesheet">
+    <title>如何使用 · 高大選課工具</title>
+</head>
+
+<body>
+    <nav class="fixed-top topnav navbar navbar-expand shadow navbar-light bg-white" id="topnavbar" style="z-index: 1035;">
+        <a class="navbar-brand active" href="/home">
+            <ul class="navbar-nav align-items-center">
+                <img class="mr-2" style="width: 32px; height: 32px;"
+                    src="https://img.icons8.com/fluent/32/000000/calendar.png" />
+                <h4 class="mt-1">高大選課工具</h4>
+            </ul>
+        </a>
+        <ul class="navbar-nav align-items-center ml-auto">
+            <li class="nav-item dropdown no-caret mr-2 dropdown-user">
+                <a class="btn btn-icon btn-transparent-dark dropdown-toggle" id="navbarDropdownUserImage"
+                    href="javascript:void(0);" role="button" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                    <img style="width: 36px; height: 36px;" src="/static/img/user.png">
+                </a>
+                <div class="dropdown-menu dropdown-menu-right border-0 shadow animated--fade-in-up mt-4 p-3"
+                    aria-labelledby="navbarDropdownUserImage">
+                    <div class="dropdown-header d-flex align-items-center">
+                        <img class="dropdown-user-img" style="width: 54px; height: 54px;" src="/static/img/user.png">
+                        <div class="dropdown-user-details ml-3">
+                            <h5 class="mb-0">{{ userName }}</h5>
+                            <div class="">{{ userId }}</div>
+                        </div>
+                    </div>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="/home">
+                        <div class="row pl-2">
+                            <div class="dropdown-item-icon">
+                                <img src="https://img.icons8.com/fluent/24/000000/calendar.png"/>
+                            </div>
+                            <p class="mx-2 mb-0" style="padding-top: 2px;">選課輔助</p>
+                        </div>
+                    </a>
+                    <a class="dropdown-item" href="/profile">
+                        <div class="row pl-2">
+                            <div class="dropdown-item-icon">
+                                <img src="https://img.icons8.com/fluent/24/000000/resume-website.png" />
+                            </div>
+                            <p class="mx-2 mb-0" style="padding-top: 2px;">我的學分</p>
+                        </div>
+                    </a>
+                    {% if hasLoggedIn == 'False' %}
+                    <a class="dropdown-item" href="/login">
+                        <div class="row pl-2">
+                            <div class="dropdown-item-icon">
+                                <img src="https://img.icons8.com/fluent/24/000000/key.png" />
+                            </div>
+                            <p class="mx-2 mb-0" style="padding-top: 2px;">登入</p>
+                        </div>
+                    </a>
+                    {% else %}
+                    <a class="dropdown-item" href="/logout">
+                        <div class="row pl-2">
+                            <div class="dropdown-item-icon">
+                                <img src="https://img.icons8.com/fluent/24/000000/exit.png" />
+                            </div>
+                            <p class="mx-2 mb-0" style="padding-top: 2px;">登出</p>
+                        </div>
+                    </a>
+                    {% endif %}
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="d-flex justify-content-center" style="padding-top: 60px;">
+        <div class="col-lg-10 text-left pb-5">
+            <div style="border-radius: 20px" class="card shadow my-5">
+                <div class="card-body">
+                    <h2 class="text-center">使用說明</h2>
+                    <h6 class="text-center">INSTRUCTION</h6>
+                    <div class="dropdown-divider my-4"></div>
+                    <div class="col-6 p-4">
+                        <h3 class="mb-4">選課輔助</h3>
+                        <h5>即時課表預排</h5>
+                        <p>
+                            透過右側列表的下拉式選單選擇類別與年級，可以看到列出的課程，每個課程左邊都有個選取框，
+                            打勾表示你選擇該堂課程（以綠色背景表示），此時與該堂課衝堂的課程會禁止選取（以紅色背景表示），
+                            在選取課程的同時，左方的課表會即時顯示，可以透過視覺化了解目前課程的時間分布。
+                        </p>
+                        <div class="container" style="height: 20px;"></div>
+                        <h5>課表詳細資訊顯示</h5>
+                        <p>
+                            在左側課表顯示課程（若有選擇），可以將滑鼠懸停在顯示的課程上，會顯示教師姓名
+                            （若超過一人，則顯示一人），以及上課地點（若超過一地，則顯示一地）。
+                        </p>
+                        <div class="container" style="height: 20px;"></div>
+                        <h5>學分總計</h5>
+                        <p>
+                            在上方導航欄 <img src="/static/img/intro_pic1.jpg" style="height: 20px;"/>，會顯示目前已選學分累計，
+                            若同學選的學分低於15（最低修習學分）顯示&nbsp;<img src="https://img.icons8.com/fluent/20/000000/cancel.png">&nbsp;，會顯示目前已選學分累計，
+                            介於15～25學分（標準）顯示&nbsp;<img src="https://img.icons8.com/fluent/20/000000/checked.png">&nbsp;，
+                            超過25學分（超修警告）則顯示&nbsp;<img src="https://img.icons8.com/fluent/20/000000/box-important.png">&nbsp;。
+                        </p>
+                        <div class="container" style="height: 20px;"></div>
+                        <h5>Dcard 搜索功能</h5>
+                        <p>
+                            在課程列表中點選&nbsp;<img style="height: 20px;" src="/static/img/dcard.png">&nbsp;
+                            按鈕會立刻打開Dcard高大校板，並搜尋該開課老師，協助同學了解該老師的資訊。
+                        </p>
+                        <div class="container" style="height: 20px;"></div>
+                        <h5>顯示目前所有已選課程</h5>
+                        <p>
+                            在課程列表中點選&nbsp;<img src="https://img.icons8.com/fluent/20/000000/checkmark.png">&nbsp;
+                            可以顯示目前已選擇的課程，你可以在這裡直接取消勾選，而不需要再次回到課程所屬的類別。
+                        </p>
+                        <div class="container" style="height: 20px;"></div>
+                        <h5>移除全部已選課程</h5>
+                        <p>
+                            在課程列表中點選&nbsp;<img src="https://img.icons8.com/fluent/20/000000/filled-trash.png">&nbsp;
+                            會重新整理頁面來回到最初始的畫面，也就是失去所有的選課操作。
+                        </p>
+                        <div class="container" style="height: 20px;"></div>
+                        <h5>下載已選課程的CSV檔案</h5>
+                        <p>
+                            在課程列表中點選&nbsp;<img src="https://img.icons8.com/fluent/20/000000/save.png">&nbsp;
+                            可以下載一份包含課程代碼的CSV檔案，屆時輸入選課系統時即可比對課程代碼，
+                            該檔案可以用Excel或是筆記本開啟。
+                        </p>
+                        <div class="container" style="height: 20px;"></div>
+                        <h5>課程分類圖示說明</h5>
+                        <img src="/static/img/A1.png" style="height: 20px">&nbsp;&nbsp;必修<br>
+                        <img src="/static/img/A2.png" style="height: 20px">&nbsp;&nbsp;選修<br>
+                        <img src="/static/img/A3.png" style="height: 20px">&nbsp;&nbsp;共同必修<br>
+                        <img src="/static/img/B1.png" style="height: 20px">&nbsp;&nbsp;核心通識 - 思維方法<br>
+                        <img src="/static/img/B2.png" style="height: 20px">&nbsp;&nbsp;核心通識 - 美學素養<br>
+                        <img src="/static/img/B3.png" style="height: 20px">&nbsp;&nbsp;核心通識 - 公民素養<br>
+                        <img src="/static/img/B4.png" style="height: 20px">&nbsp;&nbsp;核心通識 - 文化素養<br>
+                        <img src="/static/img/B5.png" style="height: 20px">&nbsp;&nbsp;核心通識 - 科學素養<br>
+                        <img src="/static/img/B6.png" style="height: 20px">&nbsp;&nbsp;核心通識 - 倫理素養<br>
+                        <img src="/static/img/C1.png" style="height: 20px">&nbsp;&nbsp;博雅通識 - 人文科學類<br>
+                        <img src="/static/img/C2.png" style="height: 20px">&nbsp;&nbsp;博雅通識 - 社會科學類<br>
+                        <img src="/static/img/C3.png" style="height: 20px">&nbsp;&nbsp;博雅通識 - 自然科學類<br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"
+        integrity="sha512-yDlE7vpGDP7o2eftkCiPZ+yuUyEcaBwoJoIhdXv71KZWugFqEphIS3PU60lEkFaz8RxaVsMpSvQxMBaKVwA5xg=="
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
