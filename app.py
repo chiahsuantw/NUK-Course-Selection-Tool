@@ -8,7 +8,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = '3c178af81e8f023e05fc72c56757417158aaeff46e23263df647d9fdc4ad2452'
 
 # get course data from API server
-url = 'https://e7401c50-a59b-4ef9-9a40-a5ddf3852603.mock.pstmn.io/courseData'
+url = 'https://54d954ea-b85b-437c-a734-d4bbc9290d6f.mock.pstmn.io'
 response = requests.get(url)
 courseData = json.loads(response.text)
 
