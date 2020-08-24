@@ -101,7 +101,7 @@ def run(account, password):
         elif course_id[0:2] == 'SC':
             df_doneCourse.loc[doneCourse.index(course), 'category'] = 'C3'
         else:
-            if course_id[:2] != student_aca_code:
+            if course_id[:len(student_aca_code)] != student_aca_code:
                 # 跨院選修及微學分通識
                 df_doneCourse.loc[doneCourse.index(course), 'category'] = 'D0'
             elif course[4]:
@@ -157,6 +157,7 @@ def get_student_course(df_doneCourse):
 
 
 def get_student_progress(df_doneCourse):
+    df_doneCourse.loc[df_doneCourse['score']=='棄選', 'score'] = -60
     df_doneCourse.loc[:, 'credit'] = df_doneCourse['credit'].astype('float')
     df_doneCourse.loc[:, 'score'] = df_doneCourse['score'].astype('float')
 
