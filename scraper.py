@@ -157,7 +157,8 @@ def get_student_course(df_doneCourse):
 
 
 def get_student_progress(df_doneCourse):
-    df_doneCourse.loc[df_doneCourse['score']=='棄選', 'score'] = -60
+    df_doneCourse.loc[df_doneCourse['score']=='棄選', 'score'] = -70
+    df_doneCourse.loc[df_doneCourse['score']=='未送', 'score'] = -60
     df_doneCourse.loc[:, 'credit'] = df_doneCourse['credit'].astype('float')
     df_doneCourse.loc[:, 'score'] = df_doneCourse['score'].astype('float')
 
