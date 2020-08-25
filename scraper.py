@@ -65,8 +65,15 @@ def run(account, password):
         doneCourse.append([soup[i*7].text, soup[i*7+1].text,
                            soup[i*7+2].text, soup[i*7+5].text, compulsory])
 
+    # soup = bs4.BeautifulSoup(r.text, 'html.parser')
+    # student_aca = soup.find_all('td')[1].text[3:]
+    # student_aca_code = course_code[student_aca]
+
+    r = req.get('https://aca.nuk.edu.tw/Graduate/GraduateDetail/Menu.asp')
+    r.encoding = 'big5'
     soup = bs4.BeautifulSoup(r.text, 'html.parser')
-    student_aca = soup.find_all('td')[1].text[3:]
+    student = soup.find('center').find('tr').text.split('　　　　　　')
+    student_aca = student[2][3:]
     student_aca_code = course_code[student_aca]
 
     df_doneCourse = pd.DataFrame(
@@ -116,13 +123,21 @@ def get_graduate_info(account, password):
     req.post('https://aca.nuk.edu.tw/Student2/Menu1.asp',
              {'Account': account, 'Password': password})
     # 使用者資料(名字，學年，院所，院所代碼...)
-    r = req.post('https://aca.nuk.edu.tw/Student2/SO/ScoreQuery.asp',
-                 data={'Classno': ''})
+    # r = req.post('https://aca.nuk.edu.tw/Student2/SO/ScoreQuery.asp',
+    #              data={'Classno': ''})
+    # r.encoding = 'big5'
+    # soup = bs4.BeautifulSoup(r.text, 'html.parser')
+    # student_name = soup.find_all('td')[3].text[3:]
+    # student_aca = soup.find_all('td')[1].text[3:]
+    # student_acayear = int(account[1:4])
+    # student_aca_code = course_code[student_aca]
+    r = req.get('https://aca.nuk.edu.tw/Graduate/GraduateDetail/Menu.asp')
     r.encoding = 'big5'
     soup = bs4.BeautifulSoup(r.text, 'html.parser')
-    student_name = soup.find_all('td')[3].text[3:]
-    student_aca = soup.find_all('td')[1].text[3:]
-    student_acayear = int(account[1:4])
+    student = soup.find('center').find('tr').text.split('　　　　　　')
+    student_name = student[1][3:]
+    student_aca = student[2][3:]
+    student_acayear = student[3][6:]
     student_aca_code = course_code[student_aca]
 
     # 畢業門檻調查
