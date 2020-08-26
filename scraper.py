@@ -177,7 +177,7 @@ def get_student_progress(df_doneCourse):
 
     # 處理漏掉的項度
     cateclass = ['A1', 'A2', 'A3', 'AC', 'AE', 'B1',
-                 'B2', 'B3', 'B4', 'B5', 'B6', 'C1', 'C2', 'C3', 'D0']
+                 'B2', 'B3', 'B4', 'B5', 'B6', 'C1', 'C2', 'C3', 'D0', 'D1']
     for cate in [cates for cates in cateclass if cates not in df_courseBar.keys()]:
         df_courseBar[cate] = 0.0
 

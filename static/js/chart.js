@@ -62,6 +62,7 @@ $(document).ready(function () {
     total += parseFloat($('#credit-C2').text());
     total += parseFloat($('#credit-C3').text());
     total += parseFloat($('#credit-D0').text());
+    total += parseFloat($('#credit-D1').text());
 
     $('#totalCredit').text('目前已修：' + total + ' 學分');
 
@@ -76,16 +77,16 @@ $(document).ready(function () {
 
 
 // 讀取 Cookie 函式
-function readCookie(name) {
-    var nameEQ = name + "=";
-    var ca = document.cookie.split(';');
-    for (var i = 0; i < ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
-    }
-    return null;
-}
+// function readCookie(name) {
+//     var nameEQ = name + "=";
+//     var ca = document.cookie.split(';');
+//     for (var i = 0; i < ca.length; i++) {
+//         var c = ca[i];
+//         while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+//         if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+//     }
+//     return null;
+// }
 // 學生個人資料處理
 $(document).ready(function () {
     $('#text-student-name').text($('#student-name').text());
