@@ -437,6 +437,29 @@
                     {% endfor %}
                 </div>
             </div>
+            <div style="border-radius: 20px" class="card shadow my-5">
+                <div class="card-body">
+                    <div class="row px-3 justify-content-between">
+                        <h4 class="card-title mb-4 mt-2">其他課程</h4>
+                    </div>
+                    {% for course in studentCourseData %}
+                    {% if course['category'] == 'D1' %}
+                    <div class="row px-5">
+                        <p class="mr-5">{{ course['id'] }}</p>
+                        <p class="mr-auto">{{ course['name'] }}</p>
+                        <p class="mr-5">{{ course['credit'] }}學分</p>
+                        {% if course['score'] == '棄選' %}
+                        <p>&emsp;&emsp;棄選&emsp;&emsp;</p>
+                        {% elif course['score'] == '未送' %}
+                        <p>&emsp;&emsp;未送&emsp;&emsp;</p>
+                        {% else %}
+                        <p>學期總分：{{ course['score'] }}</p>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
         </div>
     </div>
 
@@ -456,6 +479,7 @@
         <p id='credit-C2'>{{ studentCourseCredits['C2'] }}</p>
         <p id='credit-C3'>{{ studentCourseCredits['C3'] }}</p>
         <p id='credit-D0'>{{ studentCourseCredits['D0'] }}</p>
+        <p id='credit-D1'>{{ studentCourseCredits['D1'] }}</p>
     </div>
 
     <div style="display: none;" class="col">
