@@ -6,6 +6,7 @@ import pandas as pd
 # ==================== #
 # 系所代碼
 # ==================== #
+
 course_code = {'通識微學分': 'MI',
                '共同必修系列': 'GR',
                '核心通識': 'CC',
@@ -14,39 +15,39 @@ course_code = {'通識微學分': 'MI',
                '通識社會科學類': 'SO',
                '全民國防教育類': 'CD',
                '興趣選修': 'IN',
-               '西洋語文學系': 'wl',
-               '運動健康與休閒學系': 'kh',
+               '西洋語文學系': 'WL',
+               '運動健康與休閒學系': 'KH',
                '工藝與創意設計學系': 'CCD',
                '建築學系': 'DA',
                '創意設計與建築學系': 'CDA',
                '東亞語文學系': 'EL',
                '運動競技學系': 'DAP',
                '人文社會科學院共同課程': 'CHS',
-               '法律學系': 'la',
+               '法律學系': 'LA',
                '政治法律學系': 'GL',
-               '財經法律學系': 'fl',
+               '財經法律學系': 'FL',
                '法學院共同課程': 'CCL',
-               '應用經濟學系': 'ae',
+               '應用經濟學系': 'AE',
                '金融管理學系': 'FI',
                '資訊管理學系': 'IM',
                '管理學院共同課程': 'CCM',
-               '應用數學系': 'am',
-               '應用化學系': 'ac',
+               '應用數學系': 'AM',
+               '應用化學系': 'AC',
                '應用物理學系': 'AP',
                '理學院共同課程': 'CCS',
-               '電機工程學系': 'ee',
+               '電機工程學系': 'EE',
                '土木與環境工程學系': 'CE',
                '資訊工程學系': 'CS',
                '化學工程及材料工程學系': 'CM',
-               '生命科學系': 'ls',
-               '亞太工商管理學系': 'ab',
+               '生命科學系': 'LS',
+               '亞太工商管理學系': 'AB',
                '國際學生系': 'ISP',
                '創新學院不分系': 'IFD'}
+
 
 # ==================== #
 # 爬修過的課
 # ==================== #
-
 
 def run(account, password):
     doneCourse = []
@@ -65,10 +66,6 @@ def run(account, password):
         doneCourse.append([soup[i*7].text, soup[i*7+1].text,
                            soup[i*7+2].text, soup[i*7+5].text, compulsory])
 
-    # soup = bs4.BeautifulSoup(r.text, 'html.parser')
-    # student_aca = soup.find_all('td')[1].text[3:]
-    # student_aca_code = course_code[student_aca]
-
     r = req.get('https://aca.nuk.edu.tw/Graduate/GraduateDetail/Menu.asp')
     r.encoding = 'big5'
     soup = bs4.BeautifulSoup(r.text, 'html.parser')
@@ -81,19 +78,18 @@ def run(account, password):
 
     for course in doneCourse:
         course_id = course[0]
-        if course_id[0:2] == 'CC':
-            if course_id[0:4] == 'CCI1':
-                df_doneCourse.loc[doneCourse.index(course), 'category'] = 'B1'
-            elif course_id[0:4] == 'CCI2':
-                df_doneCourse.loc[doneCourse.index(course), 'category'] = 'B2'
-            elif course_id[0:4] == 'CCO3':
-                df_doneCourse.loc[doneCourse.index(course), 'category'] = 'B3'
-            elif course_id[0:4] == 'CCO4':
-                df_doneCourse.loc[doneCourse.index(course), 'category'] = 'B4'
-            elif course_id[0:4] == 'CCC5':
-                df_doneCourse.loc[doneCourse.index(course), 'category'] = 'B5'
-            elif course_id[0:4] == 'CCC6':
-                df_doneCourse.loc[doneCourse.index(course), 'category'] = 'B6'
+        if course_id[0:4] == 'CCI1':
+            df_doneCourse.loc[doneCourse.index(course), 'category'] = 'B1'
+        elif course_id[0:4] == 'CCI2':
+            df_doneCourse.loc[doneCourse.index(course), 'category'] = 'B2'
+        elif course_id[0:4] == 'CCO3':
+            df_doneCourse.loc[doneCourse.index(course), 'category'] = 'B3'
+        elif course_id[0:4] == 'CCO4':
+            df_doneCourse.loc[doneCourse.index(course), 'category'] = 'B4'
+        elif course_id[0:4] == 'CCC5':
+            df_doneCourse.loc[doneCourse.index(course), 'category'] = 'B5'
+        elif course_id[0:4] == 'CCC6':
+            df_doneCourse.loc[doneCourse.index(course), 'category'] = 'B6'
         elif course_id[0:2] == 'GR':
             if course_id[2:].isnumeric():
                 df_doneCourse.loc[doneCourse.index(course), 'category'] = 'AC'
@@ -109,8 +105,13 @@ def run(account, password):
             df_doneCourse.loc[doneCourse.index(course), 'category'] = 'C3'
         else:
             if course_id[:len(student_aca_code)] != student_aca_code:
-                # 跨院選修及微學分通識
-                df_doneCourse.loc[doneCourse.index(course), 'category'] = 'D0'
+                # 跨院選修及微學分通識 'CD', 'IN', 'CHS', 'CCL', 'CCM', 'CCS'
+                if course_id[:2] == 'CD' or  course_id[:2] == 'IN':
+                    df_doneCourse.loc[doneCourse.index(course), 'category'] = 'D1'
+                elif course_id[:3] == 'CHS' or course_id[:3] == 'CCL' or course_id[:3] == 'CCM' or course_id[:3] == 'CCS':
+                    df_doneCourse.loc[doneCourse.index(course), 'category'] = 'D1'
+                else:
+                    df_doneCourse.loc[doneCourse.index(course), 'category'] = 'D0'
             elif course[4]:
                 df_doneCourse.loc[doneCourse.index(course), 'category'] = 'A1'
             else:
@@ -123,14 +124,6 @@ def get_graduate_info(account, password):
     req.post('https://aca.nuk.edu.tw/Student2/Menu1.asp',
              {'Account': account, 'Password': password})
     # 使用者資料(名字，學年，院所，院所代碼...)
-    # r = req.post('https://aca.nuk.edu.tw/Student2/SO/ScoreQuery.asp',
-    #              data={'Classno': ''})
-    # r.encoding = 'big5'
-    # soup = bs4.BeautifulSoup(r.text, 'html.parser')
-    # student_name = soup.find_all('td')[3].text[3:]
-    # student_aca = soup.find_all('td')[1].text[3:]
-    # student_acayear = int(account[1:4])
-    # student_aca_code = course_code[student_aca]
     r = req.get('https://aca.nuk.edu.tw/Graduate/GraduateDetail/Menu.asp')
     r.encoding = 'big5'
     soup = bs4.BeautifulSoup(r.text, 'html.parser')
