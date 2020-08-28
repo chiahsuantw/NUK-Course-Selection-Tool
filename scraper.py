@@ -135,7 +135,7 @@ def get_graduate_info(account, password):
 
     # 畢業門檻調查
     r = req.post('https://aca.nuk.edu.tw/Graduate/GraduateData/QueryData.asp',
-                 data={'Classno': account.upper(), 'Pclass': account[0].upper(), 'Sclass': student_aca_code.lower(), 'Gclass': 999, 'Yclass': account.upper(), 'Year': int(account[1:4])})
+                 data={'Classno': account.upper(), 'Pclass': 'A', 'Sclass': student_aca_code.lower(), 'Gclass': 999, 'Yclass': account.upper(), 'Year': int(account[1:4])})
     r.encoding = 'big5'
     soup = bs4.BeautifulSoup(r.text, 'html.parser')
     graduate_condition = soup.find_all('td')[4:18]
