@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, make_response
+from flask import Flask, render_template, request, redirect, url_for, flash, make_response, jsonify
 from scraper import run, get_student_course, get_student_progress, get_graduate_info
 import requests
 import json
@@ -6,6 +6,7 @@ import json
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '3c178af81e8f023e05fc72c56757417158aaeff46e23263df647d9fdc4ad2452'
+app.config['JSON_AS_ASCII'] = False
 
 # get course data from API server
 url = 'https://54d954ea-b85b-437c-a734-d4bbc9290d6f.mock.pstmn.io'
@@ -233,6 +234,23 @@ def mobile_logout():
         return res
     else:
         return redirect(url_for('mobile_home'))
+
+
+# ===== API ===== #
+
+@app.route('/getInfo/<id>&<password>')
+def getInfo(id, password):
+    return jsonify(get_graduate_info(id, password))
+
+
+@app.route('/getCourse/<id>&<password>')
+def getCourse(id, password):
+    return jsonify(get_student_course(run(id, password)))
+
+
+@app.route('/getProgress/<id>&<password>')
+def getProgress(id, password):
+    return jsonify(get_student_progress(run(id, password)))
 
 
 if __name__ == "__main__":
