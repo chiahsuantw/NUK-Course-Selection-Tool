@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, make_response, jsonify
-from scraper import run, get_student_course, get_student_progress, get_graduate_info
+from scraper import run, get_student_course, get_student_progress, get_graduate_info, get_course_table
 import requests
 import json
 
@@ -251,6 +251,11 @@ def getCourse(id, password):
 @app.route('/getProgress/<id>&<password>')
 def getProgress(id, password):
     return jsonify(get_student_progress(run(id, password)))
+
+
+@app.route('/getTable/<id>&<password>')
+def getTable(id, password):
+    return jsonify(get_course_table(id, password))
 
 
 if __name__ == "__main__":
