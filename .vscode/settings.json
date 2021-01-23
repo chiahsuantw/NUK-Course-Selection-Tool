@@ -1,6 +1,5 @@
 {
     "editor.fontSize": 16,
-    "terminal.integrated.fontFamily": "Cascadia Code PL",
     "cSpell.words": [
         "borderless",
         "ccircle",
@@ -48,5 +47,6 @@
         "venv.bak{,/**}",
         ".vscode{,/**}"
     ],
-    "python.pythonPath": "D:\\Program Files\\Python38\\python.exe"
+    "python.pythonPath": "D:\\Program Files\\Python38\\python.exe",
+    "terminal.integrated.automationShell.windows": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
 }
