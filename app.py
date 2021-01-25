@@ -9,7 +9,7 @@ app.config['SECRET_KEY'] = '3c178af81e8f023e05fc72c56757417158aaeff46e23263df647
 app.config['JSON_AS_ASCII'] = False
 
 # get course data from API server
-url = 'https://54d954ea-b85b-437c-a734-d4bbc9290d6f.mock.pstmn.io'
+url = 'https://4129db66-df60-48ee-a1d1-daf67fe23ce3.mock.pstmn.io'
 response = requests.get(url)
 courseData = json.loads(response.text)
 

@@ -49,4 +49,6 @@
     ],
     "python.pythonPath": "D:\\Program Files\\Python38\\python.exe",
     "terminal.integrated.automationShell.windows": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+    "python.linting.pylintEnabled": true,
+    "python.linting.enabled": true
 }
