@@ -48,5 +48,7 @@
         "venv.bak{,/**}",
         ".vscode{,/**}"
     ],
-    "python.pythonPath": "D:\\Program Files\\Python38\\python.exe"
+    "python.pythonPath": "D:\\Program Files\\Python\\Python39\\python.exe",
+    "python.linting.pylintEnabled": true,
+    "python.linting.enabled": true
 }
