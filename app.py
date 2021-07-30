@@ -1,4 +1,5 @@
 import json
+import os
 
 import requests
 from flask import Flask, flash, jsonify, make_response, redirect, render_template, request, url_for
@@ -9,10 +10,8 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = '3c178af81e8f023e05fc72c56757417158aaeff46e23263df647d9fdc4ad2452'
 app.config['JSON_AS_ASCII'] = False
 
-# get course data from API server
-url = 'https://4129db66-df60-48ee-a1d1-daf67fe23ce3.mock.pstmn.io'
-response = requests.get(url)
-courseData = json.loads(response.text)
+# decode course data from course_data.json
+course_data = json.load(open(os.path.join(app.root_path, 'course_data.json'), 'r', encoding='utf-8'))
 
 
 @app.route('/')
@@ -38,7 +37,7 @@ def home():
                            userName=user_name,
                            userId=user_id,
                            hasLoggedIn=has_logged_in,
-                           courseData=courseData)
+                           courseData=course_data)
 
 
 @app.route('/profile')
@@ -157,7 +156,7 @@ def mobile_home():
                            userName=user_name,
                            userId=user_id,
                            hasLoggedIn=has_logged_in,
-                           courseData=courseData)
+                           courseData=course_data)
 
 
 @app.route('/m/profile')
@@ -258,4 +257,4 @@ def get_table(account, password):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
