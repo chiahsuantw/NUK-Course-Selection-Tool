@@ -1,8 +1,8 @@
-import bs4
-import requests
-import json
-import pandas as pd
 import re
+
+import bs4
+import pandas as pd
+import requests
 
 # ==================== #
 # 系所代碼
@@ -51,7 +51,7 @@ course_code = {'通識微學分': 'MI',
 # ==================== #
 
 def run(account, password):
-    doneCourse = []
+    done_course = []
     req = requests.Session()
     req.post('https://aca.nuk.edu.tw/Student2/Menu1.asp',
              {'Account': account, 'Password': password})
@@ -62,10 +62,10 @@ def run(account, password):
     r.encoding = 'big5'
     soup = bs4.BeautifulSoup(r.text, 'html.parser')
     soup = soup.select('table[border="1"] tr[align="center"] td')
-    for i in range(int(len(soup)/7)):
-        compulsory = (soup[i*7+3].text == "必修")
-        doneCourse.append([soup[i*7].text, soup[i*7+1].text,
-                           soup[i*7+2].text, soup[i*7+5].text, compulsory])
+    for i in range(int(len(soup) / 7)):
+        compulsory = (soup[i * 7 + 3].text == "必修")
+        done_course.append([soup[i * 7].text, soup[i * 7 + 1].text,
+                            soup[i * 7 + 2].text, soup[i * 7 + 5].text, compulsory])
 
     r = req.get('https://aca.nuk.edu.tw/Graduate/GraduateDetail/Menu.asp')
     r.encoding = 'big5'
@@ -74,50 +74,51 @@ def run(account, password):
     student_aca = student[2][3:]
     student_aca_code = course_code[student_aca]
 
-    df_doneCourse = pd.DataFrame(
-        doneCourse, columns=['id', 'name', 'credit', 'score', 'category'])
+    df_done_course = pd.DataFrame(
+        done_course, columns=['id', 'name', 'credit', 'score', 'category'])
 
-    for course in doneCourse:
+    for course in done_course:
         course_id = course[0]
         if course_id[0:4] == 'CCI1':
-            df_doneCourse.loc[doneCourse.index(course), 'category'] = 'B1'
+            df_done_course.loc[done_course.index(course), 'category'] = 'B1'
         elif course_id[0:4] == 'CCI2':
-            df_doneCourse.loc[doneCourse.index(course), 'category'] = 'B2'
+            df_done_course.loc[done_course.index(course), 'category'] = 'B2'
         elif course_id[0:4] == 'CCO3':
-            df_doneCourse.loc[doneCourse.index(course), 'category'] = 'B3'
+            df_done_course.loc[done_course.index(course), 'category'] = 'B3'
         elif course_id[0:4] == 'CCO4':
-            df_doneCourse.loc[doneCourse.index(course), 'category'] = 'B4'
+            df_done_course.loc[done_course.index(course), 'category'] = 'B4'
         elif course_id[0:4] == 'CCC5':
-            df_doneCourse.loc[doneCourse.index(course), 'category'] = 'B5'
+            df_done_course.loc[done_course.index(course), 'category'] = 'B5'
         elif course_id[0:4] == 'CCC6':
-            df_doneCourse.loc[doneCourse.index(course), 'category'] = 'B6'
+            df_done_course.loc[done_course.index(course), 'category'] = 'B6'
         elif course_id[0:2] == 'GR':
             if course_id[2:].isnumeric():
-                df_doneCourse.loc[doneCourse.index(course), 'category'] = 'AC'
+                df_done_course.loc[done_course.index(course), 'category'] = 'AC'
             elif course_id[-2].isalpha():
-                df_doneCourse.loc[doneCourse.index(course), 'category'] = 'AE'
+                df_done_course.loc[done_course.index(course), 'category'] = 'AE'
             else:
-                df_doneCourse.loc[doneCourse.index(course), 'category'] = 'A3'
+                df_done_course.loc[done_course.index(course), 'category'] = 'A3'
         elif course_id[0:2] == 'LI':
-            df_doneCourse.loc[doneCourse.index(course), 'category'] = 'C1'
+            df_done_course.loc[done_course.index(course), 'category'] = 'C1'
         elif course_id[0:2] == 'SO':
-            df_doneCourse.loc[doneCourse.index(course), 'category'] = 'C2'
+            df_done_course.loc[done_course.index(course), 'category'] = 'C2'
         elif course_id[0:2] == 'SC':
-            df_doneCourse.loc[doneCourse.index(course), 'category'] = 'C3'
+            df_done_course.loc[done_course.index(course), 'category'] = 'C3'
         else:
             if course_id[:len(student_aca_code)] != student_aca_code:
                 # 跨院選修及微學分通識 'CD', 'IN', 'CHS', 'CCL', 'CCM', 'CCS'
-                if course_id[:2] == 'CD' or  course_id[:2] == 'IN':
-                    df_doneCourse.loc[doneCourse.index(course), 'category'] = 'D1'
-                elif course_id[:3] == 'CHS' or course_id[:3] == 'CCL' or course_id[:3] == 'CCM' or course_id[:3] == 'CCS':
-                    df_doneCourse.loc[doneCourse.index(course), 'category'] = 'D1'
+                if course_id[:2] == 'CD' or course_id[:2] == 'IN':
+                    df_done_course.loc[done_course.index(course), 'category'] = 'D1'
+                elif course_id[:3] == 'CHS' or course_id[:3] == 'CCL' or course_id[:3] == 'CCM' or course_id[
+                                                                                                   :3] == 'CCS':
+                    df_done_course.loc[done_course.index(course), 'category'] = 'D1'
                 else:
-                    df_doneCourse.loc[doneCourse.index(course), 'category'] = 'D0'
+                    df_done_course.loc[done_course.index(course), 'category'] = 'D0'
             elif course[4]:
-                df_doneCourse.loc[doneCourse.index(course), 'category'] = 'A1'
+                df_done_course.loc[done_course.index(course), 'category'] = 'A1'
             else:
-                df_doneCourse.loc[doneCourse.index(course), 'category'] = 'A2'
-    return df_doneCourse
+                df_done_course.loc[done_course.index(course), 'category'] = 'A2'
+    return df_done_course
 
 
 def get_graduate_info(account, password):
@@ -136,64 +137,63 @@ def get_graduate_info(account, password):
 
     # 畢業門檻調查
     r = req.post('https://aca.nuk.edu.tw/Graduate/GraduateData/QueryData.asp',
-                 data={'Classno': account.upper(), 'Pclass': 'A', 'Sclass': student_aca_code.lower(), 'Gclass': 999, 'Yclass': account.upper(), 'Year': int(account[1:4])})
+                 data={'Classno': account.upper(), 'Pclass': 'A', 'Sclass': student_aca_code.lower(), 'Gclass': 999,
+                       'Yclass': account.upper(), 'Year': int(account[1:4])})
     r.encoding = 'big5'
     soup = bs4.BeautifulSoup(r.text, 'html.parser')
     graduate_condition = soup.find_all('td')[4:18]
 
-    student_graduate_info = {}
-
-    student_graduate_info['student_name'] = student_name
-    student_graduate_info['student_aca'] = student_aca
-    student_graduate_info['student_acayear'] = student_acayear
-    student_graduate_info['student_aca_code'] = student_aca_code
+    student_graduate_info = {'student_name': student_name,
+                             'student_aca': student_aca,
+                             'student_acayear': student_acayear,
+                             'student_aca_code': student_aca_code}
 
     for i in range(0, 14, 2):
         student_graduate_info[graduate_condition[i].text.replace(
-            '\u3000', '')] = graduate_condition[i+1].text
+            '\u3000', '')] = graduate_condition[i + 1].text
     return student_graduate_info
 
 
-def get_student_course(df_doneCourse):
-    all_done_Course = []  # 總課表
+def get_student_course(df_done_course):
+    all_done_course = []  # 總課表
 
     # 將各 series 轉為 dict 放置 all_course list
-    for i in range(len(df_doneCourse)):
-        tempCourse = df_doneCourse.loc[i, ].to_dict()
-        all_done_Course.append(tempCourse)
+    for i in range(len(df_done_course)):
+        temp_course = df_done_course.loc[i,].to_dict()
+        all_done_course.append(temp_course)
 
-    return all_done_Course
+    return all_done_course
 
 
-def get_student_progress(df_doneCourse):
-    df_doneCourse.loc[df_doneCourse['score']=='棄選', 'score'] = -70
-    df_doneCourse.loc[df_doneCourse['score']=='未送', 'score'] = -60
-    df_doneCourse.loc[:, 'credit'] = df_doneCourse['credit'].astype('float')
-    df_doneCourse.loc[:, 'score'] = df_doneCourse['score'].astype('float')
+def get_student_progress(df_done_course):
+    df_done_course.loc[df_done_course['score'] == '棄選', 'score'] = -70
+    df_done_course.loc[df_done_course['score'] == '未送', 'score'] = -60
+    df_done_course.loc[:, 'credit'] = df_done_course['credit'].astype('float')
+    df_done_course.loc[:, 'score'] = df_done_course['score'].astype('float')
 
-    df_doneCourse.loc[df_doneCourse['score'] < 60, 'credit'] = 0
+    df_done_course.loc[df_done_course['score'] < 60, 'credit'] = 0
 
-    # groupby 'category'
-    df_courseBar = df_doneCourse.groupby('category').sum().credit.to_dict()
+    # Group by 'category'
+    df_course_bar = df_done_course.groupby('category').sum().credit.to_dict()
 
     # 處理漏掉的項度
     cateclass = ['A1', 'A2', 'A3', 'AC', 'AE', 'B1',
                  'B2', 'B3', 'B4', 'B5', 'B6', 'C1', 'C2', 'C3', 'D0', 'D1']
-    for cate in [cates for cates in cateclass if cates not in df_courseBar.keys()]:
-        df_courseBar[cate] = 0.0
+    for cate in [cates for cates in cateclass if cates not in df_course_bar.keys()]:
+        df_course_bar[cate] = 0.0
 
-    return df_courseBar
+    return df_course_bar
 
 
 def get_course_table(account, password):
-    req = requests.Session()  # Seesion 儲存傳給伺服器的(對話)cookies
+    req = requests.Session()  # Session 儲存傳給伺服器的(對話)cookies
 
-    req.post('https://course.nuk.edu.tw/Sel/SelectMain1.asp',{'Account':account,'Password':password})
-    r=req.get('https://course.nuk.edu.tw/Sel/query3.asp')
+    req.post('https://course.nuk.edu.tw/Sel/SelectMain1.asp', {'Account': account, 'Password': password})
+    r = req.get('https://course.nuk.edu.tw/Sel/query3.asp')
     r.encoding = 'big5'
 
     try:
-        soup =  bs4.BeautifulSoup(r.text, 'html.parser')
+        soup = bs4.BeautifulSoup(r.text, 'html.parser')
         tr_list = soup.find('table').find_all('tr')
     except:
         tr_list = []
@@ -204,16 +204,17 @@ def get_course_table(account, password):
     for tr in tr_list[1:]:
         c_d = {}
         raw_list = tr.text.split(' ')
-        
-        c_d['name'] =  raw_list[3]
+
+        c_d['name'] = raw_list[3]
         c_d['credit'] = int(raw_list[5])
         c_d['time'] = time_split(raw_list[6])
         c_d['location'] = list(set(raw_list[7].split(',')))
         c_d['teacher'] = raw_list[8]
 
         course_list.append(c_d)
-    
+
     return course_list
+
 
 def time_split(raw_time):
     weekdays = '一二三四五六日'
@@ -236,5 +237,5 @@ def time_split(raw_time):
             if week_list[i] == dd:
                 periods.append(period_list[i])
 
-        times.append([weekdays.find(dd)+1, periods]) 
+        times.append([weekdays.find(dd) + 1, periods])
     return times
