@@ -26,7 +26,7 @@ def home():
     cookie_name = request.cookies.get('Name')
 
     user_name = '訪客'
-    user_id = 'A0000000'
+    user_id = '-'
     has_logged_in = 'False'
 
     if cookie_account is not None and cookie_password is not None:
@@ -56,11 +56,11 @@ def profile():
     student_graduate_info = get_graduate_info(cookie_account, cookie_password)
 
     user_pic_url = '/static/img/user.png'
-    r = requests.get(
-        'http://elearning.nuk.edu.tw/_uploadfiles/stuphoto/' + cookie_account.lower() + '.jpg')
-    if r.status_code == 200:
-        user_pic_url = 'http://elearning.nuk.edu.tw/_uploadfiles/stuphoto/' + \
-                       cookie_account.lower() + '.jpg'
+    # r = requests.get(
+    #     'http://elearning.nuk.edu.tw/_uploadfiles/stuphoto/' + cookie_account.lower() + '.jpg')
+    # if r.status_code == 200:
+    #     user_pic_url = 'http://elearning.nuk.edu.tw/_uploadfiles/stuphoto/' + \
+    #                    cookie_account.lower() + '.jpg'
 
     return render_template('profile.html',
                            userName=user_name,
@@ -78,7 +78,7 @@ def guide():
     cookie_name = request.cookies.get('Name')
 
     user_name = '訪客'
-    user_id = 'A0000000'
+    user_id = '-'
     has_logged_in = 'False'
 
     if cookie_account is not None and cookie_password is not None:
@@ -113,7 +113,7 @@ def login():
         })
     res.encoding = 'big5'
 
-    if res.headers['Content-Length'] != '992':
+    if res.headers['Content-Length'] != '969':
         student_graduate_info = get_graduate_info(account, password)  # 取得學生基本資料
         view_response = make_response(redirect(url_for('profile')))
         view_response.set_cookie('Name', student_graduate_info['student_name'])
@@ -144,7 +144,7 @@ def mobile_home():
     cookie_name = request.cookies.get('Name')
 
     user_name = '訪客'
-    user_id = 'A0000000'
+    user_id = '-'
     has_logged_in = 'False'
 
     if cookie_account is not None and cookie_password is not None:
@@ -175,11 +175,11 @@ def mobile_profile():
     student_graduate_info = get_graduate_info(cookie_account, cookie_password)
 
     user_pic_url = '/static/img/user.png'
-    r = requests.get(
-        'http://elearning.nuk.edu.tw/_uploadfiles/stuphoto/' + cookie_account.lower() + '.jpg')
-    if r.status_code == 200:
-        user_pic_url = 'http://elearning.nuk.edu.tw/_uploadfiles/stuphoto/' + \
-                       cookie_account.lower() + '.jpg'
+    # r = requests.get(
+    #     'http://elearning.nuk.edu.tw/_uploadfiles/stuphoto/' + cookie_account.lower() + '.jpg')
+    # if r.status_code == 200:
+    #     user_pic_url = 'http://elearning.nuk.edu.tw/_uploadfiles/stuphoto/' + \
+    #                    cookie_account.lower() + '.jpg'
 
     return render_template('mobile_profile.html',
                            userName=user_name,
@@ -212,7 +212,7 @@ def mobile_login():
         })
     res.encoding = 'big5'
 
-    if res.headers['Content-Length'] != '992':
+    if res.headers['Content-Length'] != '969':
         student_graduate_info = get_graduate_info(account, password)  # 取得學生基本資料
         view_response = make_response(redirect(url_for('mobile_profile')))
         view_response.set_cookie('Name', student_graduate_info['student_name'])
