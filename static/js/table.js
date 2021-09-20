@@ -233,14 +233,11 @@ $('.checkBox').click(function () {
             var colorCode; // 依類別分顏色
             if (courseCategory == 'A1') {
                 colorCode = "#90caf9";
-            }
-            else if (courseCategory == 'A2') {
+            } else if (courseCategory == 'A2') {
                 colorCode = "#aed581";
-            }
-            else if (courseCategory == 'A3') {
+            } else if (courseCategory == 'A3') {
                 colorCode = "#f48fb1";
-            }
-            else {
+            } else {
                 colorCode = "#ffcc80";
             }
 
@@ -266,8 +263,7 @@ $('.checkBox').click(function () {
             $('#warningIcon').attr('src', 'https://img.icons8.com/fluent/24/000000/cancel.png');
         else
             $('#warningIcon').attr('src', 'https://img.icons8.com/fluent/24/000000/checked.png');
-    }
-    else {
+    } else {
 
         // 移除所選課程
         var rmCourse = selectedCourseList.get($(this).attr('id'));
@@ -327,6 +323,7 @@ function exportToCSV(_csvString) {
     }
     downloadLink.click();
 }
+
 // 輸出 CSV 原始字串
 // replace(/^\s*|\s*$/g,"") is for removing spaces
 function save() {
@@ -387,14 +384,11 @@ $(".colorBox").mouseover(function () {
         var darkColor = '';
         if (color === '#f48fb1') {
             darkColor = '#bf5f82';
-        }
-        else if (color === '#ffcc80') {
+        } else if (color === '#ffcc80') {
             darkColor = '#ca9b52';
-        }
-        else if (color === '#aed581') {
+        } else if (color === '#aed581') {
             darkColor = '#7da453';
-        }
-        else if (color === '#90caf9') {
+        } else if (color === '#90caf9') {
             darkColor = '#5d99c6';
         }
 
@@ -417,29 +411,21 @@ $(".colorBox").mouseover(function () {
         console.log(location.slice(0, 3));
         if (location.slice(0, 3) == 'B01') {
             location = '[綜-' + location.slice(4) + ']';
-        }
-        else if (location.slice(0, 3) == 'C01') {
+        } else if (location.slice(0, 3) == 'C01') {
             location = '[工-' + location.slice(4) + ']';
-        }
-        else if (location.slice(0, 3) == 'C02') {
+        } else if (location.slice(0, 3) == 'C02') {
             location = '[理-' + location.slice(4) + ']';
-        }
-        else if (location.slice(0, 3) == 'K01') {
+        } else if (location.slice(0, 3) == 'K01') {
             location = '[體-' + location.slice(4) + ']';
-        }
-        else if (location.slice(0, 3) == 'L01') {
+        } else if (location.slice(0, 3) == 'L01') {
             location = '[圖-' + location.slice(4) + ']';
-        }
-        else if (location.slice(0, 3) == 'L02') {
+        } else if (location.slice(0, 3) == 'L02') {
             location = '[法-' + location.slice(4) + ']';
-        }
-        else if (location.slice(0, 3) == 'M01') {
+        } else if (location.slice(0, 3) == 'M01') {
             location = '[管-' + location.slice(4) + ']';
-        }
-        else if (location.slice(0, 3) == 'H1-') {
+        } else if (location.slice(0, 3) == 'H1-') {
             location = '[人1-' + location.slice(4) + ']';
-        }
-        else if (location.slice(0, 3) == 'H2-') {
+        } else if (location.slice(0, 3) == 'H2-') {
             location = '[人2-' + location.slice(4) + ']';
         }
 
@@ -462,3 +448,63 @@ $(".colorBox").mouseout(function () {
         $(this).html('<small class="p-0">' + name + '</small>');
     }
 });
+
+
+// 移除所有課程
+function deleteAll() {
+    $('.control').each(function () {
+        if ($(this).children('#selectBox').children().prop("checked")) {
+            $(this).children('#selectBox').children().click();
+        }
+    });
+}
+
+// CSV檔案托放回復課程選取進度
+// ISSUE: #26 導入選課資料功能
+// 作者 Driftie
+let dropbox;
+
+dropbox = document.getElementsByClassName("row h-100")[0];
+dropbox.addEventListener("dragenter", dragenter, false);
+dropbox.addEventListener("dragover", dragover, false);
+dropbox.addEventListener("drop", drop, false);
+
+function dragenter(e) {
+    e.stopPropagation();
+    e.preventDefault();
+};
+
+function dragover(e) {
+    e.stopPropagation();
+    e.preventDefault();
+};
+var contents;
+const reader = new FileReader();
+
+function drop(e) {
+    e.stopPropagation();
+    e.preventDefault();
+
+    const dt = e.dataTransfer;
+    const files = dt.files;
+
+    reader.onload = process
+
+    reader.readAsText(files[0]);
+};
+
+function process(event) {
+    deleteAll();
+    contents = event.target.result.trim().split("\r\n").slice(1);
+    target = []
+    for (i = 1; i < 5; i++) {
+        for (var o of contents) {
+            if (document.getElementById(o.split(", ")[1] + i.toString()) != null) {
+                target.push(document.getElementById(o.split(", ")[1] + i.toString()))
+            }
+        }
+    }
+    for (var i of target) {
+        i.click()
+    }
+}
