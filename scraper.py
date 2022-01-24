@@ -70,7 +70,7 @@ def run(account, password):
     r = req.get('https://aca.nuk.edu.tw/Graduate/GraduateDetail/Menu.asp')
     r.encoding = 'big5'
     soup = bs4.BeautifulSoup(r.text, 'html.parser')
-    student = soup.find('center').find('tr').text.split('　　　　　　')
+    student = soup.find_all('center')[1].find('tr').text.split('　　　　　　')# 在畢業業條件多了一行，這裡是辨識學號及名字
     student_aca = student[2][3:]
     student_aca_code = course_code[student_aca]
 
@@ -129,7 +129,7 @@ def get_graduate_info(account, password):
     r = req.get('https://aca.nuk.edu.tw/Graduate/GraduateDetail/Menu.asp')
     r.encoding = 'big5'
     soup = bs4.BeautifulSoup(r.text, 'html.parser')
-    student = soup.find('center').find('tr').text.split('　　　　　　')
+    student = soup.find_all('center')[1].find('tr').text.split('　　　　　　')
     student_name = student[1][3:]
     student_aca = student[2][3:]
     student_acayear = student[3][6:]
