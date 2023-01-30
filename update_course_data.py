@@ -5,7 +5,7 @@ import pandas as pd
 import requests
 
 currentYear = 111
-currentSemester = 1
+currentSemester = 2
 
 Sclass = ['AM', 'LI', 'GL', 'IN', 'CCD', 'FI', 'AE', 'AB', 'LS', 'CDA', 'SC', 'WL', 'AP', 'GR', 'CCM', 'TODO',
           'EL', 'KH', 'CS', 'IFD', 'IM', 'SO', 'AC', 'CD', 'CHS', 'FL', 'CC', 'EE', 'DA', 'DAP', 'CE', 'CM', 'LA']
