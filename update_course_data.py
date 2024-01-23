@@ -4,7 +4,7 @@ import bs4
 import pandas as pd
 import requests
 
-currentYear = 111
+currentYear = 112
 currentSemester = 2
 
 Sclass = ['AM', 'LI', 'GL', 'IN', 'CCD', 'FI', 'AE', 'AB', 'LS', 'CDA', 'SC', 'WL', 'AP', 'GR', 'CCM', 'TODO',

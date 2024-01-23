@@ -1,4 +1,4 @@
-import json
+import json, bs4
 import os
 
 import requests
@@ -105,21 +105,27 @@ def login():
     account = request.form['account']
     password = request.form['password']
 
-    res = requests.post(
-        'https://aca.nuk.edu.tw/Student2/Menu1.asp',
-        {
-            'Account': account,
-            'Password': password
-        })
-    res.encoding = 'big5'
+    account_name = None
+    password_name = None
+    login_response = requests.get("https://aca.nuk.edu.tw/Student2/Menu1.asp")
+    soup = bs4.BeautifulSoup(login_response.content, 'html.parser')
+    pos = soup.find('td').find_all('tr',recursive=True)
+    csrf_token = soup.find('input', {'name': 'CSRFToken'})['value']
+    if pos[0]: account_name = pos[0].find_all("td",recursive=False)[1].find_all("input",recursive=True)[1]['name']
+    if pos[1]: password_name = pos[1].find_all("td",recursive=False)[1].find_all("input",recursive=True)[1]['name']
+    if account_name and password_name:
+        res = requests.post(
+            'https://aca.nuk.edu.tw/Student2/Menu1.asp',
+            {"CSRFToken": csrf_token ,account_name: account, password_name: password, "B1": "%B5n%A1%40%A1%40%A4J"})
+        res.encoding = 'big5'
 
-    if res.headers['Content-Length'] != '969':
-        student_graduate_info = get_graduate_info(account, password)  # 取得學生基本資料
-        view_response = make_response(redirect(url_for('profile')))
-        view_response.set_cookie('Name', student_graduate_info['student_name'])
-        view_response.set_cookie('Account', account)
-        view_response.set_cookie('Password', password)
-        return view_response
+        if res.headers['Content-Length'] != '969':
+            student_graduate_info = get_graduate_info(account, password)  # 取得學生基本資料
+            view_response = make_response(redirect(url_for('profile')))
+            view_response.set_cookie('Name', student_graduate_info['student_name'])
+            view_response.set_cookie('Account', account)
+            view_response.set_cookie('Password', password)
+            return view_response
     flash('教務系統說登入錯誤', 'danger')
     return redirect(url_for('login'))
 

@@ -53,8 +53,17 @@ course_code = {'通識微學分': 'MI',
 def run(account, password):
     done_course = []
     req = requests.Session()
+    account_name = None
+    password_name = None
+    login_response = req.get("https://aca.nuk.edu.tw/Student2/Menu1.asp")
+    soup = bs4.BeautifulSoup(login_response.content, 'html.parser')
+    pos = soup.find('td').find_all('tr',recursive=True)
+    csrf_token = soup.find('input', {'name': 'CSRFToken'})['value']
+    if pos[0]: account_name = pos[0].find_all("td",recursive=False)[1].find_all("input",recursive=True)[1]['name']
+    if pos[1]: password_name = pos[1].find_all("td",recursive=False)[1].find_all("input",recursive=True)[1]['name']
+
     req.post('https://aca.nuk.edu.tw/Student2/Menu1.asp',
-             {'Account': account, 'Password': password})
+             {"CSRFToken": csrf_token ,account_name: account, password_name: password, "B1": "%B5n%A1%40%A1%40%A4J"})
     # Classno is your student ID
     # 爬修過的課
     r = req.post('https://aca.nuk.edu.tw/Student2/SO/ScoreQuery.asp',
@@ -123,8 +132,17 @@ def run(account, password):
 
 def get_graduate_info(account, password):
     req = requests.Session()
+    account_name = None
+    password_name = None
+    login_response = req.get("https://aca.nuk.edu.tw/Student2/Menu1.asp")
+    soup = bs4.BeautifulSoup(login_response.content, 'html.parser')
+    pos = soup.find('td').find_all('tr',recursive=True)
+    csrf_token = soup.find('input', {'name': 'CSRFToken'})['value']
+    if pos[0]: account_name = pos[0].find_all("td",recursive=False)[1].find_all("input",recursive=True)[1]['name']
+    if pos[1]: password_name = pos[1].find_all("td",recursive=False)[1].find_all("input",recursive=True)[1]['name']
+
     req.post('https://aca.nuk.edu.tw/Student2/Menu1.asp',
-             {'Account': account, 'Password': password})
+             {"CSRFToken": csrf_token ,account_name: account, password_name: password, "B1": "%B5n%A1%40%A1%40%A4J"})
     # 使用者資料(名字，學年，院所，院所代碼...)
     r = req.get('https://aca.nuk.edu.tw/Graduate/GraduateDetail/Menu.asp')
     r.encoding = 'big5'
